@@ -26,7 +26,7 @@ public class DaniTechUIManager : MonoBehaviour
     private void Start()
     {
         // 매니저들이 탄생한 후에 UI매니저가 처음으로 게임이 실행될 때 필요한 UI들을 오픈해준다!
-        this.ShowStartupUIOnGameStart();
+        // this.ShowStartupUIOnGameStart();
     }
 
     public DaniTechUIBase OpenUI(DaniTechUIRootType uiRootType, DaniTechUIType uiType, bool isInitialHide = false)

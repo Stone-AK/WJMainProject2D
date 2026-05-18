@@ -15,7 +15,7 @@ public class WJ2DPlayerAnimation : MonoBehaviour
     [SerializeField] private Animator CharactorAnimator;
 
     [Header("상태")]
-    [SerializeField] private Player2DAnimStat _CharactorAnimeState;
+    [SerializeField] private Player2DAnimStat _charactorAnimeState;
 
     private SpriteRenderer _spriteRenderer;
 
@@ -26,8 +26,8 @@ public class WJ2DPlayerAnimation : MonoBehaviour
     
     public void ChangeMoveAnimation(Player2DAnimStat ChangeStat)
     {
-        _CharactorAnimeState = ChangeStat;
-        switch (_CharactorAnimeState)
+        _charactorAnimeState = ChangeStat;
+        switch (_charactorAnimeState)
         {
             case Player2DAnimStat.Idle:
                 ResetAllAnimParameters();
