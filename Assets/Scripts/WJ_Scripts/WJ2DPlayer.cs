@@ -8,7 +8,7 @@ public enum Player2DAnimeState
     RightWalk
 }
 
-public class WJ2DPlayer : MonoBehaviour
+public class WJ2DPlayer : WJ2DUnit
 {
     [Header("이동 설정")]
     [SerializeField] private Rigidbody2D PlayerRigidBody;
@@ -20,11 +20,11 @@ public class WJ2DPlayer : MonoBehaviour
 
     [Header("애니메이션 컨트롤 스크립트")]
     [SerializeField] private WJ2DPlayerAnimation PlayerAnimaController;
-    
-    private int _hp;
-    private int _curHP;
-    private float moveSpeed = 5f;
 
+    private void Start()
+    {
+        InitStat();
+    }
     private void Update()
     {
         _horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -33,11 +33,18 @@ public class WJ2DPlayer : MonoBehaviour
         AnimationControllerOnUpdate();
     }
 
+    public void InitStat()
+    {
+        _hp = 10;
+        _curHP = _hp;
+        _moveSpeed = 5f;
+    }
+
     private void MoveCharactorOnUpdate()
     {
         Vector2 moveDir = new Vector2(_horizontalInput, _verticalInput).normalized;
 
-        PlayerRigidBody.linearVelocity = moveDir * moveSpeed;
+        PlayerRigidBody.linearVelocity = moveDir * _moveSpeed;
     }
 
     private void AnimationControllerOnUpdate()
@@ -60,12 +67,12 @@ public class WJ2DPlayer : MonoBehaviour
     public void SetPlayerData(int setHp, float setMoveSpeed)
     {
         _hp = setHp;
-        moveSpeed = setMoveSpeed;
+        _moveSpeed = setMoveSpeed;
         _curHP = _hp;
     }
     public void PrintStat()
     {
         Debug.Log($"{this.gameObject.name}의 HP는 {_curHP}");
-        Debug.Log($"{this.gameObject.name}의 이동속도는 {moveSpeed}");
+        Debug.Log($"{this.gameObject.name}의 이동속도는 {_moveSpeed}");
     }
 }

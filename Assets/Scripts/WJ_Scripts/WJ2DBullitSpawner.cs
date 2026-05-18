@@ -6,7 +6,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
     // 테스트 직접 할당
     [Header("테스트 직접 할당")] 
     [SerializeField] private GameObject m_Prefab;
-    [SerializeField] private int m_PollCount = 5;
+    [SerializeField] private int m_PollCount = 10;
     private List<GameObject> _bulletPool = new List<GameObject>();
 
     private List<WJ2DEnemy> _enemies = new List<WJ2DEnemy>();

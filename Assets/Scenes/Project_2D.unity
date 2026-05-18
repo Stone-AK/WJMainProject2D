@@ -1266,6 +1266,17 @@ Transform:
   - {fileID: 1754524452}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &617464484 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5122091867206981185, guid: 0212fb3dbf16cd74291841c382eff643, type: 3}
+  m_PrefabInstance: {fileID: 394916792251821091}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7a119712196be4c918387d440de388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WJ2DPlayer
 --- !u!4 &617464485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6409394709876269326, guid: 0212fb3dbf16cd74291841c382eff643, type: 3}
@@ -1361,6 +1372,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ManagerContainer
       objectReference: {fileID: 0}
+    - target: {fileID: 8007951631376954100, guid: d9614b341da396f43a8b38d13a069d93, type: 3}
+      propertyPath: PlayerObject
+      value: 
+      objectReference: {fileID: 617464484}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5135,13 +5150,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2324942141445739753, guid: 0212fb3dbf16cd74291841c382eff643, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2604026100182941566, guid: 0212fb3dbf16cd74291841c382eff643, type: 3}
-      propertyPath: m_Constraints
-      value: 4
+    - target: {fileID: 5664175143378639947, guid: 0212fb3dbf16cd74291841c382eff643, type: 3}
+      propertyPath: m_Radius
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6103791153606370903, guid: 0212fb3dbf16cd74291841c382eff643, type: 3}
       propertyPath: m_Name
@@ -5203,10 +5214,6 @@ PrefabInstance:
     - target: {fileID: 1644971277353404224, guid: 9424a56912b4e8641bba26e62ffac6f4, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 1644971277353404224, guid: 9424a56912b4e8641bba26e62ffac6f4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2463581503986687235, guid: 9424a56912b4e8641bba26e62ffac6f4, type: 3}
       propertyPath: _playerTransform

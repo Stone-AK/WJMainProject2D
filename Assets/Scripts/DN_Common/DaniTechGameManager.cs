@@ -15,7 +15,7 @@ public class DaniTechGameManager : MonoBehaviour
 
     private void Start()
     {
-        LoadSaveData();
+        // LoadSaveData();
     }
 
     public void SaveData()
@@ -59,5 +59,14 @@ public class DaniTechGameManager : MonoBehaviour
     {
         // _playerModel이 Private이므로 외부에서 ItemList를 받아올 수 있게 Get함수를 사용한다
         return _playerModel.ItemList;
+    }
+
+    [SerializeField] private WJ2DPlayer PlayerObject;
+
+    public Transform ReturnPlayerTransform()
+    {
+        Transform playerTransform = PlayerObject.transform;
+
+        return playerTransform;
     }
 }

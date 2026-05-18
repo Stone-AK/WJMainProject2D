@@ -48,6 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55feb5f179429a4ca6fe0c993456539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WJ2DEnemy
+  _hp: 0
+  _curHP: 0
+  _moveSpeed: 0
   _playerTransform: {fileID: 0}
   dir: {x: 0, y: 0}
   EnemyAnimation: {fileID: 2344518442831827084}

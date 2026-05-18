@@ -4,7 +4,8 @@ public class WJ2DBullit : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D BullitRb;
 
-    private float speed = 1f;
+    private int _power = 1;
+    private float _moveSpeed = 4f;
     public float CollTime { get; private set; } = 3.0f;
 
 
@@ -15,7 +16,6 @@ public class WJ2DBullit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if(collision.gameObject.layer == LayerMask.NameToLayer("Map_Wall"))
         {
             TouchWall();
@@ -28,7 +28,7 @@ public class WJ2DBullit : MonoBehaviour
 
     private void MoveBullit()
     {
-        BullitRb.linearVelocity = transform.right * speed;
+        BullitRb.linearVelocity = transform.right * _moveSpeed;
     }
 
     private void TouchWall()
@@ -43,8 +43,17 @@ public class WJ2DBullit : MonoBehaviour
     {
         Debug.Log("적과 충돌");
 
-
+        DamageEnemy(collision);
         DestroyBullit();
+    }
+
+    private void DamageEnemy(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<WJ2DEnemy>(out WJ2DEnemy _enemy))
+        {
+            if (_enemy == null) return;
+            _enemy.DecreaseCurrentHp(_power);
+        }
     }
 
     private void DestroyBullit()
