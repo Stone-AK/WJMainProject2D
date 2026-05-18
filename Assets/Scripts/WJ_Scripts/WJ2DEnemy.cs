@@ -11,10 +11,10 @@ public class WJ2DEnemy : MonoBehaviour
     [SerializeField] private WJ2DEnemyAnimation EnemyAnimation;
     private Enemy2DAnimeStat _enemyAniStat;
 
-    private float enemySpeed = 2f;
+    private float enemySpeed = 0.1f;
 
 
-    private void Start()
+    private void Awake()
     {
         
     }
