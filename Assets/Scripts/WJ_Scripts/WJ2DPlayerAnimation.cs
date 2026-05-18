@@ -6,9 +6,7 @@ public enum Player2DAnimStat
     Idle,
     RightWalk,
     LeftWalk,
-    JumpStart,
-    JumpLoop,
-    JumpEnd
+    Move
 }
 
 public class WJ2DPlayerAnimation : MonoBehaviour
@@ -42,14 +40,8 @@ public class WJ2DPlayerAnimation : MonoBehaviour
                 _spriteRenderer.flipX = true;
                 CharactorAnimator.SetBool("isMove", true);
                 break;
-            case Player2DAnimStat.JumpStart:
-                CharactorAnimator.SetTrigger("Jump");
-                break;
-            case Player2DAnimStat.JumpLoop:
-                CharactorAnimator.SetBool("isAir", true);
-                break;
-            case Player2DAnimStat.JumpEnd:
-                CharactorAnimator.SetBool("isAir", false);
+            case Player2DAnimStat.Move:
+                CharactorAnimator.SetBool("isMove", true);
                 break;
             default:
                 Debug.Log("지정된 애니메이션이 없습니다.");
@@ -59,7 +51,6 @@ public class WJ2DPlayerAnimation : MonoBehaviour
 
     private void ResetAllAnimParameters()
     {
-        // CharactorAnimator.SetBool("isAir", false);
         CharactorAnimator.SetBool("isMove", false);
     }
 }
