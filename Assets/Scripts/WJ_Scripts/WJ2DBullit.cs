@@ -4,7 +4,7 @@ public class WJ2DBullit : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D BullitRb;
 
-    private float speed = 4f;
+    private float speed = 1f;
     public float CollTime { get; private set; } = 3.0f;
 
 
@@ -12,7 +12,6 @@ public class WJ2DBullit : MonoBehaviour
     {
         MoveBullit();
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
