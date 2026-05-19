@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4284485721373718771}
   - component: {fileID: 2604026100182941566}
   m_Layer: 10
-  m_Name: Player
+  m_Name: WJ2DPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

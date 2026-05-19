@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90bc782bc9fbfc84fb52abbfeee6b466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DaniTechGameManager
+  WJ2D: {fileID: 0}
+  PlayerObject: {fileID: 0}

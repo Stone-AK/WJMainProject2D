@@ -16,6 +16,17 @@ public class DaniTechGameManager : MonoBehaviour
     private void Start()
     {
         // LoadSaveData();
+
+        GameObject rootObj = GameObject.Find("GameRoot");
+
+        if (rootObj != null)
+        {
+            GameRoot = rootObj;
+        }
+        else
+        {
+            Debug.LogError("GameRoot를 찾지 못함");
+        }
     }
 
     public void SaveData()
@@ -61,12 +72,63 @@ public class DaniTechGameManager : MonoBehaviour
         return _playerModel.ItemList;
     }
 
+    // #################################################################################################################
+
+    // Start에서 Scene에 있는 GameRoot(위치 잡기용)을 찾도록(find)하도록 해놓았음
+    [SerializeField] private GameObject GameRoot;
     [SerializeField] private WJ2DPlayer PlayerObject;
+
+    private void CreateObj(WJObjectRootType objectRootType, WJObjectType objectType)
+    {
+        string path = this.Get2DWJPath(objectType, objectRootType);
+        GameObject loadedObj = (GameObject)Resources.Load(path);
+        Transform root = GetRootTransform(objectRootType);
+        GameObject gObj = Instantiate(loadedObj, root);
+
+        if (gObj.gameObject.TryGetComponent<WJ2DPlayer>(out WJ2DPlayer player))
+        {
+            PlayerObject = player;
+        }
+    }
+
+    private Transform GetRootTransform(WJObjectRootType objRootType)
+    {
+        Transform root = null;
+        switch (objRootType)
+        {
+            case WJObjectRootType.None:
+                root = GameRoot.transform;
+                break;
+        }
+        return root;
+    }
+
+    public void MakeMap()
+    {
+        CreateObj(WJObjectRootType.None, WJObjectType.WJ2DMap);
+    }
+
+    public void MakePlayer()
+    {
+        CreateObj(WJObjectRootType.None, WJObjectType.WJ2DPlayer);
+    }
+
+    public void MakeEnemySpawner()
+    {
+        CreateObj(WJObjectRootType.None, WJObjectType.WJEnemySpawner);
+    }
+
 
     public Transform ReturnPlayerTransform()
     {
+        if(PlayerObject == null)
+        {
+            Debug.LogError("플레이어가 할당되어 있지 않습니다.");
+            return null;
+        }
         Transform playerTransform = PlayerObject.transform;
-
         return playerTransform;
     }
+
+    
 }

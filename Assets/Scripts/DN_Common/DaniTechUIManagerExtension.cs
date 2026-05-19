@@ -18,7 +18,8 @@ public enum DaniTechUIType
     DNInventory,
     DNLoadingUI,
     DNDialogueUI,
-    DNInfoBookUI
+    DNInfoBookUI,
+    WJRobyUI
 }
 
 public static class DaniTechUIManagerExtension
@@ -35,10 +36,11 @@ public static class DaniTechUIManagerExtension
 
     public static void ShowStartupUIOnGameStart(this DaniTechUIManager uiManager)
     {
-        uiManager.OpenLoadingUI();
-        uiManager.OpenUI(DaniTechUIRootType.MainUI, DaniTechUIType.DNMainUI);
+        //uiManager.OpenLoadingUI();
+        //uiManager.OpenUI(DaniTechUIRootType.MainUI, DaniTechUIType.DNMainUI);
         // 게임 로비 UI를 여기서 오픈해주자 -> uiManager.
         // MainUI도
+        uiManager.OpenWJRobyUI();
     }
 
     public static void OpenSimplePopup(this DaniTechUIManager uiManager, string msg)
@@ -112,6 +114,21 @@ public static class DaniTechUIManagerExtension
         {
             dialogueUi.StartDialogue(startDialogueId);
         }
+    }
+
+    public static void OpenWJRobyUI(this DaniTechUIManager uiManager)
+    {
+        var uiBase = uiManager.OpenUI(DaniTechUIRootType.MainUI, DaniTechUIType.WJRobyUI);
+        if (uiBase == null)
+        {
+            Debug.LogWarning($"UI가 생성되지 않았습니다");
+            return;
+        }
+    }
+
+    public static void CloseWJRobyUI(this DaniTechUIManager uiManager)
+    {
+        uiManager.CloseUI(DaniTechUIRootType.MainUI, DaniTechUIType.WJRobyUI);
     }
 }
 
