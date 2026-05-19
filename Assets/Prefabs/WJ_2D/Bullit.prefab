@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7004207829224067959}
   - component: {fileID: 3496948939477575408}
   - component: {fileID: 1873338322771555748}
-  - component: {fileID: 8440469017027965803}
   - component: {fileID: 2000651906105436422}
   m_Layer: 12
   m_Name: Bullit
@@ -47,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ac50faf7d03c1459f540d37b149471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WJ2DBullit
-  BullitRb: {fileID: 8440469017027965803}
+  BullitRb: {fileID: 0}
 --- !u!212 &1873338322771555748
 SpriteRenderer:
   serializedVersion: 2
@@ -107,33 +106,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!50 &8440469017027965803
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7349752595160190285}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.0001
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!58 &2000651906105436422
 CircleCollider2D:
   m_ObjectHideFlags: 0
