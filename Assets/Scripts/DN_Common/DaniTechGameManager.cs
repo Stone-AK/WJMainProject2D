@@ -109,8 +109,7 @@ public class DaniTechGameManager : MonoBehaviour
 
         if(gameCurSecond <= 0)
         {
-            SetGameStat(WJ2DGameStat.Over);
-            BackToRoby();
+            EndGameOnClear();
         }
     }
 
@@ -209,6 +208,21 @@ public class DaniTechGameManager : MonoBehaviour
         DaniTechUIManager.Instance.CloseWJGameUI();
         DaniTechUIManager.Instance.OpenWJRobyUI();
         SetGameStat(WJ2DGameStat.Roby);
+        Time.timeScale = 1f;
+    }
+
+    public void EndGameOnOver()
+    {
+        Time.timeScale = 0f;
+        SetGameStat(WJ2DGameStat.Over);
+        DaniTechUIManager.Instance.OpenWJGameEndPopUpUI(CurGameStat);
+    }
+
+    public void EndGameOnClear()
+    {
+        Time.timeScale = 0f;
+        SetGameStat(WJ2DGameStat.Clear);
+        DaniTechUIManager.Instance.OpenWJGameEndPopUpUI(CurGameStat);
     }
 
     public void InitCatchEnemyCount()

@@ -23,6 +23,6 @@ public class WJPausePopUpUI : DaniTechUIBase
     {
         DaniTechUIManager.Instance.ClosePopupUI(DaniTechUIType.WJPausePopUpUI);
         DaniTechGameManager.Inst.BackToRoby();
-        DaniTechGameManager.Inst.ResumeGame();
+
     }
 }

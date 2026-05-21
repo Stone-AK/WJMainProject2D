@@ -20,6 +20,7 @@ public enum WJ2DGameStat
     Start,
     Pause,
     Over,
+    Clear,
     Roby
 }
 
@@ -51,8 +52,8 @@ public static class WJ2DGameManagerExtension
         liveRoot.transform.localScale = Vector3.one;
         gameManager.SetLiveRoot(liveRoot.transform);
         // 게임 시작 시 만들 것들을 할당
-        gameManager.InitCurTime(65f);
-        // 위에는 테스트용도
+        gameManager.InitCurTime(5f);
+        // 위에는 테스트용도 시간 나중에는 스테이지 별 시간 있음
         gameManager.MakeMap();
         gameManager.MakePlayer();
         gameManager.MakeEnemySpawner();
