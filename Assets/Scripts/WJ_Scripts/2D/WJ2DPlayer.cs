@@ -70,6 +70,7 @@ public class WJ2DPlayer : WJ2DUnit
     {
         this.gameObject.SetActive(false);
         Debug.Log("플레이어가 죽었습니다.");
+        DaniTechGameManager.Inst.EndGameOnOver();
     }
     public override void DecreaseCurrentHp(int dmg)
     {
