@@ -10,7 +10,8 @@ public enum WJObjectType
     None = 0,
     WJ2DMap,
     WJ2DPlayer,
-    WJEnemySpawner
+    WJEnemySpawner,
+    WJ2DBullitSpawner
 }
 
 public static class WJ2DGameManagerExtension
@@ -34,12 +35,18 @@ public static class WJ2DGameManagerExtension
 
     public static void StartGame(this DaniTechGameManager gameManager)
     {
+        GameObject liveRoot = new GameObject("LiveRoot");
+        liveRoot.transform.SetParent(gameManager.ReturnGameRootTransfrom());
+        liveRoot.transform.localPosition = Vector3.zero;
+        liveRoot.transform.localRotation = Quaternion.identity;
+        liveRoot.transform.localScale = Vector3.one;
+        gameManager.SetLiveRoot(liveRoot.transform);
         // 게임 시작 시 만들 것들을 할당
         gameManager.MakeMap();
         gameManager.MakePlayer();
         gameManager.MakeEnemySpawner();
+        gameManager.MakeBulitSpawner();
+        gameManager.InitCatchEnemyCount();
     }
-
-    
 
 }

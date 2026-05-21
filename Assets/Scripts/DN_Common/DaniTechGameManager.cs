@@ -76,7 +76,21 @@ public class DaniTechGameManager : MonoBehaviour
 
     // Start에서 Scene에 있는 GameRoot(위치 잡기용)을 찾도록(find)하도록 해놓았음
     [SerializeField] private GameObject GameRoot;
+    [SerializeField] private Transform LiveRoot;
     [SerializeField] private WJ2DPlayer PlayerObject;
+
+    private bool isPause;
+    private int enemyCatchCount;
+
+    public Transform ReturnGameRootTransfrom()
+    {
+        return GameRoot.transform;
+    }
+
+    public void SetLiveRoot(Transform root)
+    {
+        LiveRoot = root;
+    }
 
     private void CreateObj(WJObjectRootType objectRootType, WJObjectType objectType)
     {
@@ -91,13 +105,24 @@ public class DaniTechGameManager : MonoBehaviour
         }
     }
 
+    public void EndGame()
+    {
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+        }
+    }
+
     private Transform GetRootTransform(WJObjectRootType objRootType)
     {
         Transform root = null;
         switch (objRootType)
         {
             case WJObjectRootType.None:
-                root = GameRoot.transform;
+                root = LiveRoot;
                 break;
         }
         return root;
@@ -118,6 +143,10 @@ public class DaniTechGameManager : MonoBehaviour
         CreateObj(WJObjectRootType.None, WJObjectType.WJEnemySpawner);
     }
 
+    public void MakeBulitSpawner()
+    {
+        CreateObj(WJObjectRootType.None, WJObjectType.WJ2DBullitSpawner);
+    }
 
     public Transform ReturnPlayerTransform()
     {
@@ -130,5 +159,32 @@ public class DaniTechGameManager : MonoBehaviour
         return playerTransform;
     }
 
-    
+    public void PauseGame()
+    {
+        isPause = true;
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        isPause = false;
+        Time.timeScale = 1f;
+    }
+
+    public void BackToRoby()
+    {
+        Destroy(LiveRoot.gameObject);
+        DaniTechUIManager.Instance.CloseWJGameUI();
+        DaniTechUIManager.Instance.OpenWJRobyUI();
+    }
+
+    public void InitCatchEnemyCount()
+    {
+        enemyCatchCount = 0;
+    }
+
+    public void IncreasCatchEnemyCount()
+    {
+        enemyCatchCount++;
+    }
 }

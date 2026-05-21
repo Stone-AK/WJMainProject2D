@@ -104,7 +104,6 @@ public class DaniTechUIManager : MonoBehaviour
         return _createdUIDic[uiType];
     }
 
-
     public DaniTechUIBase OpenContentUI(DaniTechUIType uiType)
     {
         return OpenUI(DaniTechUIRootType.ContentUI, uiType);

@@ -44,7 +44,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
     {
         for (int i = 0; i < m_PollCount; i++)
         {
-            GameObject bullet = Instantiate(m_Prefab);
+            GameObject bullet = Instantiate(m_Prefab, this.transform);
 
             bullet.SetActive(false);
 
@@ -83,7 +83,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
                     Debug.LogError("bullet List가 비어 있습니다.");
                     return;
                 }
-                bullet.transform.position = this.gameObject.transform.position;
+                bullet.transform.position = DaniTechGameManager.Inst.ReturnPlayerTransform().position;
                 bullet.transform.rotation = m_Prefab.transform.rotation;
                 bullet.SetActive(true);
 
@@ -91,7 +91,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
                 return;
             }
 
-            Vector2 dir = closestEnemy.transform.position - this.gameObject.transform.position;
+            Vector2 dir = closestEnemy.transform.position - DaniTechGameManager.Inst.ReturnPlayerTransform().position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             Quaternion rot = Quaternion.Euler(0f, 0f, angle);
 
@@ -100,7 +100,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
                 Debug.LogError("bullet List가 비어 있습니다.");
                 return;
             }
-            bullet.transform.position = this.gameObject.transform.position;
+            bullet.transform.position = DaniTechGameManager.Inst.ReturnPlayerTransform().position;
             bullet.transform.rotation = rot;
             bullet.SetActive(true);
 

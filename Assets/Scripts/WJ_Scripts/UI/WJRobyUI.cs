@@ -7,21 +7,23 @@ public class WJRobyUI : DaniTechUIBase
     [SerializeField] private WJBtn EndBtn;
     [SerializeField] private Image CharactorImg;
 
-    private void Start()
+    private void OnEnable()
     {
         StartBtn.BindOnClickBtn(OnClickStartBtn);
         EndBtn.BindOnClickBtn(OnClickEndBtn);
     }
-    
+
     private void OnClickStartBtn()
     {
         Debug.Log("게임 시작이 눌렸습니다.");
         DaniTechUIManager.Instance.CloseWJRobyUI();
         DaniTechGameManager.Inst.StartGame();
+        DaniTechUIManager.Instance.OpenWJGameUI();
     }
 
     private void OnClickEndBtn()
     {
         Debug.Log("종료버튼이 눌렸습니다.");
+        DaniTechGameManager.Inst.EndGame();
     }
 }

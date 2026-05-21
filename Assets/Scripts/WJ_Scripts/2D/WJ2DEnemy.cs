@@ -84,5 +84,4 @@ public class WJ2DEnemy : WJ2DUnit
             DieEnemy();
         }
     }
-    
 }

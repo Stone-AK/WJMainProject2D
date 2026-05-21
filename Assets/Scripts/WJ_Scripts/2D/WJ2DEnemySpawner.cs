@@ -34,7 +34,7 @@ public class WJ2DEnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < _enemyPollCount; i++)
         {
-            GameObject enemy = Instantiate(_enemyPrefab);
+            GameObject enemy = Instantiate(_enemyPrefab, this.transform);
 
             enemy.SetActive(false);
 
