@@ -187,4 +187,9 @@ public class DaniTechGameManager : MonoBehaviour
     {
         enemyCatchCount++;
     }
+
+    public int GetEnemyCatchCount()
+    {
+        return enemyCatchCount;
+    }
 }

@@ -71,6 +71,8 @@ public class WJ2DEnemy : WJ2DUnit
     private void DieEnemy()
     {
         WJ2DEnemySpawner.Inst._currentEnemy--;
+        DaniTechGameManager.Inst.IncreasCatchEnemyCount();
+        DaniTechUIManager.Instance.SetGameUITextToUIManager();
         this.gameObject.SetActive(false);
         InitStat();
     }

@@ -124,4 +124,15 @@ public class DaniTechUIManager : MonoBehaviour
         CloseUI(DaniTechUIRootType.PopupUI, uiType);
     }
 
+    public void SetGameUITextToUIManager()
+    {
+        var gobj = GetCreatedUI(DaniTechUIRootType.ContentUI, DaniTechUIType.WJGameUI);
+        if (gobj == null) return;
+
+        if(gobj is WJGameUI gameUI)
+        {
+            gameUI.SetCatchMonsterCount(DaniTechGameManager.Inst.GetEnemyCatchCount());
+        }
+    }
+
 }
