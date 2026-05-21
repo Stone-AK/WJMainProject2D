@@ -14,6 +14,15 @@ public enum WJObjectType
     WJ2DBullitSpawner
 }
 
+public enum WJ2DGameStat
+{
+    None = 0,
+    Start,
+    Pause,
+    Over,
+    Roby
+}
+
 public static class WJ2DGameManagerExtension
 {
     public static string Get2DWJPath(this DaniTechGameManager gameManager, 
@@ -42,11 +51,14 @@ public static class WJ2DGameManagerExtension
         liveRoot.transform.localScale = Vector3.one;
         gameManager.SetLiveRoot(liveRoot.transform);
         // 게임 시작 시 만들 것들을 할당
+        gameManager.InitCurTime(65f);
+        // 위에는 테스트용도
         gameManager.MakeMap();
         gameManager.MakePlayer();
         gameManager.MakeEnemySpawner();
         gameManager.MakeBulitSpawner();
         gameManager.InitCatchEnemyCount();
+        gameManager.SetGameStat(WJ2DGameStat.Start);
     }
 
 }

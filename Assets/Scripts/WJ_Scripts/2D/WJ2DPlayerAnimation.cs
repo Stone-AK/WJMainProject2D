@@ -16,13 +16,7 @@ public class WJ2DPlayerAnimation : MonoBehaviour
 
     [Header("상태")]
     [SerializeField] private Player2DAnimStat _charactorAnimeState;
-
-    private SpriteRenderer _spriteRenderer;
-
-    private void Awake()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     
     public void ChangeMoveAnimation(Player2DAnimStat ChangeStat)
     {

@@ -135,4 +135,14 @@ public class DaniTechUIManager : MonoBehaviour
         }
     }
 
+    public void SetGameUITimeToUIManager(float time)
+    {
+        var gobj = GetCreatedUI(DaniTechUIRootType.ContentUI, DaniTechUIType.WJGameUI);
+        if (gobj == null) return;
+
+        if (gobj is WJGameUI gameUI)
+        {
+            gameUI.SetTextTimer(time);
+        }
+    }
 }

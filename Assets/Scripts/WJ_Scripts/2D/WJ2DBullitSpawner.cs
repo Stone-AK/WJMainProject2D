@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class WJ2DBullitSpawner : MonoBehaviour
 {
@@ -9,34 +10,22 @@ public class WJ2DBullitSpawner : MonoBehaviour
     [SerializeField] private int m_PollCount = 10;
     private List<GameObject> _bulletPool = new List<GameObject>();
 
-    private List<WJ2DEnemy> _enemies = new List<WJ2DEnemy>();
+
+    [Header("플레이어")]
+    [SerializeField] private WJ2DPlayer Player;
+
     private WJ2DEnemy closestEnemy = null;
     private float _bullitOne_coolDown = 0f;
 
     private void Start()
     {
+        Player = DaniTechGameManager.Inst.ReturnPlayerTransform().gameObject.GetComponent<WJ2DPlayer>();
         CreateBulletPool();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out WJ2DEnemy enemy))
-        {
-            _enemies.Add(enemy);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out WJ2DEnemy enemy))
-        {
-            _enemies.Remove(enemy);
-        }
     }
 
     private void Update()
     {
-        FindClosEnemy();
+        closestEnemy = Player.GetClosestEnemy();
         ShootBulit();
     }
 
@@ -108,23 +97,6 @@ public class WJ2DBullitSpawner : MonoBehaviour
         }
     }
 
-    private void FindClosEnemy()
-    {
-        float minDistance = float.MaxValue;
-
-        foreach (WJ2DEnemy enemy in _enemies)
-        {
-            float distance = Vector2.Distance(
-                transform.position,
-                enemy.transform.position
-            );
-
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                closestEnemy = enemy;
-            }
-        }
-    }
+    
 
 }

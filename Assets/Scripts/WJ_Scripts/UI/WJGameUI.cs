@@ -17,4 +17,11 @@ public class WJGameUI : DaniTechUIBase
     {
         MonsterCount.text = $"잡은 몬스터 수 : {monsterCount}";
     }
+
+    public void SetTextTimer(float curTime)
+    {
+        int minute = (int)curTime / 60;
+        int second = (int)curTime % 60;
+        Timer.text = $"{minute:00} : {second:00}";
+    }
 }

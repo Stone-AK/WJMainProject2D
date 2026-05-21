@@ -27,6 +27,7 @@ public class DaniTechGameManager : MonoBehaviour
         {
             Debug.LogError("GameRoot를 찾지 못함");
         }
+        SetGameStat(WJ2DGameStat.Roby);
     }
 
     public void SaveData()
@@ -78,9 +79,40 @@ public class DaniTechGameManager : MonoBehaviour
     [SerializeField] private GameObject GameRoot;
     [SerializeField] private Transform LiveRoot;
     [SerializeField] private WJ2DPlayer PlayerObject;
+    [SerializeField] private WJ2DGameStat CurGameStat;
 
-    private bool isPause;
     private int enemyCatchCount;
+    private float gameMaxSecond;
+    private float gameCurSecond;
+
+    private void Update()
+    {
+        switch(CurGameStat)
+        {
+            case WJ2DGameStat.Start:
+                DecreaseTime();
+                DaniTechUIManager.Instance.SetGameUITimeToUIManager(gameCurSecond);
+                break;
+        }
+    }
+
+
+    public void InitCurTime(float gameMaxTime)
+    {
+        gameMaxSecond = gameMaxTime;
+        gameCurSecond = gameMaxSecond;
+    }
+
+    private void DecreaseTime()
+    {
+        gameCurSecond -= Time.deltaTime;
+
+        if(gameCurSecond <= 0)
+        {
+            SetGameStat(WJ2DGameStat.Over);
+            BackToRoby();
+        }
+    }
 
     public Transform ReturnGameRootTransfrom()
     {
@@ -161,13 +193,13 @@ public class DaniTechGameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        isPause = true;
+        SetGameStat(WJ2DGameStat.Pause);
         Time.timeScale = 0f;
     }
 
     public void ResumeGame()
     {
-        isPause = false;
+        SetGameStat(WJ2DGameStat.Start);
         Time.timeScale = 1f;
     }
 
@@ -176,6 +208,7 @@ public class DaniTechGameManager : MonoBehaviour
         Destroy(LiveRoot.gameObject);
         DaniTechUIManager.Instance.CloseWJGameUI();
         DaniTechUIManager.Instance.OpenWJRobyUI();
+        SetGameStat(WJ2DGameStat.Roby);
     }
 
     public void InitCatchEnemyCount()
@@ -191,5 +224,10 @@ public class DaniTechGameManager : MonoBehaviour
     public int GetEnemyCatchCount()
     {
         return enemyCatchCount;
+    }
+
+    public void SetGameStat(WJ2DGameStat curGameStat)
+    {
+        CurGameStat = curGameStat;
     }
 }
