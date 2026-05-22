@@ -35,6 +35,8 @@ public class DaniTechGameDataManager : MonoBehaviour
     public Dictionary<string, DNDialogueData> DialogueDataList { get; private set; } = new Dictionary<string, DNDialogueData>();
     public Dictionary<string, DNFieldObjectData> FieldObjectDataList { get; private set; } = new Dictionary<string, DNFieldObjectData>();
     public Dictionary<string, DNMonsterData> MonsterDataList { get; private set; } = new Dictionary<string, DNMonsterData>();
+    public Dictionary<string, WJUnit> WJUnitDataList { get; private set; } = new Dictionary<string, WJUnit>();
+    public Dictionary<string, WJBullit> WJBullitDataList { get; private set; } = new Dictionary<string, WJBullit>();
 
     private Dictionary<string, T> LoadData<T>(string tableName) where T : GameDataBase
     {
@@ -112,6 +114,15 @@ public class DaniTechGameDataManager : MonoBehaviour
         MonsterDataList = LoadData<DNMonsterData>("DNMonster");
     }
 
+    public void LoadWJUnitData(string jsonPath)
+    {
+        WJUnitDataList = LoadData<WJUnit>(jsonPath);
+    }
+
+    public void LoadWJBullitData(string jsonPath)
+    {
+        WJBullitDataList = LoadData<WJBullit>(jsonPath);
+    }
 
     // [아래는 사용을 위한 부분들을 메서드 정의] =========================================================================================
     // Get과 Find이름을 꼭 구별 하자!
@@ -177,5 +188,19 @@ public class DaniTechGameDataManager : MonoBehaviour
         if (FieldObjectDataList == null || string.IsNullOrEmpty(dataId)) return null;
 
         return FieldObjectDataList.TryGetValue(dataId, out var data) ? data : null;
+    }
+
+    public WJUnit GetWJUnitObjectData(string dataId)
+    {
+        if (FieldObjectDataList == null || string.IsNullOrEmpty(dataId)) return null;
+
+        return WJUnitDataList.TryGetValue(dataId, out var data) ? data : null;
+    }
+
+    public WJBullit GetWJBullitObjectData(string dataId)
+    {
+        if (FieldObjectDataList == null || string.IsNullOrEmpty(dataId)) return null;
+
+        return WJBullitDataList.TryGetValue(dataId, out var data) ? data : null;
     }
 }

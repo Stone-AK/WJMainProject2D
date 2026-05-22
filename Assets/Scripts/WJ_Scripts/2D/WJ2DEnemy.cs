@@ -13,6 +13,7 @@ public class WJ2DEnemy : WJ2DUnit
     private int _enemyDamage = 5;
     private float _damagePerTime = 2.5f;
     private float _damageTimer;
+    [SerializeField] private int _instId;
 
 
     private void Start()
@@ -45,6 +46,18 @@ public class WJ2DEnemy : WJ2DUnit
         }
     }
 
+    public void InitEnemy(int instId, string dataId)
+    {
+        _instId = instId;
+        // var enemyData = GameDataManager.Inst.GetEnmyData(dataId);
+
+    }
+
+    public int GetEnemyInstId()
+    {
+        return _instId;
+    }
+
     public void InitStat()
     {
         _hp = 5;
@@ -72,8 +85,8 @@ public class WJ2DEnemy : WJ2DUnit
     {
         WJ2DEnemySpawner.Inst._currentEnemy--;
         DaniTechGameManager.Inst.IncreasCatchEnemyCount();
-        DaniTechUIManager.Instance.SetGameUITextToUIManager();
         this.gameObject.SetActive(false);
+        WJ2DEnemySpawner.Inst.ResetObjectFromPool(_instId);
         InitStat();
     }
 

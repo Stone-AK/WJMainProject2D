@@ -13,7 +13,16 @@ public class WJ2DEnemySpawner : MonoBehaviour
      public int _currentEnemy { get; set; } = 0;
     Vector2 randomOffset;
 
-    private List<GameObject> _enemyPool = new List<GameObject>();
+    private List<WJ2DEnemy> _enemyPool = new List<WJ2DEnemy>();
+    // 인스턴스 아이디와 오브젝트 풀을 매칭 시켜주는 역할
+    private Dictionary<int, int> _objectIdList = new Dictionary<int, int>();
+    private int _enemyInstanceId;
+
+    private void OnDisable()
+    {
+        // 키가 쌓이는것을 방지
+        _objectIdList.Clear();
+    }
 
     private void Awake()
     {
@@ -34,23 +43,55 @@ public class WJ2DEnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < _enemyPollCount; i++)
         {
-            GameObject enemy = Instantiate(_enemyPrefab, this.transform);
+            GameObject enemyGobj = Instantiate(_enemyPrefab, this.transform);
 
-            enemy.SetActive(false);
+            enemyGobj.SetActive(false);
 
-            _enemyPool.Add(enemy);
+            var enemyComponent = enemyGobj.GetComponent<WJ2DEnemy>();
+            if (enemyComponent == null) return;
+
+            _enemyPool.Add(enemyComponent);
         }
     }
 
-    private GameObject GetEnemyFromPool()
+    private WJ2DEnemy GetEnemyFromPool()
     {
-        foreach (GameObject enemy in _enemyPool)
+        int idx = 0;
+        foreach (WJ2DEnemy enemy in _enemyPool)
         {
-            if (enemy.activeSelf == false)
+            if (enemy.gameObject.activeSelf == false)
             {
+                _enemyInstanceId++;
+                _objectIdList.Add(_enemyInstanceId, idx);
+                // [ToDo] string 공백은 몬스터 ID로 바꿀것 
+                enemy.InitEnemy(_enemyInstanceId, "");
                 return enemy;
             }
+            idx++;
         }
+        return null;
+    }
+
+    public void ResetObjectFromPool(int instanceId)
+    {
+        if(_objectIdList.ContainsKey(instanceId))
+        {
+            _objectIdList.Remove(instanceId);
+        }
+    }
+
+    // 지금 사용하것은 아니지만 오브젝트 풀링 기반일 경우 딕셔너리를 두어 ID에 매칭되는 인덱스
+    // 를 관리하는 경우 오브젝트를 가져오는 메서드
+    // 
+    private WJ2DEnemy GetEnemyByInstanceId(int InstanceID)
+    {
+        if(_objectIdList.ContainsKey(InstanceID))
+        {
+            int objectPoolIdx = _objectIdList[InstanceID];
+            var enemy = _enemyPool[objectPoolIdx];
+            return enemy;
+        }
+        Debug.LogError($"존재하지 않는 오브젝트입니다.");
         return null;
     }
 
@@ -60,7 +101,8 @@ public class WJ2DEnemySpawner : MonoBehaviour
         {
             int randomLocationNum = Random.Range(0, SpawnLocation.Count);
             randomOffset = UnityEngine.Random.insideUnitCircle * 1.5f;
-            GameObject enemy = GetEnemyFromPool();
+            // 나중에 
+            WJ2DEnemy enemy = GetEnemyFromPool(/*dataID가 여기서 지정*/);
             if(enemy == null)
             {
                 Debug.LogError($"{this.name}에 생성할 enemy가 없다.");
@@ -70,7 +112,7 @@ public class WJ2DEnemySpawner : MonoBehaviour
             enemy.transform.position = 
                 SpawnLocation[randomLocationNum].transform.position + (Vector3)randomOffset;
             enemy.transform.rotation = _enemyPrefab.transform.rotation;
-            enemy.SetActive(true);
+            enemy.gameObject.SetActive(true);
             _currentEnemy++;
         }
     }

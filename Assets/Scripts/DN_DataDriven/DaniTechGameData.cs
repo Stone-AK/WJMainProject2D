@@ -92,3 +92,24 @@ public class DNMonsterData : GameDataBase
     public string IconPath;
     public string PrefabPath;
 }
+
+[System.Serializable]
+public class WJUnit : GameDataBase
+{
+    public string Name;
+    public string Description;
+    public int _hp;
+    public float _moveSpeed;
+    public int _damage;
+    public float _damagePerTime;
+}
+
+[System.Serializable]
+public class WJBullit : GameDataBase
+{
+    public string Name;
+    public string Description;
+    public int _power;
+    public float _moveSpeed;
+    public float _collTime;
+}

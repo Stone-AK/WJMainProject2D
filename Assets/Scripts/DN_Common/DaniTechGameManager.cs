@@ -233,6 +233,7 @@ public class DaniTechGameManager : MonoBehaviour
     public void IncreasCatchEnemyCount()
     {
         enemyCatchCount++;
+        DaniTechUIManager.Instance.SetGameUITextToUIManager();
     }
 
     public int GetEnemyCatchCount()
