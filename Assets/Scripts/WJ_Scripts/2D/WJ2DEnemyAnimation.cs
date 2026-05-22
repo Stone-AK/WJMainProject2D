@@ -9,13 +9,10 @@ public enum Enemy2DAnimeStat
 
 public class WJ2DEnemyAnimation : MonoBehaviour
 {
-    private SpriteRenderer _spriteRenderer;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     Enemy2DAnimeStat _enemyStat;
 
-    private void Awake()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+    
 
     public void ChangeAnime(Enemy2DAnimeStat ChangeStat)
     {

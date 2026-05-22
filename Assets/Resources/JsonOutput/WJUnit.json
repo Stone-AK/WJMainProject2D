@@ -1,0 +1,20 @@
+[
+  {
+    "Id": "Unit_Player_1",
+    "Name": "플레이어",
+    "Description": "플레이어이다.",
+    "_hp": 10,
+    "_moveSpeed": 0,
+    "_damage": 0,
+    "_damagePerTime": 0
+  },
+  {
+    "Id": "Unit_Enemy_1",
+    "Name": "박쥐",
+    "Description": "박쥐이다.",
+    "_hp": 5,
+    "_moveSpeed": 0,
+    "_damage": 5,
+    "_damagePerTime": 0
+  }
+]

@@ -266,6 +266,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ManagerContainer
       objectReference: {fileID: 0}
+    - target: {fileID: 5820846231128134680, guid: d9614b341da396f43a8b38d13a069d93, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 5820846231128134680, guid: d9614b341da396f43a8b38d13a069d93, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1920
+      objectReference: {fileID: 0}
     - target: {fileID: 7401572462957236092, guid: d9614b341da396f43a8b38d13a069d93, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
