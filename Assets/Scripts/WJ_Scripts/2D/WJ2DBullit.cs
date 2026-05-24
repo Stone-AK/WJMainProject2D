@@ -2,11 +2,11 @@
 
 public class WJ2DBullit : MonoBehaviour
 {
+    int _bullitInstId;
     private int _power = 10;
     private float _moveSpeed = 4f;
     // 해당 프로퍼티 변수로 고치고 나중에 ID를 통해서 접근 가능하도록 변경
     public float CollTime { get; private set; } = 5f;
-
 
     private void FixedUpdate()
     {
@@ -23,6 +23,20 @@ public class WJ2DBullit : MonoBehaviour
         {
             TouchEnemy(collision);
         }
+    }
+
+    public void InitBullitStat(int bullitInstId, string bullitDataId = "Bullit_Base_1")
+    {
+        WJBullit bullitData = DaniTechGameDataManager.Instance.GetWJBullitObjectData(bullitDataId);
+        SetBullitStat(bullitData);
+        _bullitInstId = bullitInstId;
+    }
+
+    private void SetBullitStat(WJBullit bullitData)
+    {
+        _power = bullitData._power;
+        _moveSpeed = bullitData._moveSpeed;
+        CollTime = bullitData._collTime;
     }
 
     private void MoveBullit()
@@ -59,5 +73,6 @@ public class WJ2DBullit : MonoBehaviour
     private void DestroyBullit()
     {
         this.gameObject.SetActive(false);
+        WJ2DBullitSpawner.Inst.DestroyBullit(_bullitInstId);
     }
 }

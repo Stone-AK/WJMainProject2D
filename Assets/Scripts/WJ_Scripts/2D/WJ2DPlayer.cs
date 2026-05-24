@@ -27,6 +27,8 @@ public class WJ2DPlayer : WJ2DUnit
     [SerializeField] private CircleCollider2D DetectEnemyCollider;
     [SerializeField] private LayerMask _enemyLayer;
 
+    private int _InstId = 0;
+
     private readonly Collider2D[] _enemyResults = new Collider2D[30];
 
     private void Start()

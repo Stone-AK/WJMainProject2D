@@ -15,7 +15,7 @@ public class WJ2DEnemySpawner : MonoBehaviour
 
     private List<WJ2DEnemy> _enemyPool = new List<WJ2DEnemy>();
     // 인스턴스 아이디와 오브젝트 풀을 매칭 시켜주는 역할
-    private Dictionary<int, int> _objectIdList = new Dictionary<int, int>();
+    private Dictionary<int, WJ2DEnemy> _objectIdList = new Dictionary<int, WJ2DEnemy>();
     private int _enemyInstanceId;
     private string _enemyDataIdSetting;
 
@@ -60,18 +60,16 @@ public class WJ2DEnemySpawner : MonoBehaviour
     // [Todo] 5월 23일 점심먹고 여기서부터
     private WJ2DEnemy GetEnemyFromPool(string EnemyId)
     {
-        int idx = 0;
         foreach (WJ2DEnemy enemy in _enemyPool)
         {
             if (enemy.gameObject.activeSelf == false)
             {
                 _enemyInstanceId++;
-                _objectIdList.Add(_enemyInstanceId, idx);
+                _objectIdList.Add(_enemyInstanceId, enemy);
                 // [ToDo] string 공백은 몬스터 ID로 바꿀것 
                 enemy.InitEnemy(_enemyInstanceId, EnemyId);
                 return enemy;
             }
-            idx++;
         }
         return null;
     }
@@ -91,9 +89,7 @@ public class WJ2DEnemySpawner : MonoBehaviour
     {
         if(_objectIdList.ContainsKey(InstanceID))
         {
-            int objectPoolIdx = _objectIdList[InstanceID];
-            var enemy = _enemyPool[objectPoolIdx];
-            return enemy;
+            return _objectIdList[InstanceID];
         }
         Debug.LogError($"존재하지 않는 오브젝트입니다.");
         return null;

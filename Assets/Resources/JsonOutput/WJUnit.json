@@ -6,7 +6,8 @@
     "_hp": 10,
     "_moveSpeed": 5,
     "_damage": 0,
-    "_damagePerTime": 0
+    "_damagePerTime": 0,
+    "_path": "Prefabs/2D/WJ2DPlayer"
   },
   {
     "Id": "Unit_Enemy_1",
@@ -15,6 +16,7 @@
     "_hp": 5,
     "_moveSpeed": 1,
     "_damage": 5,
-    "_damagePerTime": 2.5
+    "_damagePerTime": 2.5,
+    "_path": "Prefabs/2D/Enemy"
   }
 ]

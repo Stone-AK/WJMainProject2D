@@ -102,6 +102,7 @@ public class WJUnit : GameDataBase
     public float _moveSpeed;
     public int _damage;
     public float _damagePerTime;
+    public string _path;
 }
 
 [System.Serializable]
@@ -112,4 +113,5 @@ public class WJBullit : GameDataBase
     public int _power;
     public float _moveSpeed;
     public float _collTime;
+    public string _path;
 }

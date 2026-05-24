@@ -295,6 +295,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8007951631376954100, guid: d9614b341da396f43a8b38d13a069d93, type: 3}
+      propertyPath: GameRoot
+      value: 
+      objectReference: {fileID: 1418869287}
+    - target: {fileID: 8007951631376954100, guid: d9614b341da396f43a8b38d13a069d93, type: 3}
       propertyPath: PlayerObject
       value: 
       objectReference: {fileID: 0}
