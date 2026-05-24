@@ -10,23 +10,22 @@ public class WJ2DEnemy : WJ2DUnit
     [Header("Enemy 애니메이션")]
     [SerializeField] private WJ2DEnemyAnimation EnemyAnimation;
     private Enemy2DAnimeStat _enemyAniStat;
-    private int _enemyDamage = 5;
-    private float _damagePerTime = 2.5f;
+    private int _enemyDamage;
+    private float _damagePerTime;
     private float _damageTimer;
     [SerializeField] private int _instId;
 
 
     private void Start()
     {
-        InitStat();
         InitPlayerPosition();
-        _damageTimer = _damagePerTime;
     }
 
     private void Update()
     {
         FollowPlayer();
         EnemyAnimation.ChangeAnime(_enemyAniStat);
+        _damageTimer += Time.deltaTime;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -35,7 +34,6 @@ public class WJ2DEnemy : WJ2DUnit
         {
             if (collision.gameObject.TryGetComponent<WJ2DPlayer>(out WJ2DPlayer _player))
             {
-                _damageTimer += Time.deltaTime;
                 if (_player == null) return;
                 if (_damageTimer >= _damagePerTime)
                 {
@@ -49,8 +47,8 @@ public class WJ2DEnemy : WJ2DUnit
     public void InitEnemy(int instId, string dataId)
     {
         _instId = instId;
-        // var enemyData = GameDataManager.Inst.GetEnmyData(dataId);
-
+        var enemyData = DaniTechGameDataManager.Instance.GetWJUnitObjectData(dataId);
+        InitStat(enemyData);
     }
 
     public int GetEnemyInstId()
@@ -58,11 +56,13 @@ public class WJ2DEnemy : WJ2DUnit
         return _instId;
     }
 
-    public void InitStat()
+    public void InitStat(WJUnit initData)
     {
-        _hp = 5;
+        _hp = initData._hp;
         _curHP = _hp;
-        _moveSpeed = 1f;
+        _moveSpeed = initData._moveSpeed;
+        _damagePerTime = initData._damagePerTime;
+        _enemyDamage = initData._damage;
     }
 
     private void FollowPlayer()
@@ -87,7 +87,6 @@ public class WJ2DEnemy : WJ2DUnit
         DaniTechGameManager.Inst.IncreasCatchEnemyCount();
         this.gameObject.SetActive(false);
         WJ2DEnemySpawner.Inst.ResetObjectFromPool(_instId);
-        InitStat();
     }
 
     public override void DecreaseCurrentHp(int dmg)

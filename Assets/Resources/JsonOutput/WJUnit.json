@@ -4,7 +4,7 @@
     "Name": "플레이어",
     "Description": "플레이어이다.",
     "_hp": 10,
-    "_moveSpeed": 0,
+    "_moveSpeed": 5,
     "_damage": 0,
     "_damagePerTime": 0
   },
@@ -13,8 +13,8 @@
     "Name": "박쥐",
     "Description": "박쥐이다.",
     "_hp": 5,
-    "_moveSpeed": 0,
+    "_moveSpeed": 1,
     "_damage": 5,
-    "_damagePerTime": 0
+    "_damagePerTime": 2.5
   }
 ]

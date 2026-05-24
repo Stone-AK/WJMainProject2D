@@ -17,6 +17,7 @@ public class WJ2DEnemySpawner : MonoBehaviour
     // 인스턴스 아이디와 오브젝트 풀을 매칭 시켜주는 역할
     private Dictionary<int, int> _objectIdList = new Dictionary<int, int>();
     private int _enemyInstanceId;
+    private string _enemyDataIdSetting;
 
     private void OnDisable()
     {
@@ -36,7 +37,9 @@ public class WJ2DEnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        CreateEnemyOnUpdate();
+        // 아래 Todo는 매개변수로써 들어가도 되고 아니면 생성 기밍에서 특수한 경우 설정을 해줘도 됨
+        SetEnemyDataId(/*[Todo]나중에 여기에 어떻게 EnemyDataId를 넣을지 고민해 볼것*/);
+        CreateEnemyOnUpdate(_enemyDataIdSetting);
     }
 
     private void CreateEnemyPool()
@@ -54,7 +57,8 @@ public class WJ2DEnemySpawner : MonoBehaviour
         }
     }
 
-    private WJ2DEnemy GetEnemyFromPool()
+    // [Todo] 5월 23일 점심먹고 여기서부터
+    private WJ2DEnemy GetEnemyFromPool(string EnemyId)
     {
         int idx = 0;
         foreach (WJ2DEnemy enemy in _enemyPool)
@@ -64,7 +68,7 @@ public class WJ2DEnemySpawner : MonoBehaviour
                 _enemyInstanceId++;
                 _objectIdList.Add(_enemyInstanceId, idx);
                 // [ToDo] string 공백은 몬스터 ID로 바꿀것 
-                enemy.InitEnemy(_enemyInstanceId, "");
+                enemy.InitEnemy(_enemyInstanceId, EnemyId);
                 return enemy;
             }
             idx++;
@@ -95,15 +99,15 @@ public class WJ2DEnemySpawner : MonoBehaviour
         return null;
     }
 
-    private void CreateEnemyOnUpdate()
+    private void CreateEnemyOnUpdate(string dataId)
     {
         if(_currentEnemy <= _maximumEnemy)
         {
             int randomLocationNum = Random.Range(0, SpawnLocation.Count);
             randomOffset = UnityEngine.Random.insideUnitCircle * 1.5f;
             // 나중에 
-            WJ2DEnemy enemy = GetEnemyFromPool(/*dataID가 여기서 지정*/);
-            if(enemy == null)
+            WJ2DEnemy enemy = GetEnemyFromPool(dataId);
+            if (enemy == null)
             {
                 Debug.LogError($"{this.name}에 생성할 enemy가 없다.");
                 return;
@@ -115,5 +119,10 @@ public class WJ2DEnemySpawner : MonoBehaviour
             enemy.gameObject.SetActive(true);
             _currentEnemy++;
         }
+    }
+
+    private void SetEnemyDataId(string setDataIdValue = "Unit_Enemy_1")
+    {
+        _enemyDataIdSetting = setDataIdValue;
     }
 }

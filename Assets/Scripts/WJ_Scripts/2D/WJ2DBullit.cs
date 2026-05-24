@@ -5,7 +5,7 @@ public class WJ2DBullit : MonoBehaviour
     private int _power = 10;
     private float _moveSpeed = 4f;
     // 해당 프로퍼티 변수로 고치고 나중에 ID를 통해서 접근 가능하도록 변경
-    public float CollTime { get; private set; } = 0.5f;
+    public float CollTime { get; private set; } = 5f;
 
 
     private void FixedUpdate()

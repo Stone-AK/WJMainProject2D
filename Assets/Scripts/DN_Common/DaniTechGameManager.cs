@@ -96,7 +96,6 @@ public class DaniTechGameManager : MonoBehaviour
         }
     }
 
-
     public void InitCurTime(float gameMaxTime)
     {
         gameMaxSecond = gameMaxTime;
