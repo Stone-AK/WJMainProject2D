@@ -28,6 +28,7 @@ public class WJ2DPlayer : WJ2DUnit
     [SerializeField] private LayerMask _enemyLayer;
 
     private readonly Collider2D[] _enemyResults = new Collider2D[30];
+    private WJ2DUnit _closestUnit;
 
     private void Update()
     {
@@ -35,12 +36,14 @@ public class WJ2DPlayer : WJ2DUnit
         _verticalInput = Input.GetAxisRaw("Vertical");
         MoveCharactorOnUpdate();
         AnimationControllerOnUpdate();
+        GetClosestEnemy();
+        WJ2DBullitSpawner.Inst.ShootBulitOnUpdate(_closestUnit, _instId, this);
     }
 
     public void InitStat(int instId)
     {
         _instId = instId;
-        // 현재 플레이어 데이터 하드 코딩
+        // 현재 플레이어 데이터Id 하드 코딩
         _hp = DaniTechGameDataManager.Instance.GetWJUnitObjectData("Unit_Player_1")._hp;
         _curHP = _hp;
         _moveSpeed = DaniTechGameDataManager.Instance.GetWJUnitObjectData("Unit_Player_1")._moveSpeed;
@@ -80,15 +83,17 @@ public class WJ2DPlayer : WJ2DUnit
         }
     }
 
-    public WJ2DEnemy GetClosestEnemy()
+    public void GetClosestEnemy()
     {
         ContactFilter2D filter = new ContactFilter2D();
         filter.SetLayerMask(_enemyLayer);
         filter.useTriggers = true;
 
+        float radius = DetectEnemyCollider.radius * DetectEnemyCollider.transform.lossyScale.x;
+
         int count = Physics2D.OverlapCircle(
             DetectEnemyCollider.transform.position,
-            DetectEnemyCollider.radius,
+            radius,
             filter,
             _enemyResults
         );
@@ -109,7 +114,7 @@ public class WJ2DPlayer : WJ2DUnit
                 }
             }
         }
-        return closestEnemy;
-    }
 
+        _closestUnit = closestEnemy;
+    }
 }

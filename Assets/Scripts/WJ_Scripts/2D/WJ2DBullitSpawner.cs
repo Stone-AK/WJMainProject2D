@@ -8,14 +8,10 @@ public class WJ2DBullitSpawner : MonoBehaviour
     // 테스트 직접 할당
     [Header("테스트 직접 할당")] 
     [SerializeField] private int _PollCount = 10;
+
     private List<WJ2DBullit> _bullitPool = new List<WJ2DBullit>();
     private int _bullitInstIdNum = 0;
-    // [Todo] 해당 Dictinary 오브젝트 매니저로 옮겨야함
 
-    [Header("플레이어")]
-    [SerializeField] private WJ2DPlayer Player;
-
-    private WJ2DEnemy closestEnemy = null;
     private float _bullitOne_coolDown = 0f;
 
     private void Awake()
@@ -32,14 +28,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
 
     private void Start()
     {
-        Player = DaniTechGameManager.Inst.ReturnPlayerTransform().gameObject.GetComponent<WJ2DPlayer>();
         CreateBulletPool();
-    }
-
-    private void Update()
-    {
-        closestEnemy = Player.GetClosestEnemy();
-        ShootBulit();
     }
 
     private GameObject GetBullitPrefab(string bullitDataId = "Bullit_Base_1")
@@ -65,14 +54,14 @@ public class WJ2DBullitSpawner : MonoBehaviour
         }
     }
 
-    private GameObject GetBulletFromPool()
+    private GameObject GetBulletFromPool(int firedUnitId)
     {
         foreach (WJ2DBullit bullet in _bullitPool)
         {
             if (bullet.gameObject.activeSelf == false)
             {
                 _bullitInstIdNum++;
-                bullet.InitBullitStat(_bullitInstIdNum/*총알 데이터 Id를 통해서 총알을 변경할 수 있음*/);
+                bullet.InitBullitStat(_bullitInstIdNum, firedUnitId/*총알 데이터 Id를 통해서 총알을 변경할 수 있음*/);
                 WJObjectManager.Inst.AddBullitToBullitList(_bullitInstIdNum, bullet);
                 return bullet.gameObject;
             }
@@ -80,23 +69,23 @@ public class WJ2DBullitSpawner : MonoBehaviour
         return null;
     }
 
-    private void ShootBulit()
+    public void ShootBulitOnUpdate(WJ2DUnit targetUnit, int firedUnitId, WJ2DUnit shootingUnit)
     {
         _bullitOne_coolDown -= Time.deltaTime;
 
         if (_bullitOne_coolDown > 0f)
             return;
 
-        GameObject bullitObj = GetBulletFromPool();
+        GameObject bullitObj = GetBulletFromPool(firedUnitId);
 
-        if (closestEnemy == null)
+        if (targetUnit == null)
         {
             if (bullitObj == null)
             {
-                Debug.LogError("가까운 적도 없고 bullet List가 비어 있습니다.");
+                Debug.LogError("가까운 유닛도 없고 bullet List가 비어 있습니다.");
                 return;
             }
-            bullitObj.transform.position = DaniTechGameManager.Inst.ReturnPlayerTransform().position;
+            bullitObj.transform.position = shootingUnit.gameObject.transform.position;
             bullitObj.transform.rotation = bullitObj.transform.rotation;
             bullitObj.SetActive(true);
 
@@ -104,7 +93,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
             return;
         }
 
-        Vector2 dir = closestEnemy.transform.position - DaniTechGameManager.Inst.ReturnPlayerTransform().position;
+        Vector2 dir = targetUnit.gameObject.transform.position - shootingUnit.gameObject.transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Quaternion rot = Quaternion.Euler(0f, 0f, angle);
 
@@ -113,7 +102,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
             Debug.LogError("bullet List가 비어 있습니다.");
             return;
         }
-        bullitObj.transform.position = DaniTechGameManager.Inst.ReturnPlayerTransform().position;
+        bullitObj.transform.position = shootingUnit.gameObject.transform.position;
         bullitObj.transform.rotation = rot;
         bullitObj.gameObject.SetActive(true);
 
