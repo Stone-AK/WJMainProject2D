@@ -167,6 +167,7 @@ public class DaniTechGameManager : MonoBehaviour
     public void MakePlayer()
     {
         CreateObj(WJObjectRootType.None, WJObjectType.WJ2DPlayer);
+        WJObjectManager.Inst.AddUnitToUnitList(0, PlayerObject);
     }
 
     public void MakeEnemySpawner()

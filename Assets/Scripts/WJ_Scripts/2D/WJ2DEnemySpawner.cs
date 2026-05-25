@@ -10,19 +10,18 @@ public class WJ2DEnemySpawner : MonoBehaviour
     [SerializeField] private int _enemyPollCount = 5;
     [SerializeField] private List<GameObject> SpawnLocation;
     [SerializeField] private int _maximumEnemy = 5;
-     public int _currentEnemy { get; set; } = 0;
+    public int _currentEnemy { get; set; } = 0;
     Vector2 randomOffset;
 
     private List<WJ2DEnemy> _enemyPool = new List<WJ2DEnemy>();
-    // 인스턴스 아이디와 오브젝트 풀을 매칭 시켜주는 역할
-    private Dictionary<int, WJ2DEnemy> _objectIdList = new Dictionary<int, WJ2DEnemy>();
     private int _enemyInstanceId;
     private string _enemyDataIdSetting;
 
     private void OnDisable()
     {
-        // 키가 쌓이는것을 방지
-        _objectIdList.Clear();
+        // UnitList 딕셔너리 안에는 플레이어도 있지만 괜찮음.
+        // Spawner가 사라지는경우는 Roby로 나갔을 때인데 Roby로 나가면 어차피 플레이어도 사라짐
+        WJObjectManager.Inst.RemoveAllUnitList();
     }
 
     private void Awake()
@@ -57,7 +56,6 @@ public class WJ2DEnemySpawner : MonoBehaviour
         }
     }
 
-    // [Todo] 5월 23일 점심먹고 여기서부터
     private WJ2DEnemy GetEnemyFromPool(string EnemyId)
     {
         foreach (WJ2DEnemy enemy in _enemyPool)
@@ -65,33 +63,11 @@ public class WJ2DEnemySpawner : MonoBehaviour
             if (enemy.gameObject.activeSelf == false)
             {
                 _enemyInstanceId++;
-                _objectIdList.Add(_enemyInstanceId, enemy);
-                // [ToDo] string 공백은 몬스터 ID로 바꿀것 
+                WJObjectManager.Inst.AddUnitToUnitList(_enemyInstanceId, enemy);
                 enemy.InitEnemy(_enemyInstanceId, EnemyId);
                 return enemy;
             }
         }
-        return null;
-    }
-
-    public void ResetObjectFromPool(int instanceId)
-    {
-        if(_objectIdList.ContainsKey(instanceId))
-        {
-            _objectIdList.Remove(instanceId);
-        }
-    }
-
-    // 지금 사용하것은 아니지만 오브젝트 풀링 기반일 경우 딕셔너리를 두어 ID에 매칭되는 인덱스
-    // 를 관리하는 경우 오브젝트를 가져오는 메서드
-    // 
-    private WJ2DEnemy GetEnemyByInstanceId(int InstanceID)
-    {
-        if(_objectIdList.ContainsKey(InstanceID))
-        {
-            return _objectIdList[InstanceID];
-        }
-        Debug.LogError($"존재하지 않는 오브젝트입니다.");
         return null;
     }
 

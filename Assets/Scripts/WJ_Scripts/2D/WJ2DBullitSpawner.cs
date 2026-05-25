@@ -7,10 +7,10 @@ public class WJ2DBullitSpawner : MonoBehaviour
     public static WJ2DBullitSpawner Inst { get; set; }
     // 테스트 직접 할당
     [Header("테스트 직접 할당")] 
-    [SerializeField] private WJ2DBullit _Prefab;
     [SerializeField] private int _PollCount = 10;
     private List<WJ2DBullit> _bullitPool = new List<WJ2DBullit>();
     private int _bullitInstIdNum = 0;
+    // [Todo] 해당 Dictinary 오브젝트 매니저로 옮겨야함
     private Dictionary<int, WJ2DBullit> _bullitObjectList = new Dictionary<int, WJ2DBullit>();
 
 
@@ -99,7 +99,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
                 return;
             }
             bullitObj.transform.position = DaniTechGameManager.Inst.ReturnPlayerTransform().position;
-            bullitObj.transform.rotation = _Prefab.transform.rotation;
+            bullitObj.transform.rotation = bullitObj.transform.rotation;
             bullitObj.SetActive(true);
 
             _bullitOne_coolDown = bullitObj.GetComponent<WJ2DBullit>().CollTime;

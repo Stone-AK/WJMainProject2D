@@ -86,7 +86,7 @@ public class WJ2DEnemy : WJ2DUnit
         WJ2DEnemySpawner.Inst._currentEnemy--;
         DaniTechGameManager.Inst.IncreasCatchEnemyCount();
         this.gameObject.SetActive(false);
-        WJ2DEnemySpawner.Inst.ResetObjectFromPool(_instId);
+        WJObjectManager.Inst.RemoveUnitToUnitList(_instId);
     }
 
     public override void DecreaseCurrentHp(int dmg)
