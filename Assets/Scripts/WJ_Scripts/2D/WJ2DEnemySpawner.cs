@@ -29,6 +29,11 @@ public class WJ2DEnemySpawner : MonoBehaviour
         Inst = this;
     }
 
+    private void OnEnable()
+    {
+        _enemyInstanceId = 0;
+    }
+
     private void Start()
     {
         CreateEnemyPool();

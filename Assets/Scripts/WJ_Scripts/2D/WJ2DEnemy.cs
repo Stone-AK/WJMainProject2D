@@ -13,7 +13,6 @@ public class WJ2DEnemy : WJ2DUnit
     private int _enemyDamage;
     private float _damagePerTime;
     private float _damageTimer;
-    [SerializeField] private int _instId;
 
 
     private void Start()
@@ -32,12 +31,12 @@ public class WJ2DEnemy : WJ2DUnit
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            if (collision.gameObject.TryGetComponent<WJ2DPlayer>(out WJ2DPlayer _player))
+            if(collision.gameObject.TryGetComponent<WJ2DUnit>(out WJ2DUnit unitObj))
             {
-                if (_player == null) return;
                 if (_damageTimer >= _damagePerTime)
                 {
-                    _player.DecreaseCurrentHp(_enemyDamage);
+                    var unit = WJObjectManager.Inst.GetUnitToUnitList(unitObj._instId);
+                    unit.DecreaseCurrentHp(_enemyDamage);
                     _damageTimer = 0f;
                 }
             }

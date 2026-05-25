@@ -4,7 +4,7 @@
     "Name": "플레이어",
     "Description": "플레이어이다.",
     "_hp": 10,
-    "_moveSpeed": 5,
+    "_moveSpeed": 6,
     "_damage": 0,
     "_damagePerTime": 0,
     "_path": "Prefabs/2D/WJ2DPlayer"

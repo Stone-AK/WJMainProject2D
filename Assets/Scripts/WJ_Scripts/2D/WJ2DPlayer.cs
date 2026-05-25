@@ -27,14 +27,8 @@ public class WJ2DPlayer : WJ2DUnit
     [SerializeField] private CircleCollider2D DetectEnemyCollider;
     [SerializeField] private LayerMask _enemyLayer;
 
-    private int _InstId = 0;
-
     private readonly Collider2D[] _enemyResults = new Collider2D[30];
 
-    private void Start()
-    {
-        InitStat();
-    }
     private void Update()
     {
         _horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -43,11 +37,13 @@ public class WJ2DPlayer : WJ2DUnit
         AnimationControllerOnUpdate();
     }
 
-    public void InitStat()
+    public void InitStat(int instId)
     {
-        _hp = 10;
+        _instId = instId;
+        // 현재 플레이어 데이터 하드 코딩
+        _hp = DaniTechGameDataManager.Instance.GetWJUnitObjectData("Unit_Player_1")._hp;
         _curHP = _hp;
-        _moveSpeed = 5f;
+        _moveSpeed = DaniTechGameDataManager.Instance.GetWJUnitObjectData("Unit_Player_1")._moveSpeed;
     }
 
     private void MoveCharactorOnUpdate()

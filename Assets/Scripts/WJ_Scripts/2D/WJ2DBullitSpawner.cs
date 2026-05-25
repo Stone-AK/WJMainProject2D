@@ -11,8 +11,6 @@ public class WJ2DBullitSpawner : MonoBehaviour
     private List<WJ2DBullit> _bullitPool = new List<WJ2DBullit>();
     private int _bullitInstIdNum = 0;
     // [Todo] 해당 Dictinary 오브젝트 매니저로 옮겨야함
-    private Dictionary<int, WJ2DBullit> _bullitObjectList = new Dictionary<int, WJ2DBullit>();
-
 
     [Header("플레이어")]
     [SerializeField] private WJ2DPlayer Player;
@@ -28,7 +26,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
     private void OnDisable()
     {
         _bullitPool.Clear();
-        _bullitObjectList.Clear();
+        WJObjectManager.Inst.RemoveAllBullitList();
         _bullitInstIdNum = 0;
     }
 
@@ -75,7 +73,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
             {
                 _bullitInstIdNum++;
                 bullet.InitBullitStat(_bullitInstIdNum/*총알 데이터 Id를 통해서 총알을 변경할 수 있음*/);
-                _bullitObjectList.Add(_bullitInstIdNum, bullet);
+                WJObjectManager.Inst.AddBullitToBullitList(_bullitInstIdNum, bullet);
                 return bullet.gameObject;
             }
         }
@@ -124,7 +122,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
 
     public void DestroyBullit(int bullitInstId)
     {
-        _bullitObjectList.Remove(bullitInstId);
+        WJObjectManager.Inst.RemoveBullitToBullitList(bullitInstId);
     }
 
 }

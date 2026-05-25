@@ -167,6 +167,8 @@ public class DaniTechGameManager : MonoBehaviour
     public void MakePlayer()
     {
         CreateObj(WJObjectRootType.None, WJObjectType.WJ2DPlayer);
+        // 플레이어 인스턴스Id 0으로 하드코딩
+        PlayerObject.InitStat(0);
         WJObjectManager.Inst.AddUnitToUnitList(0, PlayerObject);
     }
 
