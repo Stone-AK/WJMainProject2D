@@ -212,6 +212,7 @@ public class DaniTechGameManager : MonoBehaviour
         DaniTechUIManager.Instance.OpenWJRobyUI();
         SetGameStat(WJ2DGameStat.Roby);
         Time.timeScale = 1f;
+        DaniTechUIManager.Instance.ResetHudSlot();
     }
 
     public void EndGameOnOver()

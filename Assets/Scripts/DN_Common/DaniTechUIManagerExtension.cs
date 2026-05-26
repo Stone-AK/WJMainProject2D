@@ -196,5 +196,16 @@ public static class DaniTechUIManagerExtension
             hudUI.RemoveHudSlotOnWJHudUI(instId);
         }
     }
+
+    public static void ResetHudSlot(this DaniTechUIManager uiManager)
+    {
+        var uiBase = uiManager.GetOpendUI(DaniTechUIRootType.ContentUI, DaniTechUIType.WJHudUI);
+        if (uiBase == null) return;
+
+        if (uiBase is WJHudUI hudUI)
+        {
+            hudUI.ResetHudSlotOnWJHudUI();
+        }
+    }
 }
 

@@ -34,4 +34,17 @@ public class WJHudUI : DaniTechUIBase
             _hudSlotList.Remove(instancId);
         }
     }
+
+    public void ResetHudSlotOnWJHudUI()
+    {
+        foreach(var hud in _hudSlotList.Values)
+        {
+            var hudObj = hud.gameObject;
+            if (hudObj != null)
+            {
+                Destroy(hudObj);
+            }
+        }
+        _hudSlotList.Clear();
+    }
 }
