@@ -30,6 +30,12 @@ public class WJ2DPlayer : WJ2DUnit
     private readonly Collider2D[] _enemyResults = new Collider2D[30];
     private WJ2DUnit _closestUnit;
 
+
+    private void Start()
+    {
+        InvokeStatChangedEvent();
+    }
+
     private void Update()
     {
         _horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -72,6 +78,7 @@ public class WJ2DPlayer : WJ2DUnit
         this.gameObject.SetActive(false);
         Debug.Log("플레이어가 죽었습니다.");
         DaniTechGameManager.Inst.EndGameOnOver();
+        DaniTechUIManager.Instance.RemoveHudSlot(_instId);
     }
     public override void DecreaseCurrentHp(int dmg)
     {

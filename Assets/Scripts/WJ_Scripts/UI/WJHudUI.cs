@@ -8,7 +8,7 @@ public class WJHudUI : DaniTechUIBase
 
     private Dictionary<int, WJHudSlotUI> _hudSlotList = new Dictionary<int, WJHudSlotUI>();
 
-    public void AddHudSlot(int instancId)
+    public void AddHudSlotOnWJHudUI(int instancId)
     {
         CreateHudSlot(instancId);
     }
@@ -22,16 +22,15 @@ public class WJHudUI : DaniTechUIBase
         if(slotcomponet == null) return;
 
         slotcomponet.InitSlot(instancId);
-
         _hudSlotList.Add(instancId, slotcomponet);
     }
 
-    public void RemoveHudSlot(int instancId)
+    public void RemoveHudSlotOnWJHudUI(int instancId)
     {
         if(_hudSlotList.ContainsKey(instancId) == true)
         {
             var slot = _hudSlotList[instancId];
-            Destroy(slot);
+            Destroy(slot.gameObject);
             _hudSlotList.Remove(instancId);
         }
     }

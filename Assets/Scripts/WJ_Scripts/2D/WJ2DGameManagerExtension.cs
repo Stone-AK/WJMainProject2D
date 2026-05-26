@@ -60,6 +60,7 @@ public static class WJ2DGameManagerExtension
         gameManager.MakeBulitSpawner();
         gameManager.InitCatchEnemyCount();
         gameManager.SetGameStat(WJ2DGameStat.Start);
+        DaniTechUIManager.Instance.AddHudSlot(0);
     }
 
 }

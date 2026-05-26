@@ -27,7 +27,7 @@ public class WJ2DUnit : MonoBehaviour
         _onHpChanged = null;
     }
 
-    private void InvokeStatChangedEvent()
+    protected void InvokeStatChangedEvent()
     {
         _onHpChanged?.Invoke(_curHP, _hp);
     }

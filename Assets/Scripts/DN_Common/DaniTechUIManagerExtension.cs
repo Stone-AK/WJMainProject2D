@@ -182,7 +182,7 @@ public static class DaniTechUIManagerExtension
 
         if(uiBase is WJHudUI hudUI)
         {
-            hudUI.AddHudSlot(instanceId);
+            hudUI.AddHudSlotOnWJHudUI(instanceId);
         }
     }
 
@@ -193,7 +193,7 @@ public static class DaniTechUIManagerExtension
 
         if (uiBase is WJHudUI hudUI)
         {
-            hudUI.RemoveHudSlot(instId);
+            hudUI.RemoveHudSlotOnWJHudUI(instId);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Data;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class WJHudSlotUI : MonoBehaviour
@@ -9,30 +8,55 @@ public class WJHudSlotUI : MonoBehaviour
     private int _instanceId;
     private Transform _targetTransform;
 
+    [SerializeField] private float _extraYOffset = 0.5f;
+    private Collider2D _targetCollider;
 
     public void InitSlot(int instanceId)
     {
         _instanceId = instanceId;
         _targetTransform = WJObjectManager.Inst.GetUnitToUnitList(instanceId).transform;
+        TrybindStatChangedEvent(instanceId);
+        // 생성 위치 지정
+        var unit = WJObjectManager.Inst.GetUnitToUnitList(instanceId);
+
+        if (unit == null)
+            return;
+
+        _targetTransform = unit.transform;
+        _targetCollider = unit.GetComponent<Collider2D>();
+
     }
 
     public void Update()
     {
-        if(_targetTransform != null)
+        if (_targetTransform == null)
+            return;
+
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        RectTransform parentRect = rectTransform.parent as RectTransform;
+
+        Vector3 targetWorldPos = _targetTransform.position;
+
+        if (_targetCollider != null)
         {
-            this.gameObject.transform.position = _targetTransform.position;
-
-            // GUI을 월드로 변환하는 방식
-            Vector2 screenPos = Camera.main.WorldToScreenPoint(_targetTransform.position);
-
-            // canvas에서가 아닌 오브젝트 영역에서 보이기 위해서는 rectTransform으로 변환
-            var rectTransfrom = this.GetComponent<RectTransform>();
-            if (rectTransfrom != null)
-            {
-                rectTransfrom.anchoredPosition = screenPos;
-            }
-
+            float halfHeight = _targetCollider.bounds.size.y * 0.5f;
+            targetWorldPos.y += halfHeight + _extraYOffset;
         }
+        else
+        {
+            targetWorldPos.y += _extraYOffset;
+        }
+
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(targetWorldPos);
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            parentRect,
+            screenPos,
+            null,
+            out Vector2 localPos
+        );
+
+        rectTransform.anchoredPosition = localPos;
     }
 
     private void TrybindStatChangedEvent(int instanceId)
@@ -50,6 +74,6 @@ public class WJHudSlotUI : MonoBehaviour
 
     private void OnTargetEntityHpChanged(int curHp, int maxHp)
     {
-        _sliderHp.value = (curHp / maxHp);
+        _sliderHp.value = (curHp / (float)maxHp);
     }
 }
