@@ -481,6 +481,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1844792872190478783, guid: aaede92c031aa694a98680d503f754a7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117617897368838243, guid: aaede92c031aa694a98680d503f754a7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117617897368838243, guid: aaede92c031aa694a98680d503f754a7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4290482773801034447, guid: aaede92c031aa694a98680d503f754a7, type: 3}
       propertyPath: m_Name
       value: DNUIManager

@@ -95,6 +95,7 @@ public class DaniTechUIManager : MonoBehaviour
         }
     }
 
+    // 내부에서만 사용
     private DaniTechUIBase GetCreatedUI(DaniTechUIRootType uiRootType, DaniTechUIType uiType)
     {
         if (_createdUIDic.ContainsKey(uiType) == false)
@@ -102,6 +103,12 @@ public class DaniTechUIManager : MonoBehaviour
             CreateUI(uiRootType, uiType);
         }
         return _createdUIDic[uiType];
+    }
+
+    // 밖에서 없으면 만들고 있으면 기존에 있던거 사용하는 부분
+    public DaniTechUIBase GetOpendUI(DaniTechUIRootType uiRootType, DaniTechUIType uIType)
+    {
+        return GetCreatedUI(uiRootType, uIType);
     }
 
     public DaniTechUIBase OpenContentUI(DaniTechUIType uiType)

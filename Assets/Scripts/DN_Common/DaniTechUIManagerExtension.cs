@@ -22,7 +22,8 @@ public enum DaniTechUIType
     WJRobyUI,
     WJGameUI,
     WJPausePopUpUI,
-    WJGameEndPopUp
+    WJGameEndPopUp,
+    WJHudUI
 }
 
 public static class DaniTechUIManagerExtension
@@ -172,7 +173,28 @@ public static class DaniTechUIManagerExtension
         {
             gameEndPop.SetGemeEndMessage(gameStat);
         }
+    }
 
+    public static void AddHudSlot(this DaniTechUIManager uiManager, int instanceId)
+    {
+        var uiBase = uiManager.GetOpendUI(DaniTechUIRootType.ContentUI, DaniTechUIType.WJHudUI);
+        if (uiBase == null) return;
+
+        if(uiBase is WJHudUI hudUI)
+        {
+            hudUI.AddHudSlot(instanceId);
+        }
+    }
+
+    public static void RemoveHudSlot(this DaniTechUIManager uiManager, int instId)
+    {
+        var uiBase = uiManager.GetOpendUI(DaniTechUIRootType.ContentUI, DaniTechUIType.WJHudUI);
+        if (uiBase == null) return;
+
+        if (uiBase is WJHudUI hudUI)
+        {
+            hudUI.RemoveHudSlot(instId);
+        }
     }
 }
 
