@@ -37,6 +37,11 @@ public class DaniTechGameDataManager : MonoBehaviour
     public Dictionary<string, DNMonsterData> MonsterDataList { get; private set; } = new Dictionary<string, DNMonsterData>();
     public Dictionary<string, WJUnit> WJUnitDataList { get; private set; } = new Dictionary<string, WJUnit>();
     public Dictionary<string, WJBullit> WJBullitDataList { get; private set; } = new Dictionary<string, WJBullit>();
+    public Dictionary<string, WJStage> WJStageDataList { get; private set; } = new Dictionary<string, WJStage>();
+    public Dictionary<string, WJWave> WJWaveDataList { get; private set; } = new Dictionary<string, WJWave>();
+    public Dictionary<string, WJWaveEnemy> WJWaveEnemyDataList { get; private set; } = new Dictionary<string, WJWaveEnemy>();
+
+
 
     private Dictionary<string, T> LoadData<T>(string tableName) where T : GameDataBase
     {
@@ -124,6 +129,21 @@ public class DaniTechGameDataManager : MonoBehaviour
         WJBullitDataList = LoadData<WJBullit>(jsonPath);
     }
 
+    public void LoadWJStageData(string jsonPath)
+    {
+        WJStageDataList = LoadData<WJStage>(jsonPath);
+    }
+
+    public void LoadWJWaveData(string jsonPath)
+    {
+        WJWaveDataList = LoadData<WJWave>(jsonPath);
+    }
+
+    public void LoadWJWaveEnemyData(string jsonPath)
+    {
+        WJWaveEnemyDataList = LoadData<WJWaveEnemy>(jsonPath);
+    }
+
     // [아래는 사용을 위한 부분들을 메서드 정의] =========================================================================================
     // Get과 Find이름을 꼭 구별 하자!
 
@@ -202,5 +222,26 @@ public class DaniTechGameDataManager : MonoBehaviour
         if (FieldObjectDataList == null || string.IsNullOrEmpty(dataId)) return null;
 
         return WJBullitDataList.TryGetValue(dataId, out var data) ? data : null;
+    }
+
+    public WJStage GetWJStageData(string dataId)
+    {
+        if (FieldObjectDataList == null || string.IsNullOrEmpty(dataId)) return null;
+
+        return WJStageDataList.TryGetValue(dataId, out var data) ? data : null;
+    }
+
+    public WJWave GetWJWaveData(string dataId)
+    {
+        if (FieldObjectDataList == null || string.IsNullOrEmpty(dataId)) return null;
+
+        return WJWaveDataList.TryGetValue(dataId, out var data) ? data : null;
+    }
+
+    public WJWaveEnemy GetWJWaveEnemyData(string dataId)
+    {
+        if (FieldObjectDataList == null || string.IsNullOrEmpty(dataId)) return null;
+
+        return WJWaveEnemyDataList.TryGetValue(dataId, out var data) ? data : null;
     }
 }

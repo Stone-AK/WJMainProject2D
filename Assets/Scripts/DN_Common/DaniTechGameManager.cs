@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Unity.Profiling;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public class DaniTechGameManager : MonoBehaviour
 {
@@ -82,9 +82,22 @@ public class DaniTechGameManager : MonoBehaviour
     [SerializeField] private WJ2DPlayer PlayerObject;
     [SerializeField] private WJ2DGameStat CurGameStat;
 
-    private int enemyCatchCount;
-    private float gameMaxSecond;
-    private float gameCurSecond;
+
+    private WJStage _curStageData;
+    private WJWave _curWaveData;
+
+    private int _enemyCatchCount;
+
+    private float _gameMaxSecond;
+    private float _gameCurSecond;
+    private float _gameNextWaveSecond;
+
+    private List<string> _stageWaveList;
+    private int _curWaveCount = 0;
+
+    private string _curStageId;
+    private string _stageName;
+    private int _printWave;
 
     private void Update()
     {
@@ -92,22 +105,66 @@ public class DaniTechGameManager : MonoBehaviour
         {
             case WJ2DGameStat.Start:
                 DecreaseTime();
-                DaniTechUIManager.Instance.SetGameUITimeToUIManager(gameCurSecond);
+                CheckTime();
+                DaniTechUIManager.Instance.SetGameUITimeToUIManager(_gameCurSecond);
                 break;
         }
     }
 
-    public void InitCurTime(float gameMaxTime)
+    public void LoadStageInfo(string stageId = "Stage_1")
     {
-        gameMaxSecond = gameMaxTime;
-        gameCurSecond = gameMaxSecond;
+        _curStageData = DaniTechGameDataManager.Instance.GetWJStageData(stageId);
+
+        if (_curStageData != null)
+        {
+            _gameMaxSecond = _curStageData.StageLimitTime;
+            string waveId = _curStageData.WaveDataIdList[_curWaveCount];
+            LoadWaveInfo(waveId);
+            _stageName = _curStageData.Name;
+        }
+    }
+
+    public void LoadWaveInfo(string waveId)
+    {
+        _curWaveData = DaniTechGameDataManager.Instance.GetWJWaveData(waveId);
+        if(_curWaveCount + 1 < _curStageData.WaveDataIdList.Count)
+        {
+            var nextWaveId = _curStageData.WaveDataIdList[_curWaveCount + 1];
+            _gameNextWaveSecond = DaniTechGameDataManager.Instance.GetWJWaveData(nextWaveId).StartRemainTime;
+        }
+        else
+        {
+            _gameNextWaveSecond = -1f;
+        }
+        WJ2DEnemySpawner.Inst.SetSpwanerWave(waveId);
+        _printWave = _curWaveData.PrintWave;
+        _curWaveCount++;
+    }
+
+    public void CheckTime()
+    {
+        if (_gameNextWaveSecond < 0)
+            return;
+
+        if (_gameCurSecond <= _gameNextWaveSecond)
+        {
+            string waveId = _curStageData.WaveDataIdList[_curWaveCount];
+            LoadWaveInfo(waveId);
+
+            Debug.Log($"Wave 변경: {_printWave}");
+        }
+    }
+
+    public void InitCurTime()
+    {
+        _gameCurSecond = _gameMaxSecond;
     }
 
     private void DecreaseTime()
     {
-        gameCurSecond -= Time.deltaTime;
+        _gameCurSecond -= Time.deltaTime;
 
-        if(gameCurSecond <= 0)
+        if(_gameCurSecond <= 0)
         {
             EndGameOnClear();
         }
@@ -231,18 +288,18 @@ public class DaniTechGameManager : MonoBehaviour
 
     public void InitCatchEnemyCount()
     {
-        enemyCatchCount = 0;
+        _enemyCatchCount = 0;
     }
 
     public void IncreasCatchEnemyCount()
     {
-        enemyCatchCount++;
+        _enemyCatchCount++;
         DaniTechUIManager.Instance.SetGameUITextToUIManager();
     }
 
     public int GetEnemyCatchCount()
     {
-        return enemyCatchCount;
+        return _enemyCatchCount;
     }
 
     public void SetGameStat(WJ2DGameStat curGameStat)

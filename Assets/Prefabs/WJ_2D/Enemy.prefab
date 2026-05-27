@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6398509507626795046}
   - component: {fileID: 2463581503986687235}
-  - component: {fileID: 2344518442831827084}
   - component: {fileID: 3087173813824665894}
   - component: {fileID: 5393869233121443625}
   m_Layer: 11
@@ -53,20 +52,7 @@ MonoBehaviour:
   _moveSpeed: 0
   _playerTransform: {fileID: 0}
   dir: {x: 0, y: 0}
-  EnemyAnimation: {fileID: 2344518442831827084}
---- !u!114 &2344518442831827084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1644971277353404224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92b28dd4ed75863418e6e18e10c5c579, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WJ2DEnemyAnimation
-  _spriteRenderer: {fileID: 548785197447727025}
+  EnemyAnimation: {fileID: 4618583863160627323}
 --- !u!58 &3087173813824665894
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -139,6 +125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7255777199052796462}
+  - component: {fileID: 4618583863160627323}
   - component: {fileID: 548785197447727025}
   - component: {fileID: 8066152084686812614}
   m_Layer: 11
@@ -163,6 +150,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6398509507626795046}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4618583863160627323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3185422131435792732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92b28dd4ed75863418e6e18e10c5c579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WJ2DEnemyAnimation
+  _spriteRenderer: {fileID: 548785197447727025}
+  _animator: {fileID: 8066152084686812614}
 --- !u!212 &548785197447727025
 SpriteRenderer:
   serializedVersion: 2
@@ -212,7 +213,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: f7155fac0d464a04796941cd3fbbfaac, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -220,7 +221,7 @@ SpriteRenderer:
   m_Size: {x: 0.53, y: 0.57}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!95 &8066152084686812614
 Animator:
@@ -232,7 +233,7 @@ Animator:
   m_GameObject: {fileID: 3185422131435792732}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e7600ec4ba3132241b1f5e93ca291584, type: 2}
+  m_Controller: {fileID: 9100000, guid: ebe83f5fe9da6f8489930152ea1ab8bd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

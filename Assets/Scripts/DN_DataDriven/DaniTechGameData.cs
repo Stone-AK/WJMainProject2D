@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 
 [System.Serializable]
@@ -102,7 +103,9 @@ public class WJUnit : GameDataBase
     public float _moveSpeed;
     public int _damage;
     public float _damagePerTime;
-    public string _path;
+    public string _prefabPath;
+    public string _spritePath;
+    public string _animePath;
 }
 
 [System.Serializable]
@@ -114,4 +117,30 @@ public class WJBullit : GameDataBase
     public float _moveSpeed;
     public float _collTime;
     public string _path;
+}
+
+[System.Serializable]
+public class WJStage : GameDataBase
+{
+    public string Name;
+    public string Description;
+    public float StageLimitTime;
+    public List<string> WaveDataIdList;
+}
+
+[System.Serializable]
+public class WJWave : GameDataBase
+{
+    public string Name;
+    public string Description;
+    public int PrintWave;
+    public float StartRemainTime;
+    public string SpawnEnemyDataId;
+}
+
+[System.Serializable]
+public class WJWaveEnemy : GameDataBase
+{
+    public List<string> EnemyIdList;
+    public List<int> EnemyMaxCountList;
 }

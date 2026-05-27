@@ -62,6 +62,9 @@ public class WJ2DEnemy : WJ2DUnit
         _moveSpeed = initData._moveSpeed;
         _damagePerTime = initData._damagePerTime;
         _enemyDamage = initData._damage;
+        EnemyAnimation.SetSpriteAndAnimator(
+            initData._spritePath,
+            initData._animePath);
     }
 
     private void FollowPlayer()

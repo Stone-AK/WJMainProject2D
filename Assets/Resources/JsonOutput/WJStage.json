@@ -1,0 +1,12 @@
+[
+  {
+    "Id": "Stage_1",
+    "Name": "스테이지 1",
+    "Description": "1번 스테이지",
+    "StageLimitTime": 10,
+    "WaveDataIdList": [
+      "Wave_1_1",
+      "Wave_1_2"
+    ]
+  }
+]

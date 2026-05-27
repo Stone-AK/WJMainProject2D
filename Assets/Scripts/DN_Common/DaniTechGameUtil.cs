@@ -23,6 +23,9 @@ public static class DaniTechGameUtil
         DaniTechGameDataManager.Instance.LoadAll();
         DaniTechGameDataManager.Instance.LoadWJUnitData("WJUnit");
         DaniTechGameDataManager.Instance.LoadWJBullitData("WJBullit");
+        DaniTechGameDataManager.Instance.LoadWJStageData("WJStage");
+        DaniTechGameDataManager.Instance.LoadWJWaveData("WJWave");
+        DaniTechGameDataManager.Instance.LoadWJWaveEnemyData("WJWaveEnemy");
     }
 
     public static int CalcCharacterFinalDamage(int curCharacterLevel, int levelPerDamage, bool isCritical)

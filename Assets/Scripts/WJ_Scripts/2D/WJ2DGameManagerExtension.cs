@@ -52,15 +52,17 @@ public static class WJ2DGameManagerExtension
         liveRoot.transform.localScale = Vector3.one;
         gameManager.SetLiveRoot(liveRoot.transform);
         // 게임 시작 시 만들 것들을 할당
-        gameManager.InitCurTime(20f);
-        // 위에는 테스트용도 시간 나중에는 스테이지 별 시간 있음
         gameManager.MakeMap();
         gameManager.MakePlayer();
         gameManager.MakeEnemySpawner();
         gameManager.MakeBulitSpawner();
         gameManager.InitCatchEnemyCount();
-        gameManager.SetGameStat(WJ2DGameStat.Start);
         DaniTechUIManager.Instance.AddHudSlot(0);
+        // stage, wave 정보 초기화 설정
+        gameManager.LoadStageInfo();
+        gameManager.InitCurTime();
+        gameManager.SetGameStat(WJ2DGameStat.Start);
     }
+
 
 }

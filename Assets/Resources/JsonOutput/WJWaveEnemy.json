@@ -1,0 +1,22 @@
+[
+  {
+    "Id": "WaveEnemy_1_1",
+    "EnemyIdList": [
+      "Unit_Enemy_1"
+    ],
+    "EnemyMaxCountList": [
+      5
+    ]
+  },
+  {
+    "Id": "WaveEnemy_1_2",
+    "EnemyIdList": [
+      "Unit_Enemy_1",
+      "Unit_Enemy_2"
+    ],
+    "EnemyMaxCountList": [
+      2,
+      3
+    ]
+  }
+]

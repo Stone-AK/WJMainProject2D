@@ -1,0 +1,16 @@
+[
+  {
+    "Id": "Wave_1_1",
+    "Name": "스테이지 1-1 웨이브",
+    "PrintWave": 1,
+    "StartRemainTime": 10,
+    "SpawnEnemyDataId": "WaveEnemy_1_1"
+  },
+  {
+    "Id": "Wave_1_2",
+    "Name": "스테이지 1-2 웨이브",
+    "PrintWave": 2,
+    "StartRemainTime": 5,
+    "SpawnEnemyDataId": "WaveEnemy_1_2"
+  }
+]
