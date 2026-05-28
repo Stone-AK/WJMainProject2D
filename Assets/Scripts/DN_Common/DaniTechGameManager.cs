@@ -94,7 +94,6 @@ public class DaniTechGameManager : MonoBehaviour
     private float _gameCurSecond;
     private float _gameNextWaveSecond;
 
-    private int _selectStage;
     private int _clearStage;
     private int _maxtStage;
     private Dictionary<int,int> _stageClearCatchEnemyCount;
@@ -152,6 +151,9 @@ public class DaniTechGameManager : MonoBehaviour
             LoadWaveInfo(waveId);
             LoadStageName();
         }
+
+        if (CurGameStat == WJ2DGameStat.Roby)
+            CheckStageBtnActivate();
     }
 
     public void LoadWaveInfo(string waveId)
@@ -321,7 +323,7 @@ public class DaniTechGameManager : MonoBehaviour
         DaniTechUIManager.Instance.OpenWJRobyUI();
         Time.timeScale = 1f;
         DaniTechUIManager.Instance.ResetHudSlot();
-        
+        CheckStageBtnActivate();
     }
 
     public void EndGameOnOver()
@@ -341,7 +343,10 @@ public class DaniTechGameManager : MonoBehaviour
     public void ClearGameThenRenewStage()
     {
         string nextStageId = _curStageData.NextStageId;
-        _clearStage = _curStageData.StageCount;
+        if (_clearStage < _curStageData.StageCount)
+        {
+            _clearStage = _curStageData.StageCount;
+        }
         if(nextStageId == null )
         {
             return;
@@ -374,5 +379,42 @@ public class DaniTechGameManager : MonoBehaviour
     {
         _clearStage = clearStageNo;
         _maxtStage = DaniTechGameDataManager.Instance.WJStageDataList.Count;
+    }
+
+    public void NextStageSetting()
+    {
+        string nextStageId = _curStageData.NextStageId;
+        if(nextStageId == null) return;
+
+        LoadStageInfo(nextStageId);
+    }
+
+    public void BeforeStageSetting()
+    {
+        string beforeStageId = _curStageData.BeforeStageId;
+        if (beforeStageId == null) return;
+
+        LoadStageInfo(beforeStageId);
+    }
+
+    public void CheckStageBtnActivate()
+    {
+        if ((_curStageData.NextStageId == "") || (_curStageData.StageCount > _clearStage))
+        {
+            DaniTechUIManager.Instance.WJRobyBtnActiveSetting(WJRobyBtnActiveType.NextBtnDeActive);
+        }
+        else
+        {
+            DaniTechUIManager.Instance.WJRobyBtnActiveSetting(WJRobyBtnActiveType.NextBtnActive);
+        }
+
+        if (_curStageData.BeforeStageId == "")
+        {
+            DaniTechUIManager.Instance.WJRobyBtnActiveSetting(WJRobyBtnActiveType.BeforeBtnDeActive);
+        }
+        else
+        {
+            DaniTechUIManager.Instance.WJRobyBtnActiveSetting(WJRobyBtnActiveType.BeforeBtnActive);
+        }
     }
 }

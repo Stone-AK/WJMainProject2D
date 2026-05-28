@@ -207,5 +207,16 @@ public static class DaniTechUIManagerExtension
             hudUI.ResetHudSlotOnWJHudUI();
         }
     }
+
+    public static void WJRobyBtnActiveSetting(this DaniTechUIManager uiManager, WJRobyBtnActiveType activeType)
+    {
+        var uiBase = uiManager.GetUIComponent(DaniTechUIType.WJRobyUI);
+        if (uiBase == null) return;
+
+        if(uiBase is WJRobyUI robyUI)
+        {
+            robyUI.SettingActiveBtn(activeType);
+        }
+    }
 }
 

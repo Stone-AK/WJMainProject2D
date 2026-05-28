@@ -58,6 +58,12 @@ public class WJBtn : MonoBehaviour
         Btn_Base.onClick.AddListener(new UnityEngine.Events.UnityAction(onClickAction));
     }
 
+    public void BindOnClickBtnOnlyOne(Action onClickAction)
+    {
+        Btn_Base.onClick.RemoveAllListeners();
+        Btn_Base.onClick.AddListener(new UnityEngine.Events.UnityAction(onClickAction));
+    }
+
     public void UnBindOnClickBtn(Action onClickAction)
     {
         if (Btn_Base == null)
@@ -70,6 +76,10 @@ public class WJBtn : MonoBehaviour
         Btn_Base.onClick.RemoveListener(new UnityEngine.Events.UnityAction(onClickAction));
     }
 
+    public void ClearBtn()
+    {
+        Btn_Base.onClick.RemoveAllListeners();
+    }
     public void ChangeButtonText(string buttonStr)
     {
         if (Txt_Base == null) return;

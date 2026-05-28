@@ -28,6 +28,23 @@ public class DaniTechUIManager : MonoBehaviour
         // 매니저들이 탄생한 후에 UI매니저가 처음으로 게임이 실행될 때 필요한 UI들을 오픈해준다!
         this.ShowStartupUIOnGameStart();
     }
+    
+    public DaniTechUIBase GetUIComponent(DaniTechUIType uiType)
+    {
+        if (_createdUIDic.TryGetValue(uiType, out DaniTechUIBase uiBaseClass) == false)
+        {
+            Debug.LogError($"{uiType} UI는 아직 생성되지 않았다.");
+            return null;
+        }
+
+        if (uiBaseClass == null)
+        {
+            Debug.LogError($"{uiType} UI 컴포넌트가 null이다.");
+            return null;
+        }
+
+        return uiBaseClass;
+    }
 
     public DaniTechUIBase OpenUI(DaniTechUIRootType uiRootType, DaniTechUIType uiType, bool isInitialHide = false)
     {
