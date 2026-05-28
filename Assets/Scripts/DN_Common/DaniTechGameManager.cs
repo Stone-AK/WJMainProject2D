@@ -29,6 +29,8 @@ public class DaniTechGameManager : MonoBehaviour
             Debug.LogError("GameRoot를 찾지 못함");
         }
         SetGameStat(WJ2DGameStat.Roby);
+        LoadStageInfo();
+        InitStageRecord();
     }
 
     public void SaveData()
@@ -92,12 +94,16 @@ public class DaniTechGameManager : MonoBehaviour
     private float _gameCurSecond;
     private float _gameNextWaveSecond;
 
-    private List<string> _stageWaveList;
+    private int _selectStage;
+    private int _clearStage;
+    private int _maxtStage;
+    private Dictionary<int,int> _stageClearCatchEnemyCount;
+
     private int _curWaveCount = 0;
 
-    private string _curStageId;
     private string _stageName;
-    private int _printWave;
+    private string _waveName;
+
 
     private void Update()
     {
@@ -111,6 +117,30 @@ public class DaniTechGameManager : MonoBehaviour
         }
     }
 
+    public void StartGame()
+    {
+        GameObject liveRoot = new GameObject("LiveRoot");
+        SetGameStat(WJ2DGameStat.Start);
+        liveRoot.transform.SetParent(ReturnGameRootTransfrom());
+        liveRoot.transform.localPosition = Vector3.zero;
+        liveRoot.transform.localRotation = Quaternion.identity;
+        liveRoot.transform.localScale = Vector3.one;
+        SetLiveRoot(liveRoot.transform);
+        // 게임 시작 시 만들 것들을 할당
+        MakeMap();
+        MakePlayer();
+        MakeEnemySpawner();
+        MakeBulitSpawner();
+        InitCatchEnemyCount();
+        DaniTechUIManager.Instance.AddHudSlot(0);
+        // stage, wave 정보 초기화 설정
+        if(_stageName == "스테이지 1")
+            LoadStageInfo();
+        else
+            LoadStageInfo(_curStageData.Id);
+        InitCurTime();
+    }
+
     public void LoadStageInfo(string stageId = "Stage_1")
     {
         _curStageData = DaniTechGameDataManager.Instance.GetWJStageData(stageId);
@@ -120,12 +150,14 @@ public class DaniTechGameManager : MonoBehaviour
             _gameMaxSecond = _curStageData.StageLimitTime;
             string waveId = _curStageData.WaveDataIdList[_curWaveCount];
             LoadWaveInfo(waveId);
-            _stageName = _curStageData.Name;
+            LoadStageName();
         }
     }
 
     public void LoadWaveInfo(string waveId)
     {
+        if (CurGameStat == WJ2DGameStat.Roby) return;
+
         _curWaveData = DaniTechGameDataManager.Instance.GetWJWaveData(waveId);
         if(_curWaveCount + 1 < _curStageData.WaveDataIdList.Count)
         {
@@ -137,8 +169,20 @@ public class DaniTechGameManager : MonoBehaviour
             _gameNextWaveSecond = -1f;
         }
         WJ2DEnemySpawner.Inst.SetSpwanerWave(waveId);
-        _printWave = _curWaveData.PrintWave;
+        LoadWaveName();
         _curWaveCount++;
+    }
+
+    private void LoadStageName()
+    {
+        _stageName = _curStageData.Name;
+        DaniTechUIManager.Instance.SetStageUIToUIManager(_stageName);
+    }
+
+    private void LoadWaveName()
+    {
+        _waveName = _curWaveData.Name;
+        DaniTechUIManager.Instance.SetWaveToUIManager(_waveName);
     }
 
     public void CheckTime()
@@ -150,8 +194,6 @@ public class DaniTechGameManager : MonoBehaviour
         {
             string waveId = _curStageData.WaveDataIdList[_curWaveCount];
             LoadWaveInfo(waveId);
-
-            Debug.Log($"Wave 변경: {_printWave}");
         }
     }
 
@@ -264,12 +306,22 @@ public class DaniTechGameManager : MonoBehaviour
 
     public void BackToRoby()
     {
+        _curWaveCount = 0;
+        if(CurGameStat == WJ2DGameStat.Clear)
+        {
+            SetGameStat(WJ2DGameStat.Roby);
+            ClearGameThenRenewStage();
+        }
+        else
+        {
+            SetGameStat(WJ2DGameStat.Roby);
+        }
         Destroy(LiveRoot.gameObject);
         DaniTechUIManager.Instance.CloseWJGameUI();
         DaniTechUIManager.Instance.OpenWJRobyUI();
-        SetGameStat(WJ2DGameStat.Roby);
         Time.timeScale = 1f;
         DaniTechUIManager.Instance.ResetHudSlot();
+        
     }
 
     public void EndGameOnOver()
@@ -284,6 +336,17 @@ public class DaniTechGameManager : MonoBehaviour
         Time.timeScale = 0f;
         SetGameStat(WJ2DGameStat.Clear);
         DaniTechUIManager.Instance.OpenWJGameEndPopUpUI(CurGameStat);
+    }
+
+    public void ClearGameThenRenewStage()
+    {
+        string nextStageId = _curStageData.NextStageId;
+        _clearStage = _curStageData.StageCount;
+        if(nextStageId == null )
+        {
+            return;
+        }
+        LoadStageInfo(nextStageId);
     }
 
     public void InitCatchEnemyCount()
@@ -305,5 +368,11 @@ public class DaniTechGameManager : MonoBehaviour
     public void SetGameStat(WJ2DGameStat curGameStat)
     {
         CurGameStat = curGameStat;
+    }
+
+    private void InitStageRecord(int clearStageNo = 0)
+    {
+        _clearStage = clearStageNo;
+        _maxtStage = DaniTechGameDataManager.Instance.WJStageDataList.Count;
     }
 }

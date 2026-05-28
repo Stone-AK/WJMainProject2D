@@ -171,7 +171,7 @@ public static class DaniTechUIManagerExtension
 
         if(uiBase is WJGameEndPopUp gameEndPop)
         {
-            gameEndPop.SetGemeEndMessage(gameStat);
+            gameEndPop.SetGemeEndStatus(gameStat);
         }
     }
 

@@ -80,13 +80,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WJ2DEnemySpawner
   _enemyPrefab: {fileID: 1644971277353404224, guid: 9424a56912b4e8641bba26e62ffac6f4, type: 3}
-  _enemyPollCount: 10
   SpawnLocation:
   - {fileID: 5336414173693762140}
   - {fileID: 6116432503026543758}
   - {fileID: 8640887221872681930}
   - {fileID: 909943216893888101}
-  _maximumEnemy: 5
 --- !u!1 &5336414173693762140
 GameObject:
   m_ObjectHideFlags: 0

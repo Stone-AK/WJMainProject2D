@@ -11,18 +11,17 @@ public class WJ2DEnemySpawner : MonoBehaviour
     // 급한거 아님
     [SerializeField] private GameObject _enemyPrefab;
     // [Todo] Dictionary부분 잘되면 poll 수를 좀 많이 늘려놓아야함(데이터 드리븐으로 정해줘도 좋음)
-    private int _enemyPollCount = 20;
-    private List<GameObject> SpawnLocation;
+    // 급한거 아님
+    private int _enemyPollCount = 50;
+    [SerializeField] private List<GameObject> SpawnLocation;
 
-    // [Todo] 아래 _currentEnemy는 제거하고 Enemy 사망 시 딕셔너리의 수를 줄이는 메서드 생성을 해야함.
-    public int _currentEnemy { get; set; } = 0;
     Vector2 randomOffset;
 
     private List<WJ2DEnemy> _enemyPool = new List<WJ2DEnemy>();
     private Dictionary<string, int> _curEnemyCountList = new Dictionary<string, int>();
     private Dictionary<string, int> _maxEnemyCountList = new Dictionary<string, int>();
     private int _curFieldEnemyCount;
-    private int _maxFieldEnemyCount;
+    private int _maxFieldEnemyCount = 200;
     private int _enemyInstanceId;
 
     private string _curSpawnerWaveId;
@@ -42,6 +41,7 @@ public class WJ2DEnemySpawner : MonoBehaviour
     private void OnEnable()
     {
         _enemyInstanceId = 0;
+        _curFieldEnemyCount = 0;
     }
 
     private void Start()
@@ -53,8 +53,10 @@ public class WJ2DEnemySpawner : MonoBehaviour
     {
         if (_isChangingWave) return;
 
-
-        CreateEnemyOnUpdate();
+        if(_curFieldEnemyCount <=  _maxFieldEnemyCount)
+        {
+            CreateEnemyOnUpdate();
+        }
     }
 
     private void CreateEnemyPool()
@@ -110,27 +112,9 @@ public class WJ2DEnemySpawner : MonoBehaviour
                 enemy.transform.rotation = _enemyPrefab.transform.rotation;
                 enemy.gameObject.SetActive(true);
                 _curEnemyCountList[enemyId]++;
+                _curFieldEnemyCount++;
             }
         }
-
-        //if(_currentEnemy < _maximumEnemy)
-        //{
-        //    int randomLocationNum = Random.Range(0, SpawnLocation.Count);
-        //    randomOffset = UnityEngine.Random.insideUnitCircle * 1.5f;
-        //    // 나중에 
-        //    WJ2DEnemy enemy = GetEnemyFromPool(dataId);
-        //    if (enemy == null)
-        //    {
-        //        Debug.LogError($"{this.name}에 생성할 enemy가 없다.");
-        //        return;
-        //    }
-
-        //    enemy.transform.position = 
-        //        SpawnLocation[randomLocationNum].transform.position + (Vector3)randomOffset;
-        //    enemy.transform.rotation = _enemyPrefab.transform.rotation;
-        //    enemy.gameObject.SetActive(true);
-        //    _currentEnemy++;
-        //}
     }
 
     public void SetSpwanerWave(string waveId)
@@ -167,5 +151,11 @@ public class WJ2DEnemySpawner : MonoBehaviour
     {
         _curEnemyCountList.Clear();
         _maxEnemyCountList.Clear();
+    }
+
+    public void DieEnemyOnSpanwer(string enemyId)
+    {
+        _curEnemyCountList[enemyId]--;
+        _curFieldEnemyCount--;
     }
 }

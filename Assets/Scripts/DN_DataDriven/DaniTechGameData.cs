@@ -124,8 +124,11 @@ public class WJStage : GameDataBase
 {
     public string Name;
     public string Description;
+    public int StageCount;
     public float StageLimitTime;
     public List<string> WaveDataIdList;
+    public string NextStageId;
+    public string BeforeStageId;
 }
 
 [System.Serializable]

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class WJ2DEnemy : WJ2DUnit
@@ -13,6 +14,7 @@ public class WJ2DEnemy : WJ2DUnit
     private int _enemyDamage;
     private float _damagePerTime;
     private float _damageTimer;
+    private string _enemyDataId;
 
 
     private void Start()
@@ -57,6 +59,7 @@ public class WJ2DEnemy : WJ2DUnit
 
     public void InitStat(WJUnit initData)
     {
+        _enemyDataId = initData.Id;
         _hp = initData._hp;
         _curHP = _hp;
         _moveSpeed = initData._moveSpeed;
@@ -85,7 +88,7 @@ public class WJ2DEnemy : WJ2DUnit
 
     private void DieEnemy()
     {
-        WJ2DEnemySpawner.Inst._currentEnemy--;
+        WJ2DEnemySpawner.Inst.DieEnemyOnSpanwer(_enemyDataId);
         DaniTechGameManager.Inst.IncreasCatchEnemyCount();
         this.gameObject.SetActive(false);
         WJObjectManager.Inst.RemoveUnitToUnitList(_instId);

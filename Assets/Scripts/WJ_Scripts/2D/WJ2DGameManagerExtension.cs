@@ -43,26 +43,7 @@ public static class WJ2DGameManagerExtension
         return path;
     }
 
-    public static void StartGame(this DaniTechGameManager gameManager)
-    {
-        GameObject liveRoot = new GameObject("LiveRoot");
-        liveRoot.transform.SetParent(gameManager.ReturnGameRootTransfrom());
-        liveRoot.transform.localPosition = Vector3.zero;
-        liveRoot.transform.localRotation = Quaternion.identity;
-        liveRoot.transform.localScale = Vector3.one;
-        gameManager.SetLiveRoot(liveRoot.transform);
-        // 게임 시작 시 만들 것들을 할당
-        gameManager.MakeMap();
-        gameManager.MakePlayer();
-        gameManager.MakeEnemySpawner();
-        gameManager.MakeBulitSpawner();
-        gameManager.InitCatchEnemyCount();
-        DaniTechUIManager.Instance.AddHudSlot(0);
-        // stage, wave 정보 초기화 설정
-        gameManager.LoadStageInfo();
-        gameManager.InitCurTime();
-        gameManager.SetGameStat(WJ2DGameStat.Start);
-    }
+    
 
 
 }

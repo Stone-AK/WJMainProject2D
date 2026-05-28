@@ -3,6 +3,35 @@
     "Id": "Stage_1",
     "Name": "스테이지 1",
     "Description": "1번 스테이지",
+    "StageCount": 1,
+    "NextStageId": "Stage_2",
+    "BeforeStageId": null,
+    "StageLimitTime": 10,
+    "WaveDataIdList": [
+      "Wave_1_1",
+      "Wave_1_2"
+    ]
+  },
+  {
+    "Id": "Stage_2",
+    "Name": "스테이지 2",
+    "Description": "2번 스테이지",
+    "StageCount": 2,
+    "NextStageId": "Stage_3",
+    "BeforeStageId": "Stage_1",
+    "StageLimitTime": 10,
+    "WaveDataIdList": [
+      "Wave_1_1",
+      "Wave_1_2"
+    ]
+  },
+  {
+    "Id": "Stage_3",
+    "Name": "스테이지 3",
+    "Description": "3번 스테이지",
+    "StageCount": 3,
+    "NextStageId": null,
+    "BeforeStageId": "Stage_2",
     "StageLimitTime": 10,
     "WaveDataIdList": [
       "Wave_1_1",

@@ -152,4 +152,26 @@ public class DaniTechUIManager : MonoBehaviour
             gameUI.SetTextTimer(time);
         }
     }
+
+    public void SetStageUIToUIManager(string stageInfoName)
+    {
+        var gobj = GetCreatedUI(DaniTechUIRootType.MainUI, DaniTechUIType.WJRobyUI);
+        if(gobj == null) return;
+
+        if(gobj is WJRobyUI robyUI)
+        {
+            robyUI.PrintStageInfo(stageInfoName);
+        }
+    }
+
+    public void SetWaveToUIManager(string waveInfoName)
+    {
+        var gobj = GetCreatedUI(DaniTechUIRootType.ContentUI, DaniTechUIType.WJGameUI);
+        if (gobj == null) return;
+
+        if (gobj is WJGameUI gameUI)
+        {
+            gameUI.SetWaveText(waveInfoName);
+        }
+    }
 }

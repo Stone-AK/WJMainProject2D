@@ -17,7 +17,7 @@ public class WJGameEndPopUp : DaniTechUIBase
         DaniTechGameManager.Inst.BackToRoby();
     }
 
-    public void SetGemeEndMessage(WJ2DGameStat gameStat)
+    public void SetGemeEndStatus(WJ2DGameStat gameStat)
     {
         switch(gameStat)
         {

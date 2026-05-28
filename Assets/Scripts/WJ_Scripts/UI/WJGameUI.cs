@@ -5,12 +5,14 @@ public class WJGameUI : DaniTechUIBase
 {
     [SerializeField] private TMP_Text Timer;
     [SerializeField] private TMP_Text MonsterCount;
+    [SerializeField] private TMP_Text WaveText;
     [SerializeField] private WJBtn PauseBtn;
 
     private void OnEnable()
     {
         PauseBtn.BindOnClickBtn(DaniTechGameManager.Inst.PauseGame);
         PauseBtn.BindOnClickBtn(DaniTechUIManager.Instance.OpenWJPopUpUI);
+        SetCatchMonsterCount(0);
     }
 
     public void SetCatchMonsterCount(int monsterCount)
@@ -23,5 +25,10 @@ public class WJGameUI : DaniTechUIBase
         int minute = (int)curTime / 60;
         int second = (int)curTime % 60;
         Timer.text = $"{minute:00} : {second:00}";
+    }
+
+    public void SetWaveText(string waveName)
+    {
+        WaveText.text = $"{waveName}";
     }
 }
