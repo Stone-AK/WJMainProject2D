@@ -3,9 +3,20 @@
     "Id": "Bullit_Base_1",
     "Name": "기본 총알",
     "Description": "기본총알이다.",
-    "_power": 10,
-    "_moveSpeed": 4,
+    "_power": 3,
+    "_moveSpeed": 10,
     "_collTime": 3,
-    "_path": "Prefabs/2D/Bullit"
+    "_path": "Prefabs/2D/Bullit",
+    "_spritePath": "2D/WJ_Folder/Sprite/Bullit"
+  },
+  {
+    "Id": "Bullit_Base_2",
+    "Name": "작살 총알",
+    "Description": "작살총알이다.",
+    "_power": 20,
+    "_moveSpeed": 5,
+    "_collTime": 5,
+    "_path": "Prefabs/2D/Bullit",
+    "_spritePath": "2D/WJ_Folder/Sprite/Spear"
   }
 ]

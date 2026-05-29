@@ -21,8 +21,8 @@
     "BeforeStageId": "Stage_1",
     "StageLimitTime": 10,
     "WaveDataIdList": [
-      "Wave_1_1",
-      "Wave_1_2"
+      "Wave_2_1",
+      "Wave_2_2"
     ]
   },
   {
@@ -34,8 +34,8 @@
     "BeforeStageId": "Stage_2",
     "StageLimitTime": 10,
     "WaveDataIdList": [
-      "Wave_1_1",
-      "Wave_1_2"
+      "Wave_3_1",
+      "Wave_3_2"
     ]
   }
 ]

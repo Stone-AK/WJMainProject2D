@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 
 public class WJ2DBullit : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class WJ2DBullit : MonoBehaviour
     private float _moveSpeed = 4f;
     // 해당 프로퍼티 변수로 고치고 나중에 ID를 통해서 접근 가능하도록 변경
     public float CollTime { get; private set; } = 5f;
+
+    [SerializeField] private SpriteRenderer BullitSprite;
 
     private void FixedUpdate()
     {
@@ -26,12 +29,13 @@ public class WJ2DBullit : MonoBehaviour
         }
     }
 
-    public void InitBullitStat(int bullitInstId, int unitThatFired, string bullitDataId = "Bullit_Base_1")
+    public void InitBullitStat(int bullitInstId, int unitThatFired, string bullitDataId = "Bullit_Base_2")
     {
         WJBullit bullitData = DaniTechGameDataManager.Instance.GetWJBullitObjectData(bullitDataId);
         SetBullitStat(bullitData);
         _bullitInstId = bullitInstId;
         _createUnitInstId = unitThatFired;
+        BullitSprite.sprite = Resources.Load<Sprite>(bullitData._spritePath);
     }
 
     private void SetBullitStat(WJBullit bullitData)

@@ -117,6 +117,7 @@ public class WJBullit : GameDataBase
     public float _moveSpeed;
     public float _collTime;
     public string _path;
+    public string _spritePath;
 }
 
 [System.Serializable]

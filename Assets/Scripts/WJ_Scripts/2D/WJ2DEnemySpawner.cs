@@ -1,7 +1,5 @@
-﻿using Cysharp.Threading.Tasks.Triggers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
 public class WJ2DEnemySpawner : MonoBehaviour

@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ac50faf7d03c1459f540d37b149471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WJ2DBullit
-  BullitRb: {fileID: 0}
 --- !u!212 &1873338322771555748
 SpriteRenderer:
   serializedVersion: 2

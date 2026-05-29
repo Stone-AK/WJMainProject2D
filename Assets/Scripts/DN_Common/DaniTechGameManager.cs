@@ -347,7 +347,7 @@ public class DaniTechGameManager : MonoBehaviour
         {
             _clearStage = _curStageData.StageCount;
         }
-        if(nextStageId == null )
+        if(nextStageId == "" )
         {
             return;
         }
