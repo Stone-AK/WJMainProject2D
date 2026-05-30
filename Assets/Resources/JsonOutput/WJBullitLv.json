@@ -1,0 +1,56 @@
+[
+  {
+    "Id": "Bullit_Base_1_Lv1",
+    "_power": 3,
+    "_moveSpeed": 10,
+    "_collTime": 3,
+    "_spritePath": "2D/WJ_Folder/Sprite/Bullit",
+    "_bullitfunc": "Basic",
+    "_bullitPrefabPath": "Prefabs/2D/Bullit"
+  },
+  {
+    "Id": "Bullit_Base_1_Lv2",
+    "_power": 5,
+    "_moveSpeed": 10,
+    "_collTime": 2,
+    "_spritePath": "2D/WJ_Folder/Sprite/Bullit",
+    "_bullitfunc": "Double",
+    "_bullitPrefabPath": "Prefabs/2D/Bullit"
+  },
+  {
+    "Id": "Bullit_Base_1_Lv3",
+    "_power": 15,
+    "_moveSpeed": 10,
+    "_collTime": 1,
+    "_spritePath": "2D/WJ_Folder/Sprite/Bullit",
+    "_bullitfunc": "Triple",
+    "_bullitPrefabPath": "Prefabs/2D/Bullit"
+  },
+  {
+    "Id": "Bullit_Base_2_Lv1",
+    "_power": 15,
+    "_moveSpeed": 5,
+    "_collTime": 5,
+    "_spritePath": "2D/WJ_Folder/Sprite/Spear",
+    "_bullitfunc": "Basic",
+    "_bullitPrefabPath": "Prefabs/2D/Bullit"
+  },
+  {
+    "Id": "Bullit_Base_2_Lv2",
+    "_power": 25,
+    "_moveSpeed": 5,
+    "_collTime": 4,
+    "_spritePath": "2D/WJ_Folder/Sprite/Spear",
+    "_bullitfunc": "DoubleFiring",
+    "_bullitPrefabPath": "Prefabs/2D/Bullit"
+  },
+  {
+    "Id": "Bullit_Base_2_Lv3",
+    "_power": 50,
+    "_moveSpeed": 5,
+    "_collTime": 4,
+    "_spritePath": "2D/WJ_Folder/Sprite/Spear",
+    "_bullitfunc": "TripleFiring",
+    "_bullitPrefabPath": "Prefabs/2D/Bullit"
+  }
+]

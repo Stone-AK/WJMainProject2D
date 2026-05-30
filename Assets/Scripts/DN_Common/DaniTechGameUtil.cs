@@ -23,6 +23,7 @@ public static class DaniTechGameUtil
         DaniTechGameDataManager.Instance.LoadAll();
         DaniTechGameDataManager.Instance.LoadWJUnitData("WJUnit");
         DaniTechGameDataManager.Instance.LoadWJBullitData("WJBullit");
+        DaniTechGameDataManager.Instance.LoadWJBullitLvData("WJBullitLv");
         DaniTechGameDataManager.Instance.LoadWJStageData("WJStage");
         DaniTechGameDataManager.Instance.LoadWJWaveData("WJWave");
         DaniTechGameDataManager.Instance.LoadWJWaveEnemyData("WJWaveEnemy");

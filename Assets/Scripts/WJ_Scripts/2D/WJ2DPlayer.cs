@@ -27,6 +27,10 @@ public class WJ2DPlayer : WJ2DUnit
     [SerializeField] private CircleCollider2D DetectEnemyCollider;
     [SerializeField] private LayerMask _enemyLayer;
 
+    // 보유(발사)가능한 총알의 종류를 보관하는 Dictionary(총알 데이터 ID, 총알 레벨 데이터 id)
+    private Dictionary<string, int> _playerHaveBuliit = new Dictionary<string, int>();
+
+
     private readonly Collider2D[] _enemyResults = new Collider2D[30];
     private WJ2DUnit _closestUnit;
 
@@ -53,6 +57,17 @@ public class WJ2DPlayer : WJ2DUnit
         _hp = DaniTechGameDataManager.Instance.GetWJUnitObjectData("Unit_Player_1")._hp;
         _curHP = _hp;
         _moveSpeed = DaniTechGameDataManager.Instance.GetWJUnitObjectData("Unit_Player_1")._moveSpeed;
+    }
+
+    public void InitHaveBullitList()
+    {
+        // 보유한 총알의 데이터 ID와 총알의 레벨(int)를 보관함. 현재 레벨은 구현하지 않았으므로 임시로 1로 설정
+        // 또한 나중에 매개변수로 따로 받아 올 필요가 있음. 지금은 하드코딩임.
+        _playerHaveBuliit.Add("Bullit_Base_1", 0);
+        _playerHaveBuliit.Add("Bullit_Base_2", 0);
+        // 위에까지는 플레이어가 가진 총알을 초기화 해주는 부분이고 아래부터는 Spawner에 어떠한 총알을 가지고 있는지
+        // 전달해주는 부분
+        WJ2DBullitSpawner.Inst.GetPlayerHadBullitInfo(_playerHaveBuliit);
     }
 
     private void MoveCharactorOnUpdate()

@@ -132,8 +132,9 @@ public class DaniTechGameManager : MonoBehaviour
         MakeBulitSpawner();
         InitCatchEnemyCount();
         DaniTechUIManager.Instance.AddHudSlot(0);
+        InitPlayerBullitList();
         // stage, wave 정보 초기화 설정
-        if(_stageName == "스테이지 1")
+        if (_stageName == "스테이지 1")
             LoadStageInfo();
         else
             LoadStageInfo(_curStageData.Id);
@@ -271,6 +272,11 @@ public class DaniTechGameManager : MonoBehaviour
         // 플레이어 인스턴스Id 0으로 하드코딩
         PlayerObject.InitStat(0);
         WJObjectManager.Inst.AddUnitToUnitList(0, PlayerObject);
+    }
+
+    public void InitPlayerBullitList()
+    {
+        PlayerObject.InitHaveBullitList();
     }
 
     public void MakeEnemySpawner()

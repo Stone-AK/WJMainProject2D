@@ -1,16 +1,25 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UnityEngine;
+
+public enum BullitFnuncType
+{
+    None,
+    Basic,
+    Double,
+    Triple,
+    DoubleFiring,
+    TripleFiring
+}
 
 public class WJ2DBullit : MonoBehaviour
 {
     private int _createUnitInstId;
     private int _bullitInstId;
-    private int _power = 10;
-    private float _moveSpeed = 4f;
-    // 해당 프로퍼티 변수로 고치고 나중에 ID를 통해서 접근 가능하도록 변경
-    public float CollTime { get; private set; } = 5f;
-
+    private int _power;
+    private float _moveSpeed;
     [SerializeField] private SpriteRenderer BullitSprite;
+    private BullitFnuncType _curBullitFunc;
 
     private void FixedUpdate()
     {
@@ -29,20 +38,21 @@ public class WJ2DBullit : MonoBehaviour
         }
     }
 
-    public void InitBullitStat(int bullitInstId, int unitThatFired, string bullitDataId = "Bullit_Base_2")
+    public void InitBullitStat(int bullitInstId, int unitThatFired, string bullitDataId)
     {
-        WJBullit bullitData = DaniTechGameDataManager.Instance.GetWJBullitObjectData(bullitDataId);
+        WJBullitLv bullitData = DaniTechGameDataManager.Instance.GetWJBullitLvData(bullitDataId);
         SetBullitStat(bullitData);
         _bullitInstId = bullitInstId;
         _createUnitInstId = unitThatFired;
         BullitSprite.sprite = Resources.Load<Sprite>(bullitData._spritePath);
+        string bullitFuncTypeString = bullitData._bullitfunc;
+        _curBullitFunc = Enum.Parse<BullitFnuncType>(bullitFuncTypeString);
     }
 
-    private void SetBullitStat(WJBullit bullitData)
+    private void SetBullitStat(WJBullitLv bullitData)
     {
         _power = bullitData._power;
         _moveSpeed = bullitData._moveSpeed;
-        CollTime = bullitData._collTime;
     }
 
     private void MoveBullit()
@@ -52,9 +62,6 @@ public class WJ2DBullit : MonoBehaviour
 
     private void TouchWall()
     {
-        Debug.Log("벽과 충돌");
-
-
         DestroyBullit();
     }
 
