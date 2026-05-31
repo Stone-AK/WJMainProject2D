@@ -67,7 +67,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
     {
         foreach (WJ2DBullit bullit in _bullitPool)
         {
-            if(bullit is WJ2DBullit )
+            //if(bullit is WJ2DBullit )
             if (bullit.gameObject.activeSelf == false)
             {
                 _bullitInstIdNum++;

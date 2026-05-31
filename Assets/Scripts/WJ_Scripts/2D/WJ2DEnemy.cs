@@ -15,7 +15,7 @@ public class WJ2DEnemy : WJ2DUnit
     private float _damagePerTime;
     private float _damageTimer;
     private string _enemyDataId;
-
+    private int _exp;
 
     private void Start()
     {
@@ -65,6 +65,7 @@ public class WJ2DEnemy : WJ2DUnit
         _moveSpeed = initData._moveSpeed;
         _damagePerTime = initData._damagePerTime;
         _enemyDamage = initData._damage;
+        _exp = initData._exp;
         EnemyAnimation.SetSpriteAndAnimator(
             initData._spritePath,
             initData._animePath);
@@ -88,6 +89,7 @@ public class WJ2DEnemy : WJ2DUnit
 
     private void DieEnemy()
     {
+        WJItemManager.Inst.DropTheDropItem(this.transform, _exp);
         WJ2DEnemySpawner.Inst.DieEnemyOnSpanwer(_enemyDataId);
         DaniTechGameManager.Inst.IncreasCatchEnemyCount();
         this.gameObject.SetActive(false);

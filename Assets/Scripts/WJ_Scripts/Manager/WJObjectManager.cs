@@ -7,6 +7,7 @@ public class WJObjectManager : MonoBehaviour
 
     private Dictionary<int, WJ2DUnit> _unitList = new Dictionary<int, WJ2DUnit>();   
     private Dictionary<int, WJ2DBullit> _bullitList = new Dictionary<int, WJ2DBullit>();
+    private Dictionary<int, WJDropItem> _dropItemList = new Dictionary<int, WJDropItem>();
 
     private void Awake()
     {
@@ -57,5 +58,28 @@ public class WJObjectManager : MonoBehaviour
     public void RemoveAllBullitList()
     {
         _bullitList.Clear();
+    }
+
+    public void AddDropItemToDropItemList(int dropItemInstNum, WJDropItem dropItemObject)
+    {
+        _dropItemList.Add(dropItemInstNum, dropItemObject);
+    }
+
+    public WJDropItem GetDropItemToDropItemList(int dropItemInstNum)
+    {
+        return _dropItemList[dropItemInstNum];
+    }
+
+    public void RemoveDropItemToDropItemList(int bullitInstNum)
+    {
+        if (_dropItemList.ContainsKey(bullitInstNum))
+        {
+            _dropItemList.Remove(bullitInstNum);
+        }
+    }
+
+    public void RemoveAllDropItemList()
+    {
+        _dropItemList.Clear();
     }
 }

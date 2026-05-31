@@ -7,6 +7,7 @@
     "_moveSpeed": 5,
     "_damage": 0,
     "_damagePerTime": 0,
+    "_exp": 0,
     "_prefabPath": "Prefabs/2D/WJ2DPlayer",
     "_spritePath": null,
     "_animePath": null
@@ -19,6 +20,7 @@
     "_moveSpeed": 2,
     "_damage": 5,
     "_damagePerTime": 1,
+    "_exp": 10,
     "_prefabPath": "Prefabs/2D/Enemy",
     "_spritePath": "2D/WJ_Folder/Enemies/bat/bat-fly/bat-fly1",
     "_animePath": "2D/WJ_Folder/Enemies/bat/bat-fly/Enemy"
@@ -31,6 +33,7 @@
     "_moveSpeed": 1,
     "_damage": 50,
     "_damagePerTime": 3,
+    "_exp": 100,
     "_prefabPath": "Prefabs/2D/Enemy",
     "_spritePath": "2D/WJ_Folder/Enemies/bear/bear-walk1",
     "_animePath": "2D/WJ_Folder/Enemies/bear/bear-walk1"
