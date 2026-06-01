@@ -67,6 +67,7 @@ public class WJ2DPlayer : WJ2DUnit
         // 위에까지는 플레이어가 가진 총알을 초기화 해주는 부분이고 아래부터는 Spawner에 어떠한 총알을 가지고 있는지
         // 전달해주는 부분
         WJ2DBullitSpawner.Inst.GetPlayerHadBullitInfo(_playerHaveBuliit);
+        DaniTechGameManager.Inst.RenewLvUpChooseList(_playerHaveBuliit);
     }
 
     private void MoveCharactorOnUpdate()

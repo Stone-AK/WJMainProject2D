@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public enum DaniTechUIRootType
 {
@@ -220,15 +221,14 @@ public static class DaniTechUIManagerExtension
         }
     }
 
-    public static void OpenLvUpPopUp(this DaniTechUIManager uiManager, string iconPath, 
-        string title, string lvText, string comment)
+    public static void OpenLvUpPopUp(this DaniTechUIManager uiManager, Dictionary<string, int> lvUpAbleBullitList)
     {
         var uiBase = uiManager.GetOpendUI(DaniTechUIRootType.PopupUI, DaniTechUIType.WJLevelUpPopUp);
         if (uiBase == null) return;
 
         if (uiBase.TryGetComponent<WJLevelUpPopUpUI>(out WJLevelUpPopUpUI lvPopUp))
         {
-            lvPopUp.SetSlot(iconPath, title, lvText, comment);
+            lvPopUp.SetSlot(lvUpAbleBullitList);
         }
     }
 }

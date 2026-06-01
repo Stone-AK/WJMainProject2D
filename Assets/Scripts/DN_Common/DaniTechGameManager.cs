@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Unity.Profiling;
 using UnityEngine;
 
@@ -103,6 +104,9 @@ public class DaniTechGameManager : MonoBehaviour
     private string _stageName;
     private string _waveName;
 
+    // BullitDataId(string), 다음 레벨(int)인 Dictionary. 최대 레벨인 Bullit 종류는 제외
+    private Dictionary<string, int> _lvUpAbleBullitList = new Dictionary<string, int>();
+    private Dictionary<string, int> _forDeliverBullitList = new Dictionary<string, int>();
 
     private void Update()
     {
@@ -427,11 +431,64 @@ public class DaniTechGameManager : MonoBehaviour
     public void LvUpChoosePhase()
     {
         Time.timeScale = 0f;
-        string iconPath = "Icon/BullitIcon";
-        string title = "비비탄총알";
-        string lvText = "Bullit_Base_1_Lv1";
-        string Comment = "공격력이 낮지만 공격 주기가 빠르다";
+        _forDeliverBullitList.Clear();
 
-        DaniTechUIManager.Instance.OpenLvUpPopUp(iconPath, title, lvText, Comment);
+        int lvUpAbleeBullitCount = _lvUpAbleBullitList.Count;
+
+        if(lvUpAbleeBullitCount < 3)
+        {
+            foreach(var deliverData in _lvUpAbleBullitList)
+            {
+                string deliverDataId = deliverData.Key;
+                int deliverpPlayerHaveLv = deliverData.Value;
+
+                _forDeliverBullitList.Add(deliverDataId, deliverpPlayerHaveLv);
+            }
+        }
+
+        RandomOutPutBullitData(lvUpAbleeBullitCount);
+        
+
+        DaniTechUIManager.Instance.OpenLvUpPopUp(_forDeliverBullitList);
+    }
+
+    public void RenewLvUpChooseList(Dictionary<string, int> playerHaveBullitLvList)
+    {
+        _lvUpAbleBullitList.Clear();
+        foreach (WJBullit bullitData in DaniTechGameDataManager.Instance.WJBullitDataList.Values)
+        {
+            string bullitDataId = bullitData.Id;
+
+            if (playerHaveBullitLvList.ContainsKey(bullitDataId))
+            {
+                // 현재 가지고 있는 bullit의 레벨이 최대치인지 알기 위해 최댓값 2에 리스트의 사이즈와 같은지 체크하기
+                // 위해서 +1해줌. 또한 다음 레벨 값을 저장하기 위해서 +1을 해줘야했음
+                int haveBullitLvMaxChecking = (playerHaveBullitLvList[bullitDataId] + 1);
+                if (bullitData._bullitLvList.Count <= haveBullitLvMaxChecking)
+                    continue;
+                _lvUpAbleBullitList.Add(bullitDataId, haveBullitLvMaxChecking);
+            }
+            else
+            {
+                _lvUpAbleBullitList.Add(bullitDataId, 0);
+            }
+        }
+    }
+
+    private void RandomOutPutBullitData(int maxValue)
+    {
+        HashSet<int> randomNumbers = new HashSet<int>();
+
+        while (randomNumbers.Count < 3)
+        {
+            randomNumbers.Add(Random.Range(0, maxValue));
+        }
+
+        foreach(int num in randomNumbers)
+        {
+            var data = _lvUpAbleBullitList.ElementAt(num);
+
+            _forDeliverBullitList.Add(data.Key, data.Value);
+        }
     }
 }
