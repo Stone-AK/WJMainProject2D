@@ -30,5 +30,21 @@
       "Bullit_Base_2_Lv3"
     ],
     "_bullitIconPath": "Icon/SpearIcon"
+  },
+  {
+    "Id": "Bullit_Base_3",
+    "_bullitName": "화살",
+    "_bullitDecription": "속도가 빠르다. 나머지 능력치는 평균에 가깝다.",
+    "_bullitShowUILv": [
+      "Lv1",
+      "Lv2",
+      "Lv3"
+    ],
+    "_bullitLvList": [
+      "Bullit_Base_3_Lv1",
+      "Bullit_Base_3_Lv2",
+      "Bullit_Base_3_Lv3"
+    ],
+    "_bullitIconPath": "Icon/ArrowIcon"
   }
 ]
