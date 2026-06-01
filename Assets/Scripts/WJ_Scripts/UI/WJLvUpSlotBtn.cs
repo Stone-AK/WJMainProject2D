@@ -11,6 +11,9 @@ public class WJLvUpSlotBtn : MonoBehaviour
     [SerializeField] private TMP_Text Txt_ChooseComment;
     [SerializeField] private Image Img_ChooseIcon;
 
+    private string _bullitId;
+    private int _bullitLv;
+
     private void Awake()
     {
         InitUIBtn();
@@ -96,5 +99,23 @@ public class WJLvUpSlotBtn : MonoBehaviour
     public void SetSlotComment(string Comment)
     {
         Txt_ChooseComment.text = Comment;
-    }    
+    }
+
+    public void SetUpgradeInfoAndBindBtn(string bullitId, int upgradeBullitLv)
+    {
+        _bullitId = bullitId;
+        _bullitLv = upgradeBullitLv;
+        BindOnClickBtn(OnClickthisBtn);
+    }
+
+    private void OnClickthisBtn()
+    {
+        if(_bullitId == "")
+        {
+            DaniTechUIManager.Instance.CloseLvUpPopUp();
+        }
+        DaniTechGameManager.Inst.RenewPlayerHadBullit(_bullitId, _bullitLv);
+        DaniTechUIManager.Instance.CloseLvUpPopUp();
+        DaniTechGameManager.Inst.ResumeGame();
+    }
 }

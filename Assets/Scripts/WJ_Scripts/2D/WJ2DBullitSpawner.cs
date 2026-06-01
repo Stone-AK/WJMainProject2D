@@ -7,7 +7,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
 {
     public static WJ2DBullitSpawner Inst { get; set; }
     
-    private int _PollCount = 20;
+    private int _PollCount = 200;
     private int _bullitInstIdNum = 0;
 
     private List<string> _playerHaveBullitLvIdList = new List<string>();
@@ -148,42 +148,6 @@ public class WJ2DBullitSpawner : MonoBehaviour
         bullitObj.gameObject.SetActive(true);
 
         _bullitIdAndFireCurTimeList[bulliLvId] = 0;
-        //_bullitOne_coolDown -= Time.deltaTime;
-
-        //if (_bullitOne_coolDown > 0f)
-        //    return;
-
-        //GameObject bullitObj = GetBulletFromPool(firedUnitId);
-
-        //if (targetUnit == null)
-        //{
-        //    if (bullitObj == null)
-        //    {
-        //        Debug.LogError("가까운 유닛도 없고 bullet List가 비어 있습니다.");
-        //        return;
-        //    }
-        //    bullitObj.transform.position = shootingUnit.gameObject.transform.position;
-        //    bullitObj.transform.rotation = bullitObj.transform.rotation;
-        //    bullitObj.SetActive(true);
-
-        //    _bullitOne_coolDown = bullitObj.GetComponent<WJ2DBullit>().CollTime;
-        //    return;
-        //}
-
-        //Vector2 dir = targetUnit.gameObject.transform.position - shootingUnit.gameObject.transform.position;
-        //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        //Quaternion rot = Quaternion.Euler(0f, 0f, angle);
-
-        //if (bullitObj == null)
-        //{
-        //    Debug.LogError("bullet List가 비어 있습니다.");
-        //    return;
-        //}
-        //bullitObj.transform.position = shootingUnit.gameObject.transform.position;
-        //bullitObj.transform.rotation = rot;
-        //bullitObj.gameObject.SetActive(true);
-
-        //_bullitOne_coolDown = bullitObj.GetComponent<WJ2DBullit>().CollTime;
     }
 
     public void DestroyBullit(int bullitInstId)
@@ -204,6 +168,14 @@ public class WJ2DBullitSpawner : MonoBehaviour
             var bullitLvData = DaniTechGameDataManager.Instance.GetWJBullitLvData(bullitLvDataId);
             if (bullitLvData == null) return;
 
+            if(_playerHaveBullitLvIdList.Contains(bullitLvDataId))
+            {
+                _playerHaveBullitLvIdList.Remove(bullitLvDataId);
+                _bullitIdAndFireCurTimeList.Remove(bullitLvDataId);
+                _playerHaveBullitLvIdList.Add(bullitLvDataId);
+                _bullitIdAndFireCurTimeList.Add(bullitLvDataId, 0f);
+                return;
+            }
             _playerHaveBullitLvIdList.Add(bullitLvDataId);
             _bullitIdAndFireCurTimeList.Add(bullitLvDataId , 0f);
         }

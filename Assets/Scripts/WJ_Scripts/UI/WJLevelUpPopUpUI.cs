@@ -6,8 +6,6 @@ public class WJLevelUpPopUpUI : DaniTechUIBase
 {
     [SerializeField] private List<WJLvUpSlotBtn> _chooseSlotList = new List<WJLvUpSlotBtn>();
 
-
-
     public void SetSlot(Dictionary<string, int> lvUpAbleBullitList)
     {
         int a = 0;
@@ -24,8 +22,9 @@ public class WJLevelUpPopUpUI : DaniTechUIBase
             string title = data._bullitName;
             string lvText = data._bullitShowUILv[nextLv];
             string comment = data._bullitDecription;
+            string bullitId = data.Id;
 
-            SetSlotInLevelUpUI(_chooseSlotList[a], iconPath, title, lvText, comment);
+            SetSlotInLevelUpUI(_chooseSlotList[a], iconPath, title, lvText, comment, bullitId, nextLv);
             a++;
         }
 
@@ -43,11 +42,15 @@ public class WJLevelUpPopUpUI : DaniTechUIBase
         string iconPath = "Icon/CancelIcon",
         string title = "",
         string lvText = "",
-        string comment = "더 이상 업그레이드 할게 없습니다.")
+        string comment = "더 이상 업그레이드 할게 없습니다. 클릭 시 게임으로 돌아갑니다.",
+        string bullitId = "",
+        int upgradeBullitLv = 0)
     {
         slotBtn.SetSlotImg(iconPath);
         slotBtn.SetSlotTitle(title);
         slotBtn.SetSlotBullitLv(lvText);
         slotBtn.SetSlotComment(comment);
+        slotBtn.SetUpgradeInfoAndBindBtn(bullitId, upgradeBullitLv);
     }
+
 }

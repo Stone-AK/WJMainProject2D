@@ -107,6 +107,7 @@ public class DaniTechGameManager : MonoBehaviour
     // BullitDataId(string), 다음 레벨(int)인 Dictionary. 최대 레벨인 Bullit 종류는 제외
     private Dictionary<string, int> _lvUpAbleBullitList = new Dictionary<string, int>();
     private Dictionary<string, int> _forDeliverBullitList = new Dictionary<string, int>();
+    private Dictionary<string, int> _savedPlayerBullitList = new Dictionary<string, int>();
 
     private void Update()
     {
@@ -347,7 +348,28 @@ public class DaniTechGameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         SetGameStat(WJ2DGameStat.Clear);
+        ClearThenSaveBullitList();
         DaniTechUIManager.Instance.OpenWJGameEndPopUpUI(CurGameStat);
+    }
+
+    private void ClearThenSaveBullitList()
+    {
+        var dataList = PlayerObject.ClearGameThenSaveHaveBullitList();
+        if(dataList == null) return;
+
+        _savedPlayerBullitList.Clear();
+        foreach (var listPair in dataList)
+        {
+            string bullitLvId = listPair.Key;
+            int bullitlvCount = listPair.Value;
+
+            _savedPlayerBullitList.Add(bullitLvId, bullitlvCount);
+        }
+    }
+
+    public Dictionary<string, int> GetSavedBullitList()
+    {
+        return _savedPlayerBullitList;
     }
 
     public void ClearGameThenRenewStage()
@@ -430,7 +452,7 @@ public class DaniTechGameManager : MonoBehaviour
 
     public void LvUpChoosePhase()
     {
-        Time.timeScale = 0f;
+        PauseGame();
         _forDeliverBullitList.Clear();
 
         int lvUpAbleeBullitCount = _lvUpAbleBullitList.Count;
@@ -490,5 +512,10 @@ public class DaniTechGameManager : MonoBehaviour
 
             _forDeliverBullitList.Add(data.Key, data.Value);
         }
+    }
+
+    public void RenewPlayerHadBullit(string upBullitId, int lvCount)
+    {
+        PlayerObject.RenewHaveBullitList(upBullitId, lvCount);
     }
 }

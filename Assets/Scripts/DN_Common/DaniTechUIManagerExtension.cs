@@ -223,12 +223,17 @@ public static class DaniTechUIManagerExtension
 
     public static void OpenLvUpPopUp(this DaniTechUIManager uiManager, Dictionary<string, int> lvUpAbleBullitList)
     {
-        var uiBase = uiManager.GetOpendUI(DaniTechUIRootType.PopupUI, DaniTechUIType.WJLevelUpPopUp);
+        var uiBase = uiManager.OpenUI(DaniTechUIRootType.PopupUI, DaniTechUIType.WJLevelUpPopUp);
         if (uiBase == null) return;
 
         if (uiBase.TryGetComponent<WJLevelUpPopUpUI>(out WJLevelUpPopUpUI lvPopUp))
         {
             lvPopUp.SetSlot(lvUpAbleBullitList);
         }
+    }
+
+    public static void CloseLvUpPopUp(this DaniTechUIManager uiManager)
+    {
+        uiManager.ClosePopupUI(DaniTechUIType.WJLevelUpPopUp);
     }
 }
