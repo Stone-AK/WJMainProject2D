@@ -120,15 +120,14 @@ MonoBehaviour:
   _hp: 0
   _curHP: 0
   _moveSpeed: 0
-  PlayerRigidBody: {fileID: 4348098245856863191}
-  _horizontalInput: 0
-  _verticalInput: 0
-  PlayerAnime: {fileID: 4679185344962974441}
   PlayerAnimaController: {fileID: 4679185344962974441}
+  PlayerRigidBody: {fileID: 4348098245856863191}
   DetectEnemyCollider: {fileID: 1037916311656262791}
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 2048
+  _playerLv: 0
+  _requireNextLvUp: 10
 --- !u!114 &4679185344962974441
 MonoBehaviour:
   m_ObjectHideFlags: 0

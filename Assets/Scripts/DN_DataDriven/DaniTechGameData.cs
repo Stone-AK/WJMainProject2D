@@ -102,7 +102,7 @@ public class WJUnit : GameDataBase
     public int _hp;
     public float _moveSpeed;
     public int _damage;
-    public int _exp;
+    public float _exp;
     public float _damagePerTime;
     public string _prefabPath;
     public string _spritePath;

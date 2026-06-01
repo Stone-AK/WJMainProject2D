@@ -50,7 +50,7 @@ public class WJItemManager : MonoBehaviour
         }
     }
 
-    private GameObject GetDropItemFromPool(int enemyHaveExp)
+    private GameObject GetDropItemFromPool(float enemyHaveExp)
     {
         foreach (WJDropItem dropItem in _dropItemPool)
         {
@@ -65,7 +65,7 @@ public class WJItemManager : MonoBehaviour
         return null;
     }
 
-    public void DropTheDropItem(Transform deadEnemyTransform, int InitExp)
+    public void DropTheDropItem(Transform deadEnemyTransform, float InitExp)
     {
         GameObject dropItemObj = GetDropItemFromPool(InitExp);
 

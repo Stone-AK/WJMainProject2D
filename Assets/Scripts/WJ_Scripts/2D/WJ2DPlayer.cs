@@ -12,28 +12,27 @@ public enum Player2DAnimeState
 
 public class WJ2DPlayer : WJ2DUnit
 {
-    [Header("이동 설정")]
+    private float _horizontalInput;
+    private float _verticalInput;
+
+    [Header("Sprite 및 이동 관련 할당")]
+    [SerializeField] private WJ2DPlayerAnimation PlayerAnimaController;
     [SerializeField] private Rigidbody2D PlayerRigidBody;
 
-    [Header("상태")]
-    [SerializeField] private float _horizontalInput;
-    [SerializeField] private float _verticalInput;
-    [SerializeField] private WJ2DPlayerAnimation PlayerAnime;
-
-    [Header("애니메이션 컨트롤 스크립트")]
-    [SerializeField] private WJ2DPlayerAnimation PlayerAnimaController;
-
-    [Header("Enemy탐지 오브젝트")]
+    [Header("감지범위 Collider 할당")]
     [SerializeField] private CircleCollider2D DetectEnemyCollider;
     [SerializeField] private LayerMask _enemyLayer;
 
     // 보유(발사)가능한 총알의 종류를 보관하는 Dictionary(총알 데이터 ID, 총알 레벨 데이터 id)
     private Dictionary<string, int> _playerHaveBuliit = new Dictionary<string, int>();
 
-
     private readonly Collider2D[] _enemyResults = new Collider2D[30];
     private WJ2DUnit _closestUnit;
 
+    [Header("레벨_Test")]
+    [SerializeField] private int _playerLv = 0;
+    [SerializeField] private float _curExp = 0;
+    [SerializeField] private float _requireNextLvUpExp = 10;
 
     private void Start()
     {
@@ -138,5 +137,20 @@ public class WJ2DPlayer : WJ2DUnit
         }
 
         _closestUnit = closestEnemy;
+    }
+
+    public void IncreaseExp(float getExp)
+    {
+        _curExp += getExp;
+
+        while (_curExp >= _requireNextLvUpExp)
+        {
+            _curExp -= _requireNextLvUpExp;
+
+            _playerLv++;
+
+            _requireNextLvUpExp *= 1.2f;
+            // 레벨 업 시 나오는 무기 팝업 UI 출력 필요
+        }
     }
 }

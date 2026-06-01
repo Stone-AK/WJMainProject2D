@@ -15,7 +15,7 @@ public class WJ2DEnemy : WJ2DUnit
     private float _damagePerTime;
     private float _damageTimer;
     private string _enemyDataId;
-    private int _exp;
+    private float _exp;
 
     private void Start()
     {
