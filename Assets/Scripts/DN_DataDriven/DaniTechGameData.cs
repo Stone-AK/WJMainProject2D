@@ -112,7 +112,11 @@ public class WJUnit : GameDataBase
 [System.Serializable]
 public class WJBullit : GameDataBase
 {
+    public string _bullitName;
+    public string _bullitDecription;
+    public List<string> _bullitShowUILv;
     public List<string> _bullitLvList;
+    public string _bullitIconPath;
 }
 
 [System.Serializable]

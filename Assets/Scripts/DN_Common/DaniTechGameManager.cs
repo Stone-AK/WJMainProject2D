@@ -423,4 +423,15 @@ public class DaniTechGameManager : MonoBehaviour
             DaniTechUIManager.Instance.WJRobyBtnActiveSetting(WJRobyBtnActiveType.BeforeBtnActive);
         }
     }
+
+    public void LvUpChoosePhase()
+    {
+        Time.timeScale = 0f;
+        string iconPath = "Icon/BullitIcon";
+        string title = "비비탄총알";
+        string lvText = "Bullit_Base_1_Lv1";
+        string Comment = "공격력이 낮지만 공격 주기가 빠르다";
+
+        DaniTechUIManager.Instance.OpenLvUpPopUp(iconPath, title, lvText, Comment);
+    }
 }

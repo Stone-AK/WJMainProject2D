@@ -23,7 +23,8 @@ public enum DaniTechUIType
     WJGameUI,
     WJPausePopUpUI,
     WJGameEndPopUp,
-    WJHudUI
+    WJHudUI,
+    WJLevelUpPopUp
 }
 
 public static class DaniTechUIManagerExtension
@@ -218,5 +219,16 @@ public static class DaniTechUIManagerExtension
             robyUI.SettingActiveBtn(activeType);
         }
     }
-}
 
+    public static void OpenLvUpPopUp(this DaniTechUIManager uiManager, string iconPath, 
+        string title, string lvText, string comment)
+    {
+        var uiBase = uiManager.GetOpendUI(DaniTechUIRootType.PopupUI, DaniTechUIType.WJLevelUpPopUp);
+        if (uiBase == null) return;
+
+        if (uiBase.TryGetComponent<WJLevelUpPopUpUI>(out WJLevelUpPopUpUI lvPopUp))
+        {
+            lvPopUp.SetSlot(iconPath, title, lvText, comment);
+        }
+    }
+}

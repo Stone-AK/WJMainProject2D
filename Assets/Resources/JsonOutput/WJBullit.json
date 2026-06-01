@@ -1,18 +1,34 @@
 [
   {
     "Id": "Bullit_Base_1",
+    "_bullitName": "비비탄총알",
+    "_bullitDecription": "공격력이 낮지만 공격 주기가 빠르다",
+    "_bullitShowUILv": [
+      "Lv1",
+      "Lv2",
+      "Lv3"
+    ],
     "_bullitLvList": [
       "Bullit_Base_1_Lv1",
       "Bullit_Base_1_Lv2",
       "Bullit_Base_1_Lv3"
-    ]
+    ],
+    "_bullitIconPath": "Icon/BullitIcon"
   },
   {
     "Id": "Bullit_Base_2",
+    "_bullitName": "작살",
+    "_bullitDecription": "공격력이 높지만 공격주기가 짧다",
+    "_bullitShowUILv": [
+      "Lv1",
+      "Lv2",
+      "Lv3"
+    ],
     "_bullitLvList": [
       "Bullit_Base_2_Lv1",
       "Bullit_Base_2_Lv2",
       "Bullit_Base_2_Lv3"
-    ]
+    ],
+    "_bullitIconPath": "Icon/SpearIcon"
   }
 ]

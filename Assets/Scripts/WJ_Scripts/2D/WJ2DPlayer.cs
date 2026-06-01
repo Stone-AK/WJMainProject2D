@@ -151,6 +151,7 @@ public class WJ2DPlayer : WJ2DUnit
 
             _requireNextLvUpExp *= 1.2f;
             // 레벨 업 시 나오는 무기 팝업 UI 출력 필요
+            DaniTechGameManager.Inst.LvUpChoosePhase();
         }
     }
 }
