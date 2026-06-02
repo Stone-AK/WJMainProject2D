@@ -28,9 +28,9 @@ public class WJLevelUpPopUpUI : DaniTechUIBase
             a++;
         }
 
-        if (a < 3)
+        if (a < 2)
         {
-            for(int i = a; i <= 3; i++)
+            for(int i = a; i <= 2; i++)
             {
                 SetSlotInLevelUpUI(_chooseSlotList[i]);
             }

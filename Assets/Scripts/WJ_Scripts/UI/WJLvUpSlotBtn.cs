@@ -113,6 +113,8 @@ public class WJLvUpSlotBtn : MonoBehaviour
         if(_bullitId == "")
         {
             DaniTechUIManager.Instance.CloseLvUpPopUp();
+            DaniTechGameManager.Inst.ResumeGame();
+            return;
         }
         DaniTechGameManager.Inst.RenewPlayerHadBullit(_bullitId, _bullitLv);
         DaniTechUIManager.Instance.CloseLvUpPopUp();

@@ -457,16 +457,16 @@ public class DaniTechGameManager : MonoBehaviour
 
         int lvUpAbleeBullitCount = _lvUpAbleBullitList.Count;
 
-        if(lvUpAbleeBullitCount < 3)
-        {
-            foreach(var deliverData in _lvUpAbleBullitList)
-            {
-                string deliverDataId = deliverData.Key;
-                int deliverpPlayerHaveLv = deliverData.Value;
+        //if(lvUpAbleeBullitCount < 3)
+        //{
+        //    foreach(var deliverData in _lvUpAbleBullitList)
+        //    {
+        //        string deliverDataId = deliverData.Key;
+        //        int deliverpPlayerHaveLv = deliverData.Value;
 
-                _forDeliverBullitList.Add(deliverDataId, deliverpPlayerHaveLv);
-            }
-        }
+        //        _forDeliverBullitList.Add(deliverDataId, deliverpPlayerHaveLv);
+        //    }
+        //}
 
         RandomOutPutBullitData(lvUpAbleeBullitCount);
         
@@ -501,9 +501,19 @@ public class DaniTechGameManager : MonoBehaviour
     {
         HashSet<int> randomNumbers = new HashSet<int>();
 
-        while (randomNumbers.Count < 3)
+        if(maxValue >= 3)
         {
-            randomNumbers.Add(Random.Range(0, maxValue));
+            while (randomNumbers.Count < 3)
+            {
+                randomNumbers.Add(Random.Range(0, maxValue));
+            }
+        }
+        else
+        {
+            for (int i = 0; i < maxValue; i++)
+            {
+                randomNumbers.Add(i);
+            }
         }
 
         foreach(int num in randomNumbers)
