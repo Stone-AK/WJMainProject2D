@@ -191,4 +191,15 @@ public class DaniTechUIManager : MonoBehaviour
             gameUI.SetWaveText(waveInfoName);
         }
     }
+
+    public void SetExpBarOnUIManager(float curExp, float maxExp)
+    {
+        var gobj = GetCreatedUI(DaniTechUIRootType.ContentUI, DaniTechUIType.WJGameUI);
+        if (gobj == null) return;
+
+        if (gobj is WJGameUI gameUI)
+        {
+            gameUI.OnTargetEntityHpChanged(curExp, maxExp);
+        }
+    }
 }

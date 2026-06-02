@@ -28,11 +28,10 @@ public class WJ2DPlayer : WJ2DUnit
 
     private readonly Collider2D[] _enemyResults = new Collider2D[30];
     private WJ2DUnit _closestUnit;
-
-    [Header("레벨_Test")]
-    [SerializeField] private int _playerLv = 0;
-    [SerializeField] private float _curExp = 0;
-    [SerializeField] private float _requireNextLvUpExp = 10;
+    
+    // Lv 관련
+    public float _curExp { get; private set; } = 0;
+    public float _requireNextLvUpExp { get; private set; } = 10;
 
     private void Start()
     {
@@ -56,6 +55,13 @@ public class WJ2DPlayer : WJ2DUnit
         _hp = DaniTechGameDataManager.Instance.GetWJUnitObjectData("Unit_Player_1")._hp;
         _curHP = _hp;
         _moveSpeed = DaniTechGameDataManager.Instance.GetWJUnitObjectData("Unit_Player_1")._moveSpeed;
+
+        if(DaniTechGameManager.Inst.GetRequiredNextLv() != 0f)
+        {
+            _curExp = DaniTechGameManager.Inst.GetCurExp();
+            _requireNextLvUpExp = DaniTechGameManager.Inst.GetRequiredNextLv();
+        }
+        DaniTechUIManager.Instance.SetExpBarOnUIManager(_curExp, _requireNextLvUpExp);
     }
 
     public void InitHaveBullitList()
@@ -91,10 +97,12 @@ public class WJ2DPlayer : WJ2DUnit
             WJ2DBullitSpawner.Inst.GetPlayerHadBullitInfo(_playerHaveBuliit);
             DaniTechGameManager.Inst.RenewLvUpChooseList(_playerHaveBuliit);
         }
-        _playerHaveBuliit.Remove(upBullitId);
-        _playerHaveBuliit.Add(upBullitId, lvCount);
-        WJ2DBullitSpawner.Inst.GetPlayerHadBullitInfo(_playerHaveBuliit);
-        DaniTechGameManager.Inst.RenewLvUpChooseList(_playerHaveBuliit);
+        else
+        {
+            _playerHaveBuliit.Add(upBullitId, lvCount);
+            WJ2DBullitSpawner.Inst.GetPlayerHadBullitInfo(_playerHaveBuliit);
+            DaniTechGameManager.Inst.RenewLvUpChooseList(_playerHaveBuliit);
+        }
     }
 
     private void MoveCharactorOnUpdate()
@@ -115,6 +123,7 @@ public class WJ2DPlayer : WJ2DUnit
         else if (_horizontalInput == 0 && _verticalInput == 0)
             PlayerAnimaController.ChangeMoveAnimation(Player2DAnimStat.Idle);
     }
+
     private void DiePlayer()
     {
         this.gameObject.SetActive(false);
@@ -170,12 +179,11 @@ public class WJ2DPlayer : WJ2DUnit
     public void IncreaseExp(float getExp)
     {
         _curExp += getExp;
-
+        DaniTechUIManager.Instance.SetExpBarOnUIManager(_curExp, _requireNextLvUpExp);
         while (_curExp >= _requireNextLvUpExp)
         {
             _curExp -= _requireNextLvUpExp;
-
-            _playerLv++;
+            DaniTechUIManager.Instance.SetExpBarOnUIManager(_curExp, _requireNextLvUpExp);
 
             _requireNextLvUpExp *= 1.2f;
             // 레벨 업 시 나오는 무기 팝업 UI 출력 필요

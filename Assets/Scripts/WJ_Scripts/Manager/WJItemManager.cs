@@ -5,6 +5,8 @@ public class WJItemManager : MonoBehaviour
 {
     public static WJItemManager Inst;
 
+    private Transform _liveRootTransform;
+
     private int _itemInstId;
 
     private List<WJDropItem> _dropItemPool = new List<WJDropItem>();
@@ -18,18 +20,15 @@ public class WJItemManager : MonoBehaviour
         _itemInstId = 0;
     }
 
-    private void Start()
+    public void SetLiveRootTransform(Transform liveTransform)
     {
-        CreateItemPool();
+        _liveRootTransform = liveTransform;
     }
 
     public void BackToRobyThenClearAll()
     {
-        foreach(var item in _dropItemPool)
-        {
-            Destroy(item.gameObject);
-        }
         WJObjectManager.Inst.RemoveAllDropItemList();
+        _dropItemPool.Clear();
     }
 
     private GameObject GetItemPrefab()
@@ -39,11 +38,11 @@ public class WJItemManager : MonoBehaviour
         return loadedObj;
     }
 
-    private void CreateItemPool()
+    public void CreateItemPool()
     {
         for (int i = 0; i < _dropItemPollCount; i++)
         {
-            GameObject dropItem = Instantiate(GetItemPrefab(), this.transform);
+            GameObject dropItem = Instantiate(GetItemPrefab(), _liveRootTransform);
             dropItem.gameObject.SetActive(false);
             if(dropItem.TryGetComponent<WJDropItem>(out WJDropItem itemInToDropItemPool))
                 _dropItemPool.Add(itemInToDropItemPool);

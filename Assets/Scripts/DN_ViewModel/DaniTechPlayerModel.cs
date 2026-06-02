@@ -23,3 +23,19 @@ public class DaniTechPlayerModel
 
     public List<DaniTechItemModel> ItemList = new List<DaniTechItemModel>();
 }
+
+[Serializable]
+public class WJPlayerModel
+{
+    public float PlayerHaveExp;
+    public float PlayerRequiredNextLv;
+
+    public List<WJBullitDictionaryModel> PlayerHaveBullitList = new List<WJBullitDictionaryModel>();
+}
+
+[Serializable]
+public class WJBullitDictionaryModel
+{
+    public string HaveBullitId;
+    public int HaveBullitLvCount;
+}

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Unity.Profiling;
 using UnityEngine;
 
@@ -107,7 +108,11 @@ public class DaniTechGameManager : MonoBehaviour
     // BullitDataId(string), 다음 레벨(int)인 Dictionary. 최대 레벨인 Bullit 종류는 제외
     private Dictionary<string, int> _lvUpAbleBullitList = new Dictionary<string, int>();
     private Dictionary<string, int> _forDeliverBullitList = new Dictionary<string, int>();
+
+    // 저장 Dictionary
     private Dictionary<string, int> _savedPlayerBullitList = new Dictionary<string, int>();
+    private float _curPlayerExp;
+    private float _nextLvRequireExp;
 
     private void Update()
     {
@@ -129,6 +134,7 @@ public class DaniTechGameManager : MonoBehaviour
         liveRoot.transform.localPosition = Vector3.zero;
         liveRoot.transform.localRotation = Quaternion.identity;
         liveRoot.transform.localScale = Vector3.one;
+        WJItemManager.Inst.SetLiveRootTransform(liveRoot.transform);
         SetLiveRoot(liveRoot.transform);
         // 게임 시작 시 만들 것들을 할당
         MakeMap();
@@ -138,6 +144,7 @@ public class DaniTechGameManager : MonoBehaviour
         InitCatchEnemyCount();
         DaniTechUIManager.Instance.AddHudSlot(0);
         InitPlayerBullitList();
+        WJItemManager.Inst.CreateItemPool();
         // stage, wave 정보 초기화 설정
         if (_stageName == "스테이지 1")
             LoadStageInfo();
@@ -330,6 +337,7 @@ public class DaniTechGameManager : MonoBehaviour
             SetGameStat(WJ2DGameStat.Roby);
         }
         Destroy(LiveRoot.gameObject);
+        WJItemManager.Inst.BackToRobyThenClearAll();
         DaniTechUIManager.Instance.CloseWJGameUI();
         DaniTechUIManager.Instance.OpenWJRobyUI();
         Time.timeScale = 1f;
@@ -349,7 +357,27 @@ public class DaniTechGameManager : MonoBehaviour
         Time.timeScale = 0f;
         SetGameStat(WJ2DGameStat.Clear);
         ClearThenSaveBullitList();
+        ClearThenSaveExpData();
         DaniTechUIManager.Instance.OpenWJGameEndPopUpUI(CurGameStat);
+    }
+
+    private void ClearThenSaveExpData()
+    {
+        float curExp = PlayerObject._curExp;
+        float requireExpNextLv = PlayerObject._requireNextLvUpExp;
+
+        _curPlayerExp = curExp;
+        _nextLvRequireExp = requireExpNextLv;
+    }
+
+    public float GetCurExp()
+    {
+        return _curPlayerExp;
+    }
+
+    public float GetRequiredNextLv()
+    {
+        return _nextLvRequireExp;
     }
 
     private void ClearThenSaveBullitList()
@@ -456,17 +484,6 @@ public class DaniTechGameManager : MonoBehaviour
         _forDeliverBullitList.Clear();
 
         int lvUpAbleeBullitCount = _lvUpAbleBullitList.Count;
-
-        //if(lvUpAbleeBullitCount < 3)
-        //{
-        //    foreach(var deliverData in _lvUpAbleBullitList)
-        //    {
-        //        string deliverDataId = deliverData.Key;
-        //        int deliverpPlayerHaveLv = deliverData.Value;
-
-        //        _forDeliverBullitList.Add(deliverDataId, deliverpPlayerHaveLv);
-        //    }
-        //}
 
         RandomOutPutBullitData(lvUpAbleeBullitCount);
         

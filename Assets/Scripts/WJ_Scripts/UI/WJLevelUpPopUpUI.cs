@@ -28,7 +28,7 @@ public class WJLevelUpPopUpUI : DaniTechUIBase
             a++;
         }
 
-        if (a < 2)
+        if (a < 3)
         {
             for(int i = a; i <= 2; i++)
             {
