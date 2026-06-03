@@ -25,7 +25,8 @@ public enum DaniTechUIType
     WJPausePopUpUI,
     WJGameEndPopUp,
     WJHudUI,
-    WJLevelUpPopUp
+    WJLevelUpPopUp,
+    WJSaveAndLoadResultPopUp
 }
 
 public static class DaniTechUIManagerExtension

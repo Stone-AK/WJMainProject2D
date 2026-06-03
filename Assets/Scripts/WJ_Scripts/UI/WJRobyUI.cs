@@ -11,19 +11,30 @@ public enum WJRobyBtnActiveType
     BeforeBtnDeActive
 }
 
+public enum WJResultSaveAndLoad
+{
+    None,
+    SaveFail,
+    SaveSuccess,
+    LoadFail,
+    LoadSuccess
+}
+
 public class WJRobyUI : DaniTechUIBase
 {
-    [SerializeField] private WJBtn StartBtn;
-    [SerializeField] private WJBtn EndBtn;
-    [SerializeField] private Image CharactorImg;
-    [SerializeField] private TMP_Text StageInfoTxt;
-    [SerializeField] private WJBtn NextStageBtn;
-    [SerializeField] private WJBtn BeforeStageBtn;
+    [SerializeField] private WJBtn _startBtn;
+    [SerializeField] private WJBtn _endBtn;
+    [SerializeField] private Image _charactorImg;
+    [SerializeField] private TMP_Text _stageInfoTxt;
+    [SerializeField] private WJBtn _nextStageBtn;
+    [SerializeField] private WJBtn _beforeStageBtn;
+    [SerializeField] private WJBtn _saveBtn;
+    [SerializeField] private WJBtn _loadBtn;
 
     private void OnEnable()
     {
-        StartBtn.BindOnClickBtn(OnClickStartBtn);
-        EndBtn.BindOnClickBtn(OnClickEndBtn);
+        _startBtn.BindOnClickBtn(OnClickStartBtn);
+        _endBtn.BindOnClickBtn(OnClickEndBtn);
     }
 
     private void OnClickStartBtn()
@@ -42,7 +53,7 @@ public class WJRobyUI : DaniTechUIBase
 
     public void PrintStageInfo(string stageInfo)
     {
-        StageInfoTxt.text = $"{stageInfo}";
+        _stageInfoTxt.text = $"{stageInfo}";
     }
 
     private void OnClickNextStageBtn()
@@ -60,18 +71,18 @@ public class WJRobyUI : DaniTechUIBase
         switch(setActiveBtnType)
         {
             case WJRobyBtnActiveType.NextBtnDeActive:
-                NextStageBtn.gameObject.SetActive(false);
+                _nextStageBtn.gameObject.SetActive(false);
                 break;
             case WJRobyBtnActiveType.BeforeBtnDeActive:
-                BeforeStageBtn.gameObject.SetActive(false);
+                _beforeStageBtn.gameObject.SetActive(false);
                 break;
             case WJRobyBtnActiveType.NextBtnActive:
-                NextStageBtn.gameObject.SetActive(true);
-                NextStageBtn.BindOnClickBtnOnlyOne(OnClickNextStageBtn);
+                _nextStageBtn.gameObject.SetActive(true);
+                _nextStageBtn.BindOnClickBtnOnlyOne(OnClickNextStageBtn);
                 break;
             case WJRobyBtnActiveType.BeforeBtnActive:
-                BeforeStageBtn.gameObject.SetActive(true);
-                BeforeStageBtn.BindOnClickBtnOnlyOne(OnClickBeforeStageBtn);
+                _beforeStageBtn.gameObject.SetActive(true);
+                _beforeStageBtn.BindOnClickBtnOnlyOne(OnClickBeforeStageBtn);
                 break;
         }
     }

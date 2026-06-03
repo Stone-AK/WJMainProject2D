@@ -545,4 +545,42 @@ public class DaniTechGameManager : MonoBehaviour
     {
         PlayerObject.RenewHaveBullitList(upBullitId, lvCount);
     }
+
+    public void SaveWJPlayerData()
+    {
+        WJPlayerModel wantedSaveData = new WJPlayerModel();
+
+        wantedSaveData.PlayerHaveExp = _curPlayerExp;
+        wantedSaveData.PlayerRequiredNextLv = _nextLvRequireExp;
+
+        foreach(var requireData in _savedPlayerBullitList)
+        {
+            string requireDataToSaveTheBullitId = requireData.Key;
+            int requireDataToSaveTheBullitLv = requireData.Value;
+
+            WJBullitDictionaryModel wantedSaveBullitList = new WJBullitDictionaryModel();
+
+            wantedSaveBullitList.HaveBullitId = requireDataToSaveTheBullitId;
+            wantedSaveBullitList.HaveBullitLvCount = requireDataToSaveTheBullitLv;
+
+            wantedSaveData.PlayerHaveBullitList.Add(wantedSaveBullitList);
+        }
+        
+        DaniTechNetworkManager.Inst.RequstWJSaveData(wantedSaveData);
+    }
+
+    public void LoadWJPlayerData()
+    {
+        var wantedLoadData = DaniTechNetworkManager.Inst.RequstWJLoadSaveData();
+        _curPlayerExp = wantedLoadData.PlayerHaveExp;
+        _nextLvRequireExp = wantedLoadData.PlayerRequiredNextLv;
+
+        foreach (var wantedLoadHaveBullitData in wantedLoadData.PlayerHaveBullitList)
+        {
+            string loadedBullitId = wantedLoadHaveBullitData.HaveBullitId;
+            int loadedBullitLv = wantedLoadHaveBullitData.HaveBullitLvCount;
+
+            _savedPlayerBullitList.Add(loadedBullitId, loadedBullitLv);
+        }
+    }
 }
