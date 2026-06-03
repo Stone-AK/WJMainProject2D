@@ -21,7 +21,12 @@ public class WJObjectManager : MonoBehaviour
 
     public WJ2DUnit GetUnitToUnitList(int unitInstNum)
     {
-        return _unitList[unitInstNum];
+        if (_unitList.TryGetValue(unitInstNum, out WJ2DUnit unit))
+        {
+            return unit;
+        }
+
+        return null;
     }
 
     public void RemoveUnitToUnitList(int unitInstNum)

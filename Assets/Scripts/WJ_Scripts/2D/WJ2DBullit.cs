@@ -6,8 +6,6 @@ public enum BullitFnuncType
 {
     None,
     Basic,
-    Double,
-    Triple,
     DoubleFiring,
     TripleFiring
 }
@@ -80,6 +78,8 @@ public class WJ2DBullit : MonoBehaviour
             if(unit._instId != _createUnitInstId)
             {
                 var damageUnit = WJObjectManager.Inst.GetUnitToUnitList(unit._instId);
+                if (damageUnit == null) return;
+
                 damageUnit.DecreaseCurrentHp(_power);
             }
         }

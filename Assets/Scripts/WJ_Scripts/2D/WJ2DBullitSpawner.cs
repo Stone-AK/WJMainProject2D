@@ -79,23 +79,6 @@ public class WJ2DBullitSpawner : MonoBehaviour
         return null;
     }
 
-    public void ShootBulitOnUpdate(WJ2DUnit targetUnit, int firedUnitId, WJ2DUnit shootingUnit)
-    {
-        // 수정 중
-        foreach (string checkBullitLvId in _playerHaveBullitLvIdList)
-        {
-            BullitFnuncType bullitFuncVal = CheckShootingBullit(checkBullitLvId);
-            if (bullitFuncVal == BullitFnuncType.None) continue;
-
-            switch (bullitFuncVal)
-            {
-                case BullitFnuncType.Basic:
-                    ShootBasic(targetUnit, shootingUnit, firedUnitId, checkBullitLvId);
-                    break;
-            }
-        }
-    }
-
     private BullitFnuncType CheckShootingBullit(string checkBullitLvId)
     {
         float collTime = DaniTechGameDataManager.Instance.GetWJBullitLvData(checkBullitLvId)._collTime;
@@ -126,6 +109,58 @@ public class WJ2DBullitSpawner : MonoBehaviour
         bullitObj.transform.rotation = rot;
     }
 
+    public void DestroyBullit(int bullitInstId)
+    {
+        WJObjectManager.Inst.RemoveBullitToBullitList(bullitInstId);
+    }
+
+
+    public void GetPlayerHadBullitInfo(Dictionary<string, int> playerHadBullitList)
+    {
+        foreach (var keyValPair in playerHadBullitList)
+        {
+            string bullitId = keyValPair.Key;
+            int bullitLv = keyValPair.Value;
+            string bullitLvDataId = DaniTechGameDataManager.Instance.GetWJBullitObjectData(bullitId)._bullitLvList[bullitLv];
+            if (bullitLvDataId == null) return;
+            var bullitLvData = DaniTechGameDataManager.Instance.GetWJBullitLvData(bullitLvDataId);
+            if (bullitLvData == null) return;
+
+            if(_playerHaveBullitLvIdList.Contains(bullitLvDataId))
+            {
+                _playerHaveBullitLvIdList.Remove(bullitLvDataId);
+                _bullitIdAndFireCurTimeList.Remove(bullitLvDataId);
+                _playerHaveBullitLvIdList.Add(bullitLvDataId);
+                _bullitIdAndFireCurTimeList.Add(bullitLvDataId, 0f);
+                return;
+            }
+            _playerHaveBullitLvIdList.Add(bullitLvDataId);
+            _bullitIdAndFireCurTimeList.Add(bullitLvDataId , 0f);
+        }
+    }
+
+    public void ShootBulitOnUpdate(WJ2DUnit targetUnit, int firedUnitId, WJ2DUnit shootingUnit)
+    {
+        foreach (string checkBullitLvId in _playerHaveBullitLvIdList)
+        {
+            BullitFnuncType bullitFuncVal = CheckShootingBullit(checkBullitLvId);
+            if (bullitFuncVal == BullitFnuncType.None) continue;
+
+            switch (bullitFuncVal)
+            {
+                case BullitFnuncType.Basic:
+                    ShootBasic(targetUnit, shootingUnit, firedUnitId, checkBullitLvId);
+                    break;
+                case BullitFnuncType.DoubleFiring:
+                    ShootDouble(targetUnit, shootingUnit, firedUnitId, checkBullitLvId);
+                    break;
+                case BullitFnuncType.TripleFiring:
+                    ShootTriple(targetUnit, shootingUnit, firedUnitId, checkBullitLvId);
+                    break;
+            }
+        }
+    }
+
     private void ShootBasic(WJ2DUnit targetUnit, WJ2DUnit shootingUnit, int firedUnitId, string bulliLvId)
     {
         GameObject bullitObj = GetBullitFromPool(firedUnitId, bulliLvId);
@@ -150,34 +185,57 @@ public class WJ2DBullitSpawner : MonoBehaviour
         _bullitIdAndFireCurTimeList[bulliLvId] = 0;
     }
 
-    public void DestroyBullit(int bullitInstId)
+    private void ShootDouble(WJ2DUnit targetUnit, WJ2DUnit shootingUnit, int firedUnitId, string bulliLvId)
     {
-        WJObjectManager.Inst.RemoveBullitToBullitList(bullitInstId);
-    }
+        float barrelGap = 0.25f;
+        int wantedShootCount = 2;
 
-
-    // 
-    public void GetPlayerHadBullitInfo(Dictionary<string, int> playerHadBullitList)
-    {
-        foreach (var keyValPair in playerHadBullitList)
+        for (int i = 0; i < wantedShootCount; i++)
         {
-            string bullitId = keyValPair.Key;
-            int bullitLv = keyValPair.Value;
-            string bullitLvDataId = DaniTechGameDataManager.Instance.GetWJBullitObjectData(bullitId)._bullitLvList[bullitLv];
-            if (bullitLvDataId == null) return;
-            var bullitLvData = DaniTechGameDataManager.Instance.GetWJBullitLvData(bullitLvDataId);
-            if (bullitLvData == null) return;
+            GameObject bullitObj = GetBullitFromPool(firedUnitId, bulliLvId);
 
-            if(_playerHaveBullitLvIdList.Contains(bullitLvDataId))
+            if (bullitObj == null)
             {
-                _playerHaveBullitLvIdList.Remove(bullitLvDataId);
-                _bullitIdAndFireCurTimeList.Remove(bullitLvDataId);
-                _playerHaveBullitLvIdList.Add(bullitLvDataId);
-                _bullitIdAndFireCurTimeList.Add(bullitLvDataId, 0f);
+                Debug.LogError("bullet List가 비어 있습니다.");
                 return;
             }
-            _playerHaveBullitLvIdList.Add(bullitLvDataId);
-            _bullitIdAndFireCurTimeList.Add(bullitLvDataId , 0f);
+
+            CheckTargetTransformAndLoadBullit(targetUnit, shootingUnit, bullitObj);
+
+            float offsetAmount = (i - (wantedShootCount - 1) / 2f) * barrelGap;
+            Vector3 sideOffset = bullitObj.transform.up * offsetAmount;
+
+            bullitObj.transform.position += sideOffset;
+            bullitObj.SetActive(true);
         }
+
+        _bullitIdAndFireCurTimeList[bulliLvId] = 0;
+    }
+
+    private void ShootTriple(WJ2DUnit targetUnit, WJ2DUnit shootingUnit, int firedUnitId, string bulliLvId)
+    {
+        float barrelGap = 0.25f;
+        int wantedShootCount = 3;
+
+        for (int i = 0; i < wantedShootCount; i++)
+        {
+            GameObject bullitObj = GetBullitFromPool(firedUnitId, bulliLvId);
+
+            if (bullitObj == null)
+            {
+                Debug.LogError("bullet List가 비어 있습니다.");
+                return;
+            }
+
+            CheckTargetTransformAndLoadBullit(targetUnit, shootingUnit, bullitObj);
+
+            float offsetAmount = (i - (wantedShootCount - 1) / 2f) * barrelGap;
+            Vector3 sideOffset = bullitObj.transform.up * offsetAmount;
+
+            bullitObj.transform.position += sideOffset;
+            bullitObj.SetActive(true);
+        }
+
+        _bullitIdAndFireCurTimeList[bulliLvId] = 0;
     }
 }
