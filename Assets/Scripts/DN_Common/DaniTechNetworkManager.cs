@@ -89,6 +89,7 @@ public class DaniTechNetworkManager : MonoBehaviour
 
         newPlayerData.PlayerHaveExp = 0;
         newPlayerData.PlayerRequiredNextLv = 10;
+        newPlayerData.PlayerClearStageCount = 0;
 
         newBullitList.HaveBullitId = "Bullit_Base_1";
         newBullitList.HaveBullitLvCount = 0;

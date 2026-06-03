@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using Unity.Profiling;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class DaniTechGameManager : MonoBehaviour
@@ -109,7 +110,7 @@ public class DaniTechGameManager : MonoBehaviour
     private Dictionary<string, int> _lvUpAbleBullitList = new Dictionary<string, int>();
     private Dictionary<string, int> _forDeliverBullitList = new Dictionary<string, int>();
 
-    // 저장 Dictionary
+    // 저장 Dictionary 및 변수
     private Dictionary<string, int> _savedPlayerBullitList = new Dictionary<string, int>();
     private float _curPlayerExp;
     private float _nextLvRequireExp;
@@ -552,8 +553,9 @@ public class DaniTechGameManager : MonoBehaviour
 
         wantedSaveData.PlayerHaveExp = _curPlayerExp;
         wantedSaveData.PlayerRequiredNextLv = _nextLvRequireExp;
+        wantedSaveData.PlayerClearStageCount = _clearStage;
 
-        foreach(var requireData in _savedPlayerBullitList)
+        foreach (var requireData in _savedPlayerBullitList)
         {
             string requireDataToSaveTheBullitId = requireData.Key;
             int requireDataToSaveTheBullitLv = requireData.Value;
@@ -567,6 +569,7 @@ public class DaniTechGameManager : MonoBehaviour
         }
         
         DaniTechNetworkManager.Inst.RequstWJSaveData(wantedSaveData);
+        DaniTechUIManager.Instance.PopUpSaveLoadResultUI(WJResultSaveAndLoad.SaveSuccess);
     }
 
     public void LoadWJPlayerData()
@@ -574,7 +577,22 @@ public class DaniTechGameManager : MonoBehaviour
         var wantedLoadData = DaniTechNetworkManager.Inst.RequstWJLoadSaveData();
         _curPlayerExp = wantedLoadData.PlayerHaveExp;
         _nextLvRequireExp = wantedLoadData.PlayerRequiredNextLv;
+        _clearStage = wantedLoadData.PlayerClearStageCount;
+        string stringToUpdate = $"Stage_{_clearStage+1}";
+        if((_clearStage + 1) <= _maxtStage)
+        {
+            _curStageData = DaniTechGameDataManager.Instance.GetWJStageData(stringToUpdate);
+            LoadStageInfo(_curStageData.Id);
+        }
+        else
+        {
+            stringToUpdate = $"Stage_{_clearStage}";
+            _curStageData = DaniTechGameDataManager.Instance.GetWJStageData(stringToUpdate);
+            LoadStageInfo(_curStageData.Id);
+        }
 
+
+            _savedPlayerBullitList.Clear();
         foreach (var wantedLoadHaveBullitData in wantedLoadData.PlayerHaveBullitList)
         {
             string loadedBullitId = wantedLoadHaveBullitData.HaveBullitId;
@@ -582,5 +600,7 @@ public class DaniTechGameManager : MonoBehaviour
 
             _savedPlayerBullitList.Add(loadedBullitId, loadedBullitLv);
         }
+
+        DaniTechUIManager.Instance.PopUpSaveLoadResultUI(WJResultSaveAndLoad.LoadSuccess);
     }
 }

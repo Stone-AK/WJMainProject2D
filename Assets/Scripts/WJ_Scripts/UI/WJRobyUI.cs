@@ -11,15 +11,6 @@ public enum WJRobyBtnActiveType
     BeforeBtnDeActive
 }
 
-public enum WJResultSaveAndLoad
-{
-    None,
-    SaveFail,
-    SaveSuccess,
-    LoadFail,
-    LoadSuccess
-}
-
 public class WJRobyUI : DaniTechUIBase
 {
     [SerializeField] private WJBtn _startBtn;
@@ -35,6 +26,8 @@ public class WJRobyUI : DaniTechUIBase
     {
         _startBtn.BindOnClickBtn(OnClickStartBtn);
         _endBtn.BindOnClickBtn(OnClickEndBtn);
+        _saveBtn.BindOnClickBtn(OnClickSaveBtn);
+        _loadBtn.BindOnClickBtn(OnClickLoadBtn);
     }
 
     private void OnClickStartBtn()
@@ -85,5 +78,15 @@ public class WJRobyUI : DaniTechUIBase
                 _beforeStageBtn.BindOnClickBtnOnlyOne(OnClickBeforeStageBtn);
                 break;
         }
+    }
+
+    public void OnClickSaveBtn()
+    {
+        DaniTechGameManager.Inst.SaveWJPlayerData();
+    }
+
+    public void OnClickLoadBtn()
+    {
+        DaniTechGameManager.Inst.LoadWJPlayerData();
     }
 }

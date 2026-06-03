@@ -29,6 +29,7 @@ public class WJPlayerModel
 {
     public float PlayerHaveExp;
     public float PlayerRequiredNextLv;
+    public int PlayerClearStageCount;
 
     public List<WJBullitDictionaryModel> PlayerHaveBullitList = new List<WJBullitDictionaryModel>();
 }

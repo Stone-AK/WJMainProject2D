@@ -202,4 +202,16 @@ public class DaniTechUIManager : MonoBehaviour
             gameUI.OnTargetEntityHpChanged(curExp, maxExp);
         }
     }
+
+    public void PopUpSaveLoadResultUI(WJResultSaveAndLoad resultStat)
+    {
+        var gobj = GetCreatedUI(DaniTechUIRootType.PopupUI ,DaniTechUIType.WJSaveAndLoadResultPopUp);
+        if (gobj == null) return;
+
+        if(gobj is WJSavLoadResultPopUp resultPop)
+        {
+            resultPop.SetGemeEndStatus(resultStat);
+            OpenUI(DaniTechUIRootType.PopupUI, DaniTechUIType.WJSaveAndLoadResultPopUp);
+        }
+    }
 }

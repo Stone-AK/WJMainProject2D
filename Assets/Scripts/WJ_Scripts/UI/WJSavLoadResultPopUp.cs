@@ -1,19 +1,27 @@
 ﻿using TMPro;
 using UnityEngine;
+public enum WJResultSaveAndLoad
+{
+    None,
+    SaveFail,
+    SaveSuccess,
+    LoadFail,
+    LoadSuccess
+}
 
-public class WJSavLoadResultPopUp : MonoBehaviour
+public class WJSavLoadResultPopUp : DaniTechUIBase
 {
     [SerializeField] private TMP_Text _resultSaveOrLoad;
     [SerializeField] private WJBtn CloseBtn;
 
     private void OnEnable()
     {
-        CloseBtn.BindOnClickBtn(OnClickBackRoby);
+        CloseBtn.BindOnClickBtn(OnClickConfirmBtn);
     }
 
-    private void OnClickBackRoby()
+    private void OnClickConfirmBtn()
     {
-        DaniTechUIManager.Instance.ClosePopupUI(DaniTechUIType.WJSaveAndLoadResultPopUp);
+        DaniTechUIManager.Instance.CloseUI(DaniTechUIRootType.PopupUI, DaniTechUIType.WJSaveAndLoadResultPopUp);
     }
 
     public void SetGemeEndStatus(WJResultSaveAndLoad resultStat)
