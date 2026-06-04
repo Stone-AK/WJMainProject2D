@@ -1,13 +1,16 @@
 ﻿using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public enum BullitFnuncType
 {
     None,
     Basic,
     DoubleFiring,
-    TripleFiring
+    TripleFiring,
+    Bigger,
+    Gigantamax
 }
 
 public class WJ2DBullit : MonoBehaviour
@@ -87,6 +90,8 @@ public class WJ2DBullit : MonoBehaviour
 
     private void DestroyBullit()
     {
+        transform.localScale = Vector3.one;
+
         this.gameObject.SetActive(false);
         WJ2DBullitSpawner.Inst.DestroyBullit(_bullitInstId);
     }

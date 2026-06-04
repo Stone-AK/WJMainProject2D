@@ -157,6 +157,12 @@ public class WJ2DBullitSpawner : MonoBehaviour
                 case BullitFnuncType.TripleFiring:
                     ShootTriple(targetUnit, shootingUnit, firedUnitId, checkBullitLvId);
                     break;
+                case BullitFnuncType.Bigger:
+                    SootBiggerBullit(targetUnit, shootingUnit, firedUnitId, checkBullitLvId);
+                    break;
+                case BullitFnuncType.Gigantamax:
+                    SootGigantamaxBullit(targetUnit, shootingUnit, firedUnitId, checkBullitLvId);
+                    break;
             }
         }
     }
@@ -235,6 +241,46 @@ public class WJ2DBullitSpawner : MonoBehaviour
             bullitObj.transform.position += sideOffset;
             bullitObj.SetActive(true);
         }
+
+        _bullitIdAndFireCurTimeList[bulliLvId] = 0;
+    }
+
+    private void SootBiggerBullit(WJ2DUnit targetUnit, WJ2DUnit shootingUnit, int firedUnitId, string bulliLvId)
+    {
+        float bullitScale = 2f;
+
+        GameObject bullitObj = GetBullitFromPool(firedUnitId, bulliLvId);
+
+        if (bullitObj == null)
+        {
+            Debug.LogError("bullet List가 비어 있습니다.");
+            return;
+        }
+
+        CheckTargetTransformAndLoadBullit(targetUnit, shootingUnit, bullitObj);
+
+        bullitObj.transform.localScale = new Vector3(bullitScale, bullitScale, 1f);
+        bullitObj.SetActive(true);
+
+        _bullitIdAndFireCurTimeList[bulliLvId] = 0;
+    }
+
+    private void SootGigantamaxBullit(WJ2DUnit targetUnit, WJ2DUnit shootingUnit, int firedUnitId, string bulliLvId)
+    {
+        float bullitScale = 3f;
+
+        GameObject bullitObj = GetBullitFromPool(firedUnitId, bulliLvId);
+
+        if (bullitObj == null)
+        {
+            Debug.LogError("bullet List가 비어 있습니다.");
+            return;
+        }
+
+        CheckTargetTransformAndLoadBullit(targetUnit, shootingUnit, bullitObj);
+
+        bullitObj.transform.localScale = new Vector3(bullitScale, bullitScale, 1f);
+        bullitObj.SetActive(true);
 
         _bullitIdAndFireCurTimeList[bulliLvId] = 0;
     }
