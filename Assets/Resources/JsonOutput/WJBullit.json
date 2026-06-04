@@ -46,5 +46,21 @@
       "Bullit_Base_3_Lv3"
     ],
     "_bullitIconPath": "Icon/ArrowIcon"
+  },
+  {
+    "Id": "Melee_Base_1",
+    "_bullitName": "휘두르기",
+    "_bullitDecription": "가장 가까운 적에게 짧은 근접공격을 수행한다. 또한 살짝 뒤로 밀어낸다.",
+    "_bullitShowUILv": [
+      "Lv1",
+      "Lv2",
+      "Lv3"
+    ],
+    "_bullitLvList": [
+      "Melee_Base_1_Lv1",
+      "Melee_Base_1_Lv2",
+      "Melee_Base_1_Lv3"
+    ],
+    "_bullitIconPath": "Icon/MeleeAtkIcon"
   }
 ]

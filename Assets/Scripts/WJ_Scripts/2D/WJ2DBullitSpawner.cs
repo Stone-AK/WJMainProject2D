@@ -7,13 +7,14 @@ public class WJ2DBullitSpawner : MonoBehaviour
 {
     public static WJ2DBullitSpawner Inst { get; set; }
     
-    private int _PollCount = 200;
     private int _bullitInstIdNum = 0;
 
     private List<string> _playerHaveBullitLvIdList = new List<string>();
     private Dictionary<string, float> _bullitIdAndFireCurTimeList = new Dictionary<string, float>();
 
     private List<WJ2DBullit> _bullitPool = new List<WJ2DBullit>();
+    private List<WJ2DMeleeAtk> _meleePool = new List<WJ2DMeleeAtk>();
+
     private string _BasicBullitType = "Prefabs/2D/Bullit";
 
     private void Awake()
@@ -47,20 +48,59 @@ public class WJ2DBullitSpawner : MonoBehaviour
 
     private void CreateBullitPool()
     {
-        foreach (string bullitId in _playerHaveBullitLvIdList)
+        Dictionary<string, int> poolingNeedList = new Dictionary<string, int>();
+        List<string> pollingBullitIdList = new List<string>();
+        
+        foreach(var data in DaniTechGameDataManager.Instance.WJBullitLvDataList)
         {
-            for (int i = 0; i < _PollCount; i++)
+            string prefabPath = data.Value._bullitPrefabPath;
+            if (poolingNeedList.ContainsKey(prefabPath)) continue;
+
+            int poolCount = data.Value._pollCount;
+
+            pollingBullitIdList.Add(data.Value.Id);
+            poolingNeedList.Add(prefabPath, poolCount);
+        }
+
+        int pollingBullitLvListCount = 0;
+        foreach (string poolPrefabPath in poolingNeedList.Keys)
+        {
+            int poolCount = poolingNeedList[poolPrefabPath];
+
+            for (int i = 0; i < poolCount; i++)
             {
-                string bullitPath = DaniTechGameDataManager.Instance.GetWJBullitLvData(bullitId)._bullitPrefabPath;
-                GameObject bullit = Instantiate(GetBullitPrefab(bullitId), this.transform);
+                GameObject bullit = Instantiate(GetBullitPrefab(pollingBullitIdList[pollingBullitLvListCount]), this.transform);
                 bullit.gameObject.SetActive(false);
 
-                if(bullitPath == _BasicBullitType)
+                if (pollingBullitIdList[pollingBullitLvListCount].Contains("Bullit_Base"))
                 {
                     _bullitPool.Add(bullit.GetComponent<WJ2DBullit>());
                 }
+                else if (pollingBullitIdList[pollingBullitLvListCount].Contains("Melee_Base"))
+                {
+                    _meleePool.Add(bullit.GetComponent<WJ2DMeleeAtk>());
+                }
             }
+            pollingBullitLvListCount++;
+
+            
         }
+
+        //foreach (string bullitId in _playerHaveBullitLvIdList)
+        //{
+
+        //    for (int i = 0; i < pollCount; i++)
+        //    {
+        //        string bullitPath = DaniTechGameDataManager.Instance.GetWJBullitLvData(bullitId)._bullitPrefabPath;
+        //        GameObject bullit = Instantiate(GetBullitPrefab(bullitId), this.transform);
+        //        bullit.gameObject.SetActive(false);
+
+        //        if(bullitPath == _BasicBullitType)
+        //        {
+        //            _bullitPool.Add(bullit.GetComponent<WJ2DBullit>());
+        //        }
+        //    }
+        //}
     }
 
     private GameObject GetBullitFromPool(int firedUnitId, string bullitLvDataId)

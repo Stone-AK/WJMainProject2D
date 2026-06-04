@@ -128,6 +128,7 @@ public class WJBullitLv : GameDataBase
     public string _spritePath;
     public string _bullitfunc;
     public string _bullitPrefabPath;
+    public int _pollCount;
 }
 
 [System.Serializable]
