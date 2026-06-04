@@ -7,6 +7,7 @@ public class WJObjectManager : MonoBehaviour
 
     private Dictionary<int, WJ2DUnit> _unitList = new Dictionary<int, WJ2DUnit>();   
     private Dictionary<int, WJ2DBullit> _bullitList = new Dictionary<int, WJ2DBullit>();
+    private Dictionary<int, WJ2DMeleeAtk> _meleeList = new Dictionary<int, WJ2DMeleeAtk>();
     private Dictionary<int, WJDropItem> _dropItemList = new Dictionary<int, WJDropItem>();
 
     private void Awake()
@@ -65,6 +66,29 @@ public class WJObjectManager : MonoBehaviour
         _bullitList.Clear();
     }
 
+    public void AddMeleeAtkToMeleeAtkList(int dropItemInstNum, WJ2DMeleeAtk dropItemObject)
+    {
+        _meleeList.Add(dropItemInstNum, dropItemObject);
+    }
+
+    public WJ2DMeleeAtk GetMeleeAtkToMeleeAtkList(int dropItemInstNum)
+    {
+        return _meleeList[dropItemInstNum];
+    }
+
+    public void RemoveMeleeAtkToMeleeAtkList(int bullitInstNum)
+    {
+        if (_meleeList.ContainsKey(bullitInstNum))
+        {
+            _meleeList.Remove(bullitInstNum);
+        }
+    }
+
+    public void RemoveAllMeleeAtkList()
+    {
+        _meleeList.Clear();
+    }
+
     public void AddDropItemToDropItemList(int dropItemInstNum, WJDropItem dropItemObject)
     {
         _dropItemList.Add(dropItemInstNum, dropItemObject);
@@ -85,6 +109,8 @@ public class WJObjectManager : MonoBehaviour
 
     public void RemoveAllDropItemList()
     {
-        _dropItemList.Clear();
+        _meleeList.Clear();
     }
+
+    
 }

@@ -82,32 +82,13 @@ public class WJ2DBullitSpawner : MonoBehaviour
                 }
             }
             pollingBullitLvListCount++;
-
-            
         }
-
-        //foreach (string bullitId in _playerHaveBullitLvIdList)
-        //{
-
-        //    for (int i = 0; i < pollCount; i++)
-        //    {
-        //        string bullitPath = DaniTechGameDataManager.Instance.GetWJBullitLvData(bullitId)._bullitPrefabPath;
-        //        GameObject bullit = Instantiate(GetBullitPrefab(bullitId), this.transform);
-        //        bullit.gameObject.SetActive(false);
-
-        //        if(bullitPath == _BasicBullitType)
-        //        {
-        //            _bullitPool.Add(bullit.GetComponent<WJ2DBullit>());
-        //        }
-        //    }
-        //}
     }
 
     private GameObject GetBullitFromPool(int firedUnitId, string bullitLvDataId)
     {
         foreach (WJ2DBullit bullit in _bullitPool)
         {
-            //if(bullit is WJ2DBullit )
             if (bullit.gameObject.activeSelf == false)
             {
                 _bullitInstIdNum++;
@@ -154,6 +135,24 @@ public class WJ2DBullitSpawner : MonoBehaviour
         WJObjectManager.Inst.RemoveBullitToBullitList(bullitInstId);
     }
 
+    private GameObject GetMeleeFromPool(int firedUnitId, string bullitLvDataId)
+    {
+        foreach (WJ2DMeleeAtk melee in _meleePool)
+        {
+            if (melee.gameObject.activeSelf == false)
+            {
+                _bullitInstIdNum++;
+
+                melee.InitBullitStat(_bullitInstIdNum, firedUnitId, bullitLvDataId);
+
+                WJObjectManager.Inst.AddMeleeAtkToMeleeAtkList(_bullitInstIdNum, melee);
+
+                return melee.gameObject;
+            }
+        }
+
+        return null;
+    }
 
     public void GetPlayerHadBullitInfo(Dictionary<string, int> playerHadBullitList)
     {
@@ -202,6 +201,15 @@ public class WJ2DBullitSpawner : MonoBehaviour
                     break;
                 case BullitFnuncType.Gigantamax:
                     SootGigantamaxBullit(targetUnit, shootingUnit, firedUnitId, checkBullitLvId);
+                    break;
+                case BullitFnuncType.MeleeBasic:
+                    ShootMeleeAttack(targetUnit, shootingUnit, firedUnitId, checkBullitLvId);
+                    break;
+                case BullitFnuncType.MeleeDoubleSize:
+                    ShootMeleeDoubleSizeAttack(targetUnit, shootingUnit, firedUnitId, checkBullitLvId);
+                    break;
+                case BullitFnuncType.MeleeTripleSize:
+                    ShootMeleeTripleSizeAttack(targetUnit, shootingUnit, firedUnitId, checkBullitLvId);
                     break;
             }
         }
@@ -324,4 +332,103 @@ public class WJ2DBullitSpawner : MonoBehaviour
 
         _bullitIdAndFireCurTimeList[bulliLvId] = 0;
     }
+
+    private void ShootMeleeAttack(WJ2DUnit targetUnit, WJ2DUnit shootingUnit, int firedUnitId, string bullitLvId)
+    {
+        GameObject meleeObj = GetMeleeFromPool(firedUnitId, bullitLvId);
+
+        if (meleeObj == null)
+        {
+            Debug.LogError("근접 공격 오브젝트를 가져오지 못했습니다.");
+            return;
+        }
+
+        Vector2 attackDir;
+
+        if (targetUnit != null)
+            attackDir = targetUnit.transform.position - shootingUnit.transform.position;
+        else
+            attackDir = shootingUnit.transform.right;
+
+        if (attackDir == Vector2.zero)
+            attackDir = Vector2.right;
+
+        attackDir.Normalize();
+
+        float angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
+        float meleeOffset = 0.8f;
+
+        meleeObj.transform.position = shootingUnit.transform.position + (Vector3)(attackDir * meleeOffset);
+        meleeObj.transform.rotation = Quaternion.Euler(0f, 0f, angle + 180f);
+        meleeObj.SetActive(true);
+
+        _bullitIdAndFireCurTimeList[bullitLvId] = 0f;
+    }
+
+    private void ShootMeleeDoubleSizeAttack(WJ2DUnit targetUnit, WJ2DUnit shootingUnit, int firedUnitId, string bullitLvId)
+    {
+        GameObject meleeObj = GetMeleeFromPool(firedUnitId, bullitLvId);
+
+        if (meleeObj == null)
+        {
+            Debug.LogError("근접 공격 오브젝트를 가져오지 못했습니다.");
+            return;
+        }
+
+        Vector2 attackDir;
+
+        if (targetUnit != null)
+            attackDir = targetUnit.transform.position - shootingUnit.transform.position;
+        else
+            attackDir = shootingUnit.transform.right;
+
+        if (attackDir == Vector2.zero)
+            attackDir = Vector2.right;
+
+        attackDir.Normalize();
+
+        float angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
+        float meleeOffset = 0.8f;
+
+        meleeObj.transform.position = shootingUnit.transform.position + (Vector3)(attackDir * meleeOffset);
+        meleeObj.transform.rotation = Quaternion.Euler(0f, 0f, angle + 180f);
+        meleeObj.transform.localScale = new Vector3(2f, 2f, 1f);
+        meleeObj.SetActive(true);
+
+        _bullitIdAndFireCurTimeList[bullitLvId] = 0f;
+    }
+
+    private void ShootMeleeTripleSizeAttack(WJ2DUnit targetUnit, WJ2DUnit shootingUnit, int firedUnitId, string bullitLvId)
+    {
+        GameObject meleeObj = GetMeleeFromPool(firedUnitId, bullitLvId);
+
+        if (meleeObj == null)
+        {
+            Debug.LogError("근접 공격 오브젝트를 가져오지 못했습니다.");
+            return;
+        }
+
+        Vector2 attackDir;
+
+        if (targetUnit != null)
+            attackDir = targetUnit.transform.position - shootingUnit.transform.position;
+        else
+            attackDir = shootingUnit.transform.right;
+
+        if (attackDir == Vector2.zero)
+            attackDir = Vector2.right;
+
+        attackDir.Normalize();
+
+        float angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
+        float meleeOffset = 0.8f;
+
+        meleeObj.transform.position = shootingUnit.transform.position + (Vector3)(attackDir * meleeOffset);
+        meleeObj.transform.rotation = Quaternion.Euler(0f, 0f, angle + 180f);
+        meleeObj.transform.localScale = new Vector3(3f, 3f, 1f);
+        meleeObj.SetActive(true);
+
+        _bullitIdAndFireCurTimeList[bullitLvId] = 0f;
+    }
+
 }

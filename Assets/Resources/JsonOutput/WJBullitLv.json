@@ -7,7 +7,8 @@
     "_spritePath": "2D/WJ_Folder/Sprite/Bullit",
     "_bullitfunc": "Basic",
     "_bullitPrefabPath": "Prefabs/2D/Bullit",
-    "_pollCount": 150
+    "_pollCount": 150,
+    "_animatorPath": null
   },
   {
     "Id": "Bullit_Base_1_Lv2",
@@ -17,7 +18,8 @@
     "_spritePath": "2D/WJ_Folder/Sprite/Bullit",
     "_bullitfunc": "Basic",
     "_bullitPrefabPath": "Prefabs/2D/Bullit",
-    "_pollCount": 150
+    "_pollCount": 150,
+    "_animatorPath": null
   },
   {
     "Id": "Bullit_Base_1_Lv3",
@@ -27,7 +29,8 @@
     "_spritePath": "2D/WJ_Folder/Sprite/Bullit",
     "_bullitfunc": "Basic",
     "_bullitPrefabPath": "Prefabs/2D/Bullit",
-    "_pollCount": 150
+    "_pollCount": 150,
+    "_animatorPath": null
   },
   {
     "Id": "Bullit_Base_2_Lv1",
@@ -37,7 +40,8 @@
     "_spritePath": "2D/WJ_Folder/Sprite/Spear",
     "_bullitfunc": "Basic",
     "_bullitPrefabPath": "Prefabs/2D/Bullit",
-    "_pollCount": 150
+    "_pollCount": 150,
+    "_animatorPath": null
   },
   {
     "Id": "Bullit_Base_2_Lv2",
@@ -47,7 +51,8 @@
     "_spritePath": "2D/WJ_Folder/Sprite/Spear",
     "_bullitfunc": "Bigger",
     "_bullitPrefabPath": "Prefabs/2D/Bullit",
-    "_pollCount": 150
+    "_pollCount": 150,
+    "_animatorPath": null
   },
   {
     "Id": "Bullit_Base_2_Lv3",
@@ -57,7 +62,8 @@
     "_spritePath": "2D/WJ_Folder/Sprite/Spear",
     "_bullitfunc": "Gigantamax",
     "_bullitPrefabPath": "Prefabs/2D/Bullit",
-    "_pollCount": 150
+    "_pollCount": 150,
+    "_animatorPath": null
   },
   {
     "Id": "Bullit_Base_3_Lv1",
@@ -67,7 +73,8 @@
     "_spritePath": "2D/WJ_Folder/Sprite/Arrow",
     "_bullitfunc": "Basic",
     "_bullitPrefabPath": "Prefabs/2D/Bullit",
-    "_pollCount": 150
+    "_pollCount": 150,
+    "_animatorPath": null
   },
   {
     "Id": "Bullit_Base_3_Lv2",
@@ -77,7 +84,8 @@
     "_spritePath": "2D/WJ_Folder/Sprite/Arrow",
     "_bullitfunc": "DoubleFiring",
     "_bullitPrefabPath": "Prefabs/2D/Bullit",
-    "_pollCount": 150
+    "_pollCount": 150,
+    "_animatorPath": null
   },
   {
     "Id": "Bullit_Base_3_Lv3",
@@ -87,7 +95,8 @@
     "_spritePath": "2D/WJ_Folder/Sprite/Arrow",
     "_bullitfunc": "TripleFiring",
     "_bullitPrefabPath": "Prefabs/2D/Bullit",
-    "_pollCount": 150
+    "_pollCount": 150,
+    "_animatorPath": null
   },
   {
     "Id": "Melee_Base_1_Lv1",
@@ -97,7 +106,8 @@
     "_spritePath": "2D/WJ_Folder/Sprite/MeleeAtk",
     "_bullitfunc": "MeleeBasic",
     "_bullitPrefabPath": "Prefabs/2D/MeleeAtk",
-    "_pollCount": 10
+    "_pollCount": 10,
+    "_animatorPath": "2D/WJ_Folder/Sprite/MeleeAtk"
   },
   {
     "Id": "Melee_Base_1_Lv2",
@@ -105,9 +115,10 @@
     "_moveSpeed": 1,
     "_collTime": 2,
     "_spritePath": "2D/WJ_Folder/Sprite/MeleeAtk",
-    "_bullitfunc": "MeleeBasic",
+    "_bullitfunc": "MeleeDoubleSize",
     "_bullitPrefabPath": "Prefabs/2D/MeleeAtk",
-    "_pollCount": 10
+    "_pollCount": 10,
+    "_animatorPath": "2D/WJ_Folder/Sprite/MeleeAtk"
   },
   {
     "Id": "Melee_Base_1_Lv3",
@@ -115,8 +126,9 @@
     "_moveSpeed": 1.5,
     "_collTime": 1,
     "_spritePath": "2D/WJ_Folder/Sprite/MeleeAtk",
-    "_bullitfunc": "MeleeBasic",
+    "_bullitfunc": "MeleeTripleSize",
     "_bullitPrefabPath": "Prefabs/2D/MeleeAtk",
-    "_pollCount": 10
+    "_pollCount": 10,
+    "_animatorPath": "2D/WJ_Folder/Sprite/MeleeAtk"
   }
 ]

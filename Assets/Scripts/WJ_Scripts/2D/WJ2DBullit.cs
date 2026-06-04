@@ -10,7 +10,10 @@ public enum BullitFnuncType
     DoubleFiring,
     TripleFiring,
     Bigger,
-    Gigantamax
+    Gigantamax,
+    MeleeBasic,
+    MeleeDoubleSize,
+    MeleeTripleSize
 }
 
 public class WJ2DBullit : MonoBehaviour
