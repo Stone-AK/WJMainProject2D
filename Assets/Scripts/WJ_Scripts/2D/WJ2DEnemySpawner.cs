@@ -10,7 +10,7 @@ public class WJ2DEnemySpawner : MonoBehaviour
     [SerializeField] private GameObject _enemyPrefab;
     // [Todo] Dictionary부분 잘되면 poll 수를 좀 많이 늘려놓아야함(데이터 드리븐으로 정해줘도 좋음)
     // 급한거 아님
-    private int _enemyPollCount = 50;
+    private int _enemyPollCount = 200;
     [SerializeField] private List<GameObject> SpawnLocation;
 
     Vector2 randomOffset;
