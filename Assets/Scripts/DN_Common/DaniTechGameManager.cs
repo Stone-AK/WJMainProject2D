@@ -192,7 +192,7 @@ public class DaniTechGameManager : MonoBehaviour
     private void LoadStageName()
     {
         _stageName = _curStageData.Name;
-        DaniTechUIManager.Instance.SetStageUIToUIManager(_stageName);
+        DaniTechUIManager.Instance.SetStageUIToUIManager(_stageName, _curStageData.Id);
     }
 
     private void LoadWaveName()

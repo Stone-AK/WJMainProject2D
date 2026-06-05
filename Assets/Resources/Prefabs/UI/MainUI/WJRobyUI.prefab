@@ -1229,6 +1229,7 @@ MonoBehaviour:
   _beforeStageBtn: {fileID: 4634689272551567995}
   _saveBtn: {fileID: 5515599601563978708}
   _loadBtn: {fileID: 2242334720585005954}
+  _stageBG: {fileID: 1328292601809446631}
 --- !u!1 &4152257752613666388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,8 +1304,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1431,8 +1432,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 0}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

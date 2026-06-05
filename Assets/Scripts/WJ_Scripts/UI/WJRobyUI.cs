@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,8 @@ public class WJRobyUI : DaniTechUIBase
     [SerializeField] private WJBtn _beforeStageBtn;
     [SerializeField] private WJBtn _saveBtn;
     [SerializeField] private WJBtn _loadBtn;
+    [SerializeField] private Image _stageBG;
+
 
     private void OnEnable()
     {
@@ -88,5 +91,13 @@ public class WJRobyUI : DaniTechUIBase
     public void OnClickLoadBtn()
     {
         DaniTechGameManager.Inst.LoadWJPlayerData();
+    }
+
+    public void SetStageBG(string bgPath)
+    {
+        Sprite bgSprite = Resources.Load<Sprite>(bgPath);
+        if (bgSprite == null) return;
+
+        _stageBG.sprite = bgSprite;
     }
 }

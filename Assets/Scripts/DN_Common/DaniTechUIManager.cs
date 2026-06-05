@@ -170,7 +170,7 @@ public class DaniTechUIManager : MonoBehaviour
         }
     }
 
-    public void SetStageUIToUIManager(string stageInfoName)
+    public void SetStageUIToUIManager(string stageInfoName, string stageId)
     {
         var gobj = GetCreatedUI(DaniTechUIRootType.MainUI, DaniTechUIType.WJRobyUI);
         if(gobj == null) return;
@@ -178,6 +178,7 @@ public class DaniTechUIManager : MonoBehaviour
         if(gobj is WJRobyUI robyUI)
         {
             robyUI.PrintStageInfo(stageInfoName);
+            robyUI.SetStageBG(DaniTechGameDataManager.Instance.GetWJStageData(stageId).RobyBGPath);
         }
     }
 

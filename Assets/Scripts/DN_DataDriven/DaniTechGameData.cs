@@ -142,6 +142,7 @@ public class WJStage : GameDataBase
     public List<string> WaveDataIdList;
     public string NextStageId;
     public string BeforeStageId;
+    public string RobyBGPath;
 }
 
 [System.Serializable]
