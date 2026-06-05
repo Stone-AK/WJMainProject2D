@@ -11,7 +11,7 @@ public class WJItemManager : MonoBehaviour
 
     private List<WJDropItem> _dropItemPool = new List<WJDropItem>();
     private string _dropItemPrefabPath = "Prefabs/2D/WJ2DDropItem";
-    private int _dropItemPollCount = 50;
+    private int _dropItemPollCount = 200;
 
 
     private void Awake()

@@ -29,7 +29,7 @@
     "Id": "Unit_Enemy_2",
     "Name": "곰",
     "Description": "곰이다.",
-    "_hp": 100,
+    "_hp": 200,
     "_moveSpeed": 1,
     "_damage": 50,
     "_damagePerTime": 3,

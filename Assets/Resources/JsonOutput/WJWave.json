@@ -3,42 +3,42 @@
     "Id": "Wave_1_1",
     "Name": "스테이지 1-1 웨이브",
     "PrintWave": 1,
-    "StartRemainTime": 10,
+    "StartRemainTime": 30,
     "SpawnEnemyDataId": "WaveEnemy_1_1"
   },
   {
     "Id": "Wave_1_2",
     "Name": "스테이지 1-2 웨이브",
     "PrintWave": 2,
-    "StartRemainTime": 5,
+    "StartRemainTime": 15,
     "SpawnEnemyDataId": "WaveEnemy_1_2"
   },
   {
     "Id": "Wave_2_1",
     "Name": "스테이지 2-1 웨이브",
     "PrintWave": 1,
-    "StartRemainTime": 10,
-    "SpawnEnemyDataId": "WaveEnemy_1_1"
+    "StartRemainTime": 30,
+    "SpawnEnemyDataId": "WaveEnemy_2_1"
   },
   {
     "Id": "Wave_2_2",
     "Name": "스테이지 2-2 웨이브",
     "PrintWave": 2,
-    "StartRemainTime": 5,
-    "SpawnEnemyDataId": "WaveEnemy_1_2"
+    "StartRemainTime": 15,
+    "SpawnEnemyDataId": "WaveEnemy_2_2"
   },
   {
     "Id": "Wave_3_1",
     "Name": "스테이지 3-1 웨이브",
     "PrintWave": 1,
-    "StartRemainTime": 10,
-    "SpawnEnemyDataId": "WaveEnemy_1_1"
+    "StartRemainTime": 30,
+    "SpawnEnemyDataId": "WaveEnemy_3_1"
   },
   {
     "Id": "Wave_3_2",
     "Name": "스테이지 3-2 웨이브",
     "PrintWave": 2,
-    "StartRemainTime": 5,
-    "SpawnEnemyDataId": "WaveEnemy_1_2"
+    "StartRemainTime": 15,
+    "SpawnEnemyDataId": "WaveEnemy_3_2"
   }
 ]

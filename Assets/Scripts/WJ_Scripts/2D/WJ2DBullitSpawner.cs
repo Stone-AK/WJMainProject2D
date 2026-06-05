@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class WJ2DBullitSpawner : MonoBehaviour
@@ -15,7 +14,6 @@ public class WJ2DBullitSpawner : MonoBehaviour
     private List<WJ2DBullit> _bullitPool = new List<WJ2DBullit>();
     private List<WJ2DMeleeAtk> _meleePool = new List<WJ2DMeleeAtk>();
 
-    private string _BasicBullitType = "Prefabs/2D/Bullit";
 
     private void Awake()
     {
@@ -156,14 +154,17 @@ public class WJ2DBullitSpawner : MonoBehaviour
 
     public void GetPlayerHadBullitInfo(Dictionary<string, int> playerHadBullitList)
     {
+        _playerHaveBullitLvIdList.Clear();
+        _bullitIdAndFireCurTimeList.Clear();
         foreach (var keyValPair in playerHadBullitList)
         {
             string bullitId = keyValPair.Key;
             int bullitLv = keyValPair.Value;
             string bullitLvDataId = DaniTechGameDataManager.Instance.GetWJBullitObjectData(bullitId)._bullitLvList[bullitLv];
-            if (bullitLvDataId == null) return;
+            if (bullitLvDataId == null) continue;
+
             var bullitLvData = DaniTechGameDataManager.Instance.GetWJBullitLvData(bullitLvDataId);
-            if (bullitLvData == null) return;
+            if (bullitLvData == null) continue;
 
             if(_playerHaveBullitLvIdList.Contains(bullitLvDataId))
             {
@@ -171,7 +172,7 @@ public class WJ2DBullitSpawner : MonoBehaviour
                 _bullitIdAndFireCurTimeList.Remove(bullitLvDataId);
                 _playerHaveBullitLvIdList.Add(bullitLvDataId);
                 _bullitIdAndFireCurTimeList.Add(bullitLvDataId, 0f);
-                return;
+                continue;
             }
             _playerHaveBullitLvIdList.Add(bullitLvDataId);
             _bullitIdAndFireCurTimeList.Add(bullitLvDataId , 0f);
@@ -180,10 +181,18 @@ public class WJ2DBullitSpawner : MonoBehaviour
 
     public void ShootBulitOnUpdate(WJ2DUnit targetUnit, int firedUnitId, WJ2DUnit shootingUnit)
     {
+
+        Debug.Log("==== 현재 발사 목록 ====");
+        foreach (string id in _playerHaveBullitLvIdList)
+        {
+            Debug.Log(id);
+        }
+
         foreach (string checkBullitLvId in _playerHaveBullitLvIdList)
         {
             BullitFnuncType bullitFuncVal = CheckShootingBullit(checkBullitLvId);
             if (bullitFuncVal == BullitFnuncType.None) continue;
+
 
             switch (bullitFuncVal)
             {

@@ -6,7 +6,7 @@
     "StageCount": 1,
     "NextStageId": "Stage_2",
     "BeforeStageId": null,
-    "StageLimitTime": 10,
+    "StageLimitTime": 30,
     "WaveDataIdList": [
       "Wave_1_1",
       "Wave_1_2"
@@ -20,7 +20,7 @@
     "StageCount": 2,
     "NextStageId": "Stage_3",
     "BeforeStageId": "Stage_1",
-    "StageLimitTime": 10,
+    "StageLimitTime": 30,
     "WaveDataIdList": [
       "Wave_2_1",
       "Wave_2_2"
@@ -34,7 +34,7 @@
     "StageCount": 3,
     "NextStageId": null,
     "BeforeStageId": "Stage_2",
-    "StageLimitTime": 10,
+    "StageLimitTime": 30,
     "WaveDataIdList": [
       "Wave_3_1",
       "Wave_3_2"
