@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using Unity.Profiling;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class DaniTechGameManager : MonoBehaviour
