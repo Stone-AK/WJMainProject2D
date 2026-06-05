@@ -181,13 +181,6 @@ public class WJ2DBullitSpawner : MonoBehaviour
 
     public void ShootBulitOnUpdate(WJ2DUnit targetUnit, int firedUnitId, WJ2DUnit shootingUnit)
     {
-
-        Debug.Log("==== 현재 발사 목록 ====");
-        foreach (string id in _playerHaveBullitLvIdList)
-        {
-            Debug.Log(id);
-        }
-
         foreach (string checkBullitLvId in _playerHaveBullitLvIdList)
         {
             BullitFnuncType bullitFuncVal = CheckShootingBullit(checkBullitLvId);
