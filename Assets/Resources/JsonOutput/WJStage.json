@@ -25,7 +25,7 @@
       "Wave_2_1",
       "Wave_2_2"
     ],
-    "RobyBGPath": "2D/Chapter_1_BG"
+    "RobyBGPath": "2D/Chapter_2_BG"
   },
   {
     "Id": "Stage_3",
@@ -39,6 +39,6 @@
       "Wave_3_1",
       "Wave_3_2"
     ],
-    "RobyBGPath": "2D/Chapter_1_BG"
+    "RobyBGPath": "2D/Chapter_3_BG"
   }
 ]
